@@ -27,7 +27,8 @@ I'm a bit amazed at how easy it was. Follow these steps:
 
 ### 3. Build glfw for Unix
    
-     
+    
+    cd "glfw3-folder"     
     cmake -G "Unix Makefiles"
 
 ### 4. Make glfw
