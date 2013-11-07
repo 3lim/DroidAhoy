@@ -4,11 +4,11 @@ Fluid simulation based survival game.
 # Setup
 I'm a bit amazed at how easy it was. Follow these steps:
 
-### 0 Get git & cmake
+### 0. Get git & cmake
 
     
-sudo apt-get intall git
-sudo apt-get install cmake
+    sudo apt-get intall git
+    sudo apt-get install cmake
     
 
 ### 1. Clone glfw to a local folder
