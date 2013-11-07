@@ -1,6 +1,12 @@
 # Android A'hoy
 Fluid simulation based survival game.
 
+# Team contact
+Team email: android.ahoy.agi13@gmail.com    
+
+Team member contact:
+  Max - maxroth@kth.se
+    
 # Setup
 I'm a bit amazed at how easy it was. Follow these steps:
 
