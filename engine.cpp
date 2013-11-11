@@ -1,6 +1,8 @@
-#include <GLFW/glfw3.h>
+#include "headers/engine.h"
 
-int main(void)
+Engine::~Engine(){}
+
+int Engine::run(void)
 {
   GLFWwindow* window;
 
@@ -8,8 +10,11 @@ int main(void)
   if (!glfwInit())
     return -1;
 
+  /* Initialize engine */
+  init();
+
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+  window = glfwCreateWindow(w_window,h_window,n_window.c_str(),NULL, NULL);
   if (!window)
   {
     glfwTerminate();
@@ -23,6 +28,8 @@ int main(void)
   while (!glfwWindowShouldClose(window))
   {
     /* Render here */
+    update();
+    render();
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
@@ -34,3 +41,5 @@ int main(void)
   glfwTerminate();
   return 0;
 }
+
+
