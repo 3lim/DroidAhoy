@@ -1,12 +1,15 @@
 #pragma once
 #include <freeglut>
 #include <string>
-//GL_COMPUTE_SHADER,
-//GL_VERTEX_SHADER,
-//GL_TESS_CONTROL_SHADER,
-//GL_TESS_EVALUATION_SHADER,
-//GL_GEOMETRY_SHADER,
-//or GL_FRAGMENT_SHADER.
+#include <vector>
+
+// Shader types (GLenum):
+//    GL_COMPUTE_SHADER,
+//    GL_VERTEX_SHADER,
+//    GL_TESS_CONTROL_SHADER,
+//    GL_TESS_EVALUATION_SHADER,
+//    GL_GEOMETRY_SHADER,
+// or GL_FRAGMENT_SHADER.
 
 class ShaderManager{
 
@@ -14,9 +17,9 @@ class ShaderManager{
     ShaderManager() = delete;
     ~ShaderManager() = delete;
     ShaderManager& operator=() = delete;
-    vector<string> shader_files;
-    vector<GLuint> shader_glids, shader_programs; 
-    vector<GLuint> current_shaders;
+    static vector<string> shader_files;
+    static vector<GLuint> shader_glids, shader_programs; 
+    static vector<GLuint> current_shaders;
 
   public:
     static int link_shaders();
@@ -28,6 +31,7 @@ class ShaderManager{
     static int delete_all_shaders();
     static GLuint get_shader_gluid(int shader_id);
     static GLuint get_program(int program_id=0);
+  
   protected:
 
 }
