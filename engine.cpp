@@ -10,8 +10,6 @@ int Engine::run(void)
   if (!glfwInit())
     return -1;
 
-  /* Initialize engine */
-  init();
 
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(w_window,h_window,n_window.c_str(),NULL, NULL);
@@ -23,6 +21,9 @@ int Engine::run(void)
 
   /* Make the window's context current */
   glfwMakeContextCurrent(window);
+  
+  /* Initialize engine */
+  init();
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window))

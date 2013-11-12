@@ -1,4 +1,5 @@
-#include <GLFW/glfw3.h>
+#pragma once
+#include "libs.h"
 #include <string>
 
 using namespace std;
