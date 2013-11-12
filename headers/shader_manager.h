@@ -22,7 +22,7 @@ class ShaderManager{
     ShaderManager() = delete;
     ~ShaderManager() = delete;
     ShaderManager& operator=(ShaderManager&) = delete;
-    static map<string, GLuint> s_glids, programs; 
+    static map<string, GLuint> programs; 
     static map<string, GLuint> current_shaders;
     static bool compile_shader(const string, const string);
     static string read_shader(const string);
@@ -31,11 +31,11 @@ class ShaderManager{
   public:
     static GLuint link_shaders(string program_name);
     static bool load_shader(string file_path);
-    static int load_shaders(string folder_path); 
-    static bool delete_shader(string s_name);
-    static int delete_all_shaders();
-    static GLuint get_shader_gluid(string s_name);
+    static int load_program(string folder_path); 
+    static bool unload_shader(string s_name);
+    static int reset_shaders();
     static GLuint get_program(string p_name);
+    static bool delete_program(string p_name);
   
   protected:
 
