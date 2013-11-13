@@ -1,17 +1,21 @@
 #include "headers/engine.h"
+#include <string>
+#include <iostream>
 
 Engine::~Engine(){}
 
 int Engine::run(void)
 {
   GLFWwindow* window;
-
+  /* Giving output about OpenGL Context */
+  int majorGLVersion, minorGLVersion;
+  glGetIntegerv(GL_MAJOR_VERSION, &majorGLVersion);
+  glGetIntegerv(GL_MINOR_VERSION, &minorGLVersion);
+  cout << "OpenGL version: " << majorGLVersion << "." << minorGLVersion << endl;
   /* Initialize the library */
   if (!glfwInit())
     return -1;
 
-  /* Initialize engine */
-  init();
 
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(w_window,h_window,n_window.c_str(),NULL, NULL);
@@ -23,6 +27,9 @@ int Engine::run(void)
 
   /* Make the window's context current */
   glfwMakeContextCurrent(window);
+  
+  /* Initialize engine */
+  init();
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window))
