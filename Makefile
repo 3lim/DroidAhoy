@@ -4,19 +4,13 @@
 BOOST = -lboost_system -lboost_system-mt -lboost_filesystem -lboost_filesystem-mt
 GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(BOOST) 
 
-all: run_demo
+all: demo
 
-run_demo: demo.cpp
-	gcc -std=c++0x -Wall demo.cpp -o run_demo $(GLFW)
+demo: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o
+	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_demo $(GLFW)
 
-ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o
+ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o
 	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_ahoy $(GLFW)
-
-#engine.o: engine.cpp
-#	gcc -std=c++0x -Wall -c engine.cpp -o engine.o $(GLFW)
-#
-#sm.o: shader_manager.cpp
-#	gcc -std=c++0x -Wall -c shader_manager.cpp -o sm.o $(GLFW) 
 
 %.o:	%.cpp
 	gcc -std=c++0x -Wall -c $*.cpp -o $*.o $(GLFW)
