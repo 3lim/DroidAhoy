@@ -9,19 +9,22 @@ all: run_demo
 run_demo: demo.cpp
 	gcc -std=c++0x -Wall demo.cpp -o run_demo $(GLFW)
 
-ahoy: ahoy_engine.cpp engine.o sm.o
-	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o sm.o -o run_ahoy $(GLFW)
+ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o
+	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_ahoy $(GLFW)
 
-engine.o: engine.cpp
-	gcc -std=c++0x -Wall -c engine.cpp -o engine.o $(GLFW)
+#engine.o: engine.cpp
+#	gcc -std=c++0x -Wall -c engine.cpp -o engine.o $(GLFW)
+#
+#sm.o: shader_manager.cpp
+#	gcc -std=c++0x -Wall -c shader_manager.cpp -o sm.o $(GLFW) 
 
-sm.o: shader_manager.cpp
-	gcc -std=c++0x -Wall -c shader_manager.cpp -o sm.o $(GLFW) 
+%.o:	%.cpp
+	gcc -std=c++0x -Wall -c $*.cpp -o $*.o $(GLFW)
 
 %.out:	%.cpp
 	gcc -std=c++0x -Wall $*.cpp -o $*.out $(GLFW)
 
 clean: 
 	-rm -rf *.o
-	-rm run_demo
-	-rm run_ahoy
+	-rm -f run_demo
+	-rm -f run_ahoy
