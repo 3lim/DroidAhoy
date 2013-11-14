@@ -6,17 +6,20 @@ GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthrea
 
 all: demo
 
-demo: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o
-	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_demo $(GLFW)
+demo: ahoy_engine.cpp engine.o shader_manager.o controls.o obj_loader.o model_loader.o tiny.o
+	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o model_loader.o obj_loader.o tiny.o -o run_demo $(GLFW)
 
 ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o
 	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_ahoy $(GLFW)
 
+# Compile all classes
 %.o:	%.cpp
 	gcc -std=c++0x -Wall -c $*.cpp -o $*.o $(GLFW)
 
-%.out:	%.cpp
-	gcc -std=c++0x -Wall $*.cpp -o $*.out $(GLFW)
+# External lib
+# tiny_obj_loader for .obj files
+tiny.o: libs/tinyobj/tiny_obj_loader.cc
+	gcc -std=c++0x -Wall -c libs/tinyobj/tiny_obj_loader.cc -o tiny.o $(GLFW)
 
 clean: 
 	-rm -rf *.o

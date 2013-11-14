@@ -8,13 +8,10 @@ int Engine::run(void)
 {
   GLFWwindow* window;
   /* Giving output about OpenGL Context */
-  int majorGLVersion, minorGLVersion;
-  glGetIntegerv(GL_MAJOR_VERSION, &majorGLVersion);
-  glGetIntegerv(GL_MINOR_VERSION, &minorGLVersion);
-  cout << "OpenGL version: " << majorGLVersion << "." << minorGLVersion << endl;
   /* Initialize the library */
   if (!glfwInit())
     return -1;
+  
 
 
   /* Create a windowed mode window and its OpenGL context */
@@ -27,6 +24,11 @@ int Engine::run(void)
 
   /* Make the window's context current */
   glfwMakeContextCurrent(window);
+
+  GLint majorGLVersion, minorGLVersion;
+  glGetIntegerv(GL_MAJOR_VERSION, &majorGLVersion);
+  glGetIntegerv(GL_MINOR_VERSION, &minorGLVersion);
+  cout << "OpenGL version: " << majorGLVersion << "." << minorGLVersion << endl;
   
   /* Initialize engine */
   init();

@@ -129,7 +129,7 @@ GLuint ShaderManager::link_shaders(string p_name){
   programs[p_name] = pid;
 
   if(success == GL_TRUE){
-    cout << "Successfully linked program \"" << p_name << "\"" << endl;
+    cout << "Successfully linked program \"" << p_name << "\"" << endl << endl;
   }
   
   return pid; 
