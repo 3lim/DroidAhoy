@@ -1,6 +1,7 @@
 #include "headers/libs.h"
 #include "headers/ahoy_engine.h"
 #include "headers/shader_manager.h"
+#include "headers/simulation.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -51,7 +52,11 @@ GLuint vb;
 GLuint mvp_id;
 
 int AhoyEngine::init(){
-  glewInit();
+  	if (GLEW_OK != glewInit())
+	{
+	    std::cout << "GLEW failed!" << std::endl;
+	    exit(1);
+	}
   ShaderManager::load_program("shaders/basic");
  // ShaderManager::load_shader("shaders/mvp.vertex");
  // ShaderManager::load_shader("shaders/light.fragment");
