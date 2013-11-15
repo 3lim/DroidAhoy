@@ -12,14 +12,14 @@ using namespace glm;
   Structs inspired by tiny_obj_loader
 
  */
-struct mdl_data{
+struct Model{
   vector<float> v;
   vector<float> n;
   vector<float> uv;
   vector<unsigned> indices;
 };
 
-struct tex_data{
+struct Texture{
   float ambient[3];
   float diffuse[3];
   float specular[3];
@@ -34,17 +34,17 @@ struct tex_data{
   string normal_texpath;
 };
 
-struct mdl_group{
-  vector<mdl_data> mdls;
-  vector<tex_data> texs;
+struct ModelGroup{
+  vector<Model> mdls;
+  vector<Texture> texs;
 };
 
 class ModelLoader{
   private:
-    static mdl_group mdl;
+    static ModelGroup mdl;
   public:
-    static mdl_group get_last_model();
-    static mdl_group load_model(const string&);
+    static ModelGroup get_last_model();
+    static ModelGroup load_model(const string&);
  
   protected:
 

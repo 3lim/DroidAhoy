@@ -17,10 +17,10 @@ using namespace std;
 using namespace glm;
 
 
-mdl_group OBJLoader::load_model(const string & filepath) {
-  mdl_group obj_data;
-  obj_data.mdls = vector<mdl_data>();
-  obj_data.texs = vector<tex_data>();
+ModelGroup OBJLoader::load_model(const string & filepath) {
+  ModelGroup obj_data;
+  obj_data.mdls = vector<Model>();
+  obj_data.texs = vector<Texture>();
 
   cout << "Loading " << filepath << endl;
 
@@ -42,8 +42,8 @@ mdl_group OBJLoader::load_model(const string & filepath) {
 
   //Convert to Engine's internal mdl format
   auto it = shapes.begin();
-  mdl_data curr_mdl;
-  tex_data curr_tex;
+  Model curr_mdl;
+  Texture curr_tex;
    
   while(it != shapes.end()){
     curr_mdl.v = (*it).mesh.positions;

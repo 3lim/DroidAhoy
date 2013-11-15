@@ -1,7 +1,7 @@
 #include "headers/model_loader.h"
 
-mdl_group ModelLoader::mdl = mdl_group();
+ModelGroup ModelLoader::mdl = ModelGroup();
 
-mdl_group ModelLoader::get_last_model(){
+ModelGroup ModelLoader::get_last_model(){
   return mdl;
 }
