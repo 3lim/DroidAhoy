@@ -1,0 +1,9 @@
+influenceRadiusScale	3.0
+hardCoreRadius			0.001
+targetNumberDensity		2.2
+ambientDensity			1.0
+nearToFar				2.0
+stiffness				20.0
+viscousGain				0.99
+radialViscosity			30.0
+gravityAcceleration		0.0 0.0 -10.0
