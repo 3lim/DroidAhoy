@@ -1,5 +1,6 @@
 *.swp
 *~
 *.o
+*program
 run_demo
 run_ahoy
