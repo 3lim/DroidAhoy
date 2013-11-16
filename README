@@ -1,0 +1,15 @@
+README
+======
+
+proland simulation has two part
+normal implementation and fft version
+
+In order to compile, you would need anttweakbar library in your system.
+For ubuntu, download andtweakbar and andtweakbar-dev from:
+https://launchpad.net/~thjc/+archive/ppa/+packages
+
+COMPILE
+=======
+to compile, go to the version you want to test and run
+make
+
