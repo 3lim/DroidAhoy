@@ -5,7 +5,7 @@
 
 using glm::vec3;
 
-static const float  Pi      = 3.1415926535897932384626433832795f ;
+static const float Pi = 3.1415926535897932384626433832795f ;
 
 class Particle{
 public:

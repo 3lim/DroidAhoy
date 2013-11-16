@@ -20,3 +20,5 @@ Particle::Particle(float x, float y, float z) :
 	density(0),
 	size(0)
 {}
+
+Particle::~Particle() {}

@@ -1,7 +1,6 @@
 #include "headers/libs.h"
 #include "headers/ahoy_engine.h"
 #include "headers/shader_manager.h"
-#include "headers/simulation.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -52,7 +51,7 @@ GLuint vb;
 GLuint mvp_id;
 
 int AhoyEngine::init(){
-  	if (GLEW_OK != glewInit())
+  if (GLEW_OK != glewInit())
 	{
 	    std::cout << "GLEW failed!" << std::endl;
 	    exit(1);
@@ -66,6 +65,7 @@ int AhoyEngine::init(){
 	glDepthFunc(GL_LESS);
 	glEnable(GL_MULTISAMPLE);
 
+  
 	glGenVertexArrays(1, &vaid);
 	glBindVertexArray(vaid);
 	glGenBuffers(1, &vb);
@@ -73,17 +73,18 @@ int AhoyEngine::init(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cube), cube, GL_STATIC_DRAW); 
 
   mvp_id = glGetUniformLocation(ShaderManager::get_program("basic"), "MVP");
-
+  
   return 1;
 }
 
 int AhoyEngine::update(){
+  sim.update(timeStep);
   return 1;
 }
 
 int AhoyEngine::render(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-  glUseProgram(ShaderManager::get_program("basic"));
+  // glUseProgram(ShaderManager::get_program("basic"));
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
   glm::mat4 View       = glm::lookAt(
