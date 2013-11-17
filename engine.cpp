@@ -6,13 +6,10 @@ Engine::~Engine(){}
 
 int Engine::run(void)
 {
-  GLFWwindow* window;
   /* Giving output about OpenGL Context */
   /* Initialize the library */
   if (!glfwInit())
     return -1;
-  
-
 
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(w_window,h_window,n_window.c_str(),NULL, NULL);

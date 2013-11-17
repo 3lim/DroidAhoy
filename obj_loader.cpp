@@ -37,9 +37,10 @@ ModelGroup OBJLoader::load_model(const string & filepath) {
   cout << "Successfully loaded " << filename << endl;
   cout << "# parts: " << shapes.size()  << endl;
   for(unsigned i=0; i<shapes.size(); i++)
-    cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl;
+    cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl
+         <<  " material name: " << shapes[i].material.name << endl << endl;
+  
   cout << endl;
-
   //Convert to Engine's internal mdl format
   auto it = shapes.begin();
   Model curr_mdl;

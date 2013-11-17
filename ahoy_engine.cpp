@@ -1,4 +1,3 @@
-#include "headers/libs.h"
 #include "headers/primitives.h"
 #include "headers/ahoy_engine.h"
 #include "headers/shader_manager.h"
@@ -12,21 +11,23 @@ AhoyEngine::~AhoyEngine(){}
 GLuint vb;
 GLuint mvp_id;
 GLuint elementbuffer;
-vector<float> teapot_vertices = vector<float>();
-vector<unsigned> teapot_indices = vector<unsigned>();
+vector<float> boat_vertices = vector<float>();
+vector<unsigned> boat_indices = vector<unsigned>();
+vec3 boat_center;
+glm::vec3 camPos(4,30,3);
 
 int AhoyEngine::init(){
   using namespace std;
+  //glfwSetKeyCallback(window, key_callback );
 
   glewInit();
   ShaderManager::load_program("shaders/basic");
- // ShaderManager::load_shader("shaders/mvp.vertex");
- // ShaderManager::load_shader("shaders/light.fragment");
- // ShaderManager::link_shaders("basic");
   
-  //Load teapot
-  string teapot_path = "models/teapot.obj";
-  ModelGroup teapot = OBJLoader::load_model(teapot_path);
+  //Load boat
+  string boat_path = "models/boat.obj";
+  ModelGroup boat = OBJLoader::load_model(boat_path);
+  boat_center = OBJLoader::get_approx_center(boat);
+  cout << "boat center point: " << boat_center.x << " " <<boat_center.y << " " <<boat_center.z << endl;
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -36,17 +37,17 @@ int AhoyEngine::init(){
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
 
   //Converting model vertices to one array buffer
-  for(unsigned i=0; i < teapot.mdls.size(); i++){
-    for(unsigned j=0; j<teapot.mdls[i].v.size(); j++)
-      teapot_vertices.push_back(teapot.mdls[i].v[j]);
-    for(unsigned j=0; j<teapot.mdls[i].indices.size(); j++) 
-      teapot_indices.push_back(teapot.mdls[i].indices[j]);
+  for(unsigned i=0; i < boat.mdls.size(); i++){
+    for(unsigned j=0; j<boat.mdls[i].v.size(); j++)
+      boat_vertices.push_back(boat.mdls[i].v[j]);
+    for(unsigned j=0; j<boat.mdls[i].indices.size(); j++) 
+      boat_indices.push_back(boat.mdls[i].indices[j]);
   }
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * teapot_vertices.size(), &teapot_vertices[0], GL_STATIC_DRAW); 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * boat_vertices.size(), &boat_vertices[0], GL_STATIC_DRAW); 
 
   glGenBuffers(1, &elementbuffer);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * teapot_indices.size(), &teapot_indices[0], GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * boat_indices.size(), &boat_indices[0], GL_STATIC_DRAW);
   
   mvp_id = glGetUniformLocation(ShaderManager::get_program("basic"), "MVP");
 
@@ -54,17 +55,24 @@ int AhoyEngine::init(){
 }
 
 int AhoyEngine::update(){
+  camPos.x += 0.5f;
+//  camPos.x = (float) (((int )camPos.x) % 1000);
+//  camPos.z += 0.5f;
+//  camPos.z = (float) (((int )camPos.z) % 1000);
+//  camPos.y += 0.5f;
+//  camPos.y = (float) (((int )camPos.y) % 1000);
   return 1;
 }
+
 
 int AhoyEngine::render(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
   glUseProgram(ShaderManager::get_program("basic"));
 
-  glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-  glm::mat4 View       = glm::lookAt(
-      glm::vec3(14,8,8), // Camera is at (4,3,3), in World Space
-      glm::vec3(0,0,0), // and looks at the origin
+  glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
+  glm::mat4 View = glm::lookAt(
+      camPos, // Camera is at (4,3,3), in World Space
+      boat_center, // and looks at the origin
       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
   );
 
@@ -78,11 +86,11 @@ int AhoyEngine::render(){
   glBindBuffer(GL_ARRAY_BUFFER, vb);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
  
-  //glDrawArrays(GL_TRIANGLES, 0, teapot_vertices.size()); 
+  //glDrawArrays(GL_TRIANGLES, 0, boat_vertices.size()); 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
   glDrawElements(
       GL_TRIANGLES,             
-      teapot_indices.size(),    
+      boat_indices.size(),    
       GL_UNSIGNED_INT,          
       (void*)0                  
   ); 
@@ -94,3 +102,4 @@ int main(){
   AhoyEngine ahoy = AhoyEngine(640, 480, "Ahoy World!");
   ahoy.run();
 }
+
