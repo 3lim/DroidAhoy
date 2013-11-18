@@ -21,9 +21,6 @@ ModelGroup OBJLoader::load_model(const string & filepath) {
   ModelGroup obj_data;
   obj_data.mdls = vector<Model>();
   obj_data.texs = vector<Texture>();
-
-  cout << "Loading " << filepath << endl;
-
   //tiny_obj_loader parsing
   vector<tinyobj::shape_t> shapes;
   string base_path = filepath.substr(0, filepath.find_last_of("/")+1);
@@ -35,10 +32,10 @@ ModelGroup OBJLoader::load_model(const string & filepath) {
     return obj_data;
   }
   cout << "Successfully loaded " << filename << endl;
-  cout << "# parts: " << shapes.size()  << endl;
-  for(unsigned i=0; i<shapes.size(); i++)
-    cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl
-         <<  " material name: " << shapes[i].material.name << endl << endl;
+  //cout << "# parts: " << shapes.size()  << endl;
+  //for(unsigned i=0; i<shapes.size(); i++)
+  //  cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl
+  //       <<  " material name: " << shapes[i].material.name << endl << endl;
   
   cout << endl;
   //Convert to Engine's internal mdl format
