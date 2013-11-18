@@ -2,8 +2,7 @@
 #	g++ -o hello 1.1.cpp
 
 BOOST = -lboost_system -lboost_system-mt -lboost_filesystem -lboost_filesystem-mt
-# GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(BOOST) 
-GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lboost_system -lboost_filesystem
+GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(BOOST) 
 
 all: demo
 
