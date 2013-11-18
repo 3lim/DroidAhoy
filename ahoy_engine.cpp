@@ -14,7 +14,7 @@ GLuint elementbuffer;
 vector<float> boat_vertices = vector<float>();
 vector<unsigned> boat_indices = vector<unsigned>();
 vec3 boat_center;
-glm::vec3 camPos(4,30,3);
+glm::vec3 camPos(4000,2000,2000);
 
 int AhoyEngine::init(){
   using namespace std;
@@ -54,8 +54,11 @@ int AhoyEngine::init(){
   return 1;
 }
 
+glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
+
 int AhoyEngine::update(){
-  camPos.x += 0.5f;
+  Model = glm::rotate(Model, 0.2f, glm::vec3(0,1,0));
+//  camPos.x += 0.5f;
 //  camPos.x = (float) (((int )camPos.x) % 1000);
 //  camPos.z += 0.5f;
 //  camPos.z = (float) (((int )camPos.z) % 1000);
@@ -71,12 +74,11 @@ int AhoyEngine::render(){
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
   glm::mat4 View = glm::lookAt(
-      camPos, // Camera is at (4,3,3), in World Space
+      camPos, // 
       boat_center, // and looks at the origin
       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
   );
 
-  glm::mat4 Model      = glm::mat4(1.0f);  // Changes for each model !
   glm::mat4 mvp        = Projection * View * Model; // R
 
   glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
