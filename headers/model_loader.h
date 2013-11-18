@@ -1,28 +1,25 @@
 #include "libs.h"
-#include <vector>
-#include <string>
+#include "model.h"
+#include "texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 using namespace glm;
 
-struct mdl_data{
-  vec3 root;
-  vector<vec3> v;
-  vector<int> v_indices;
-  vector<vec3> n;
-  vector<int> n_indices;
-  vector<vec3> uv;
-  vector<int> uv_indices;
-  string t_path;
+struct ModelGroup{
+  vector<Model> mdls;
+  vector<Texture> texs;
 };
 
 class ModelLoader{
   private:
-
+    static ModelGroup mdl;
   public:
-  
+    static ModelGroup get_last_model();
+    static ModelGroup load_model(const string&);
+    static vec3 get_approx_center(ModelGroup&);
+ 
   protected:
 
 };
