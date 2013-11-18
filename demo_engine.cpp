@@ -40,7 +40,7 @@ int DemoEngine::init(){
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
 
   //Converting model vertices to one array buffer
-  for(unsigned i=0; i < boat.mdls.size(); i++){
+  for(unsigned i=0; i < 1; i++){
     for(unsigned j=0; j<boat.mdls[i].v.size(); j++)
       boat_vertices.push_back(boat.mdls[i].v[j]);
     for(unsigned j=0; j<boat.mdls[i].indices.size(); j++) 
