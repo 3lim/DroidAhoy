@@ -1,13 +1,13 @@
-#include "headers/simulation.h"
+#include "headers/sph_simulation.h"
 #include <iostream>
-#include "glm/glm.hpp"
-#include "GLFW/glfw3.h"
+#include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
 
 using std::cout;
 using std::endl;
 using glm::dot;
 
-Simulation::Simulation(int numberParticles, const string& parametersFile) : 
+SPHSimulation::SPHSimulation(int numberParticles, const string& parametersFile) : 
 	numberParticles(numberParticles),
     parameters(parametersFile)
 {
@@ -16,11 +16,17 @@ Simulation::Simulation(int numberParticles, const string& parametersFile) :
     particles = new Particle[numberParticles];
     for (int i = 0; i < numberParticles; i++)
     {
-     particles[i].getPosition() = vec3((float)i/numberParticles, 0, 0);
+        particles[i].getPosition() = vec3((float)i/numberParticles, 0, 0);
     }
+
+    numberWalls = 1;
+    walls = new Wall(vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0)); // TO CHANGE
+    // for (int i = 0; i < numberWalls; i++){
+    //     walls[i]
+    // }
 }
 
-void Simulation::update(float timeStep)
+void SPHSimulation::update(float timeStep)
 {
     accelerationAtParticles.resize(numberParticles, vec3(0.0f, 0.0f, 0.0f));
     densityAtParticles.resize(numberParticles, vec3(1.0f, 1.0f,0.0f));
@@ -34,12 +40,17 @@ void Simulation::update(float timeStep)
 	diffuseAndDissipateVelocity(timeStep);
 	for (int i = 0; i < numberParticles; i++)
 	{
+        const vec3& oldPosition = particles[i].getPosition();
 		particles[i].updatePosition(timeStep);
+        walls->detectCollision(oldPosition, particles[i]);
+        // for (int j = 0; j < numberWalls; j++){   
+            // walls[j]->detectCollision(oldPosition, particles[i]);
+        // }
     }
     cout << glfwGetTime() << endl;
 }
 
-void Simulation::computeDensityAtParticles()
+void SPHSimulation::computeDensityAtParticles()
 {
 	const float influenceRadius = parameters.getInfluenceRadiusScale() * particles[0].getRadius();
 	const float influenceRadius2 = influenceRadius * influenceRadius;
@@ -71,7 +82,7 @@ void Simulation::computeDensityAtParticles()
 	}
 }
 
-void Simulation::computePressureGradientForce()
+void SPHSimulation::computePressureGradientForce()
 {
 	const float influenceRadius = parameters.getInfluenceRadiusScale() * particles[0].getRadius();
 	const float influenceRadius2 = influenceRadius * influenceRadius;
@@ -124,7 +135,7 @@ void Simulation::computePressureGradientForce()
 	}
 }
 
-void Simulation::applyExternalForces()
+void SPHSimulation::applyExternalForces()
 {
     const vec3& gravityAcceleration = parameters.getGravityAcceleration();
     const float ambientDensity = parameters.getAmbientDensity();
@@ -136,7 +147,7 @@ void Simulation::applyExternalForces()
 	}
 }
 
-void Simulation::diffuseAndDissipateVelocity(float timeStep)
+void SPHSimulation::diffuseAndDissipateVelocity(float timeStep)
 {
 	const float influenceRadius 	= parameters.getInfluenceRadiusScale() * particles[0].getRadius();
 	const float influenceRadius2 	= influenceRadius * influenceRadius;

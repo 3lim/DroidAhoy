@@ -9,8 +9,8 @@ all: demo
 demo: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o
 	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_demo $(GLFW)
 
-ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o particle.o simulation.o simulation_parameters.o
-	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o particle.o simulation.o simulation_parameters.o -o run_ahoy $(GLFW)
+ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o particle.o sph_simulation.o wall.o simulation_parameters.o
+	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o particle.o sph_simulation.o wall.o simulation_parameters.o -o run_ahoy $(GLFW)
 
 %.o:	%.cpp
 	g++ -std=c++0x -Wall -c $*.cpp -o $*.o $(GLFW)

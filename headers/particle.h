@@ -1,7 +1,7 @@
 #ifndef _PARTICLE_
 #define _PARTICLE_
 
-#include "glm\glm.hpp" 
+#include <glm/glm.hpp>
 
 using glm::vec3;
 
