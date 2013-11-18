@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <ctime>
 
 DemoEngine::~DemoEngine(){}
 
@@ -71,8 +72,11 @@ int DemoEngine::init(){
 
 glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
 
+clock_t start = clock();
 int DemoEngine::update(){
-  Model = glm::rotate(Model, 0.2f, glm::vec3(0,1,0));
+  float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
+  Model = glm::rotate(Model, 45.0f*dt, glm::vec3(0,1,0));
+  start = clock();
   return 1;
 }
 
@@ -88,7 +92,7 @@ int DemoEngine::render(){
       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
   );
 
-  glm::mat4 mvp        = Projection * View * Model; // R
+  glm::mat4 mvp  = Projection * View * Model; // R
 
   glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
    
