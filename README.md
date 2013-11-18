@@ -6,11 +6,11 @@ Team email: android.ahoy.agi13@gmail.com
 
 Team member contact:
 
-    Elias   - ?
-    Gustaf  - gsjogren@kth.se
-    Max     - maxroth@kth.se
-    Olivier - perret@kth.se
-    Suvir   - suvir@kth.se
+    Elias   - email: marquart@in.tum.de phone:  ?
+    Gustaf  - email: gsjogren@kth.se    phone:  070 416 37 44
+    Max     - email: maxroth@kth.se     phone:  070 698 74 21
+    Olivier - email: perret@kth.se      phone:  +33 669 54 90 65
+    Suvir   - email: suvir@kth.se       phone:  072 032 81 34
     
     
 # Setup
