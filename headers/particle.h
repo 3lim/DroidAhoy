@@ -5,7 +5,7 @@
 
 using glm::vec3;
 
-static const float Pi = 3.1415926535897932384626433832795f ;
+static const float Pi = 3.1415926535897932384626433832795f;
 
 class Particle{
 public:
@@ -13,7 +13,7 @@ public:
 	Particle(vec3&);
 	Particle(float, float, float);
 	~Particle();
-	void updateVelocity(float timeStep, vec3 acceleration) { velocity += acceleration * timeStep; }
+	void updateVelocity(float timeStep, vec3& acceleration) { velocity += acceleration * timeStep; }
 	void updatePosition(float timeStep) { position += velocity * timeStep; }
 	vec3& getPosition() { return position; }
 	const vec3& getPosition() const { return position; }

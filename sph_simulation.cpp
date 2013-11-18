@@ -8,7 +8,7 @@ using std::endl;
 using glm::dot;
 
 void SPHSimulation::update_vertices(){
-  for(unsigned i=0; i<numberParticles; i++){
+  for(int i=0; i<numberParticles; i++){
     particle_vertices[i*3] = particles[i].getPosition().x;
     particle_vertices[i*3+1] = particles[i].getPosition().y;
     particle_vertices[i*3+2] = particles[i].getPosition().z;
@@ -16,8 +16,8 @@ void SPHSimulation::update_vertices(){
 }
 
 SPHSimulation::SPHSimulation(int numberParticles, const string& parametersFile) : 
-  numberParticles(numberParticles),
   particle_vertices(3*numberParticles),
+  numberParticles(numberParticles),
   parameters(parametersFile)
    {
     accelerationAtParticles.resize(numberParticles, vec3(0.0f, 0.0f, 0.0f));
@@ -36,23 +36,24 @@ SPHSimulation::SPHSimulation(int numberParticles, const string& parametersFile) 
 
 void SPHSimulation::update(float timeStep) {
   accelerationAtParticles.resize(numberParticles, vec3(0.0f, 0.0f, 0.0f));
-  densityAtParticles.resize(numberParticles, vec3(1.0f, 1.0f,0.0f));
+  densityAtParticles.resize(numberParticles, vec3(1.0f, 1.0f, 0.0f));
   computeDensityAtParticles();
   computePressureGradientForce();
   applyExternalForces();
   for (int i = 0; i < numberParticles; i++) {
     particles[i].updateVelocity(timeStep, accelerationAtParticles[i]);
   }
+
   diffuseAndDissipateVelocity(timeStep);
   for (int i = 0; i < numberParticles; i++) {
     const vec3& oldPosition = particles[i].getPosition();
     particles[i].updatePosition(timeStep);
-    walls->detectCollision(oldPosition, particles[i]);
+    // walls->detectCollision(oldPosition, particles[i]);
     // for (int j = 0; j < numberWalls; j++){   
     // walls[j]->detectCollision(oldPosition, particles[i]);
     // }
   }
-  cout << particles[0].getPosition().x << " "<< particles[0].getPosition().y<< " "<<particles[0].getPosition().z << endl;
+  cout << particles[10].getPosition().x << " "<< particles[10].getPosition().y<< " "<<particles[10].getPosition().z << endl;
 }
 
 void SPHSimulation::computeDensityAtParticles() {
@@ -136,6 +137,7 @@ void SPHSimulation::applyExternalForces() {
   const float ambientDensity = parameters.getAmbientDensity();
   for (int i = 0; i < numberParticles; i++) {
     const float & density           = particles[i].getDensity() ;
+    // const float & density           = densityAtParticles[i].z ;
     const float   relativeDensity   = ( density - ambientDensity ) / density ;
     accelerationAtParticles[i] += gravityAcceleration * relativeDensity;
   }
