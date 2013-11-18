@@ -23,8 +23,11 @@ GLuint load_texture(const string & path, const GLenum active_texture){
      SOIL_CREATE_NEW_ID,
      SOIL_FLAG_INVERT_Y
      );
-  if(texture_id == 0)
+  if(texture_id == 0){
     cerr << "SOIL loading error: '" << SOIL_last_result() << "' (" << path << ")" << endl;
+    texture_id = -1;
+  }
+  return texture_id;
 }
 
 vec3 ModelLoader::get_approx_center(ModelGroup & mdl){
