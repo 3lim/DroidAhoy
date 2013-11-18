@@ -34,7 +34,6 @@ GLuint ModelLoader::load_texture(const string & path, const GLenum active_textur
 vec3 ModelLoader::get_approx_center(ModelGroup & mdl){
   vec3 h(0,0,0), l(0,0,0), c(0,0,0);
   //Find l & h x,y,z coordinate
-  cout << mdl.mdls.size() << endl;
   for(unsigned i=0; i<mdl.mdls.size(); i++){
     for(unsigned j=0; j<mdl.mdls[i].v.size(); j+=3){
      float x = mdl.mdls[i].v[j], y = mdl.mdls[i].v[j+1], z = mdl.mdls[i].v[j+2];
