@@ -1,5 +1,7 @@
 *.swp
 *~
 *.o
+*.or
+*.cppr
 run_demo
 run_ahoy

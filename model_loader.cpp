@@ -14,7 +14,7 @@ ModelGroup ModelLoader::get_last_model(){
   return mdl;
 }
 
-GLuint load_texture(const string & path, const GLenum active_texture){
+GLuint ModelLoader::load_texture(const string & path, const GLenum active_texture){
   glActiveTexture(active_texture);
   GLuint texture_id = SOIL_load_OGL_texture
     (
@@ -27,6 +27,7 @@ GLuint load_texture(const string & path, const GLenum active_texture){
     cerr << "SOIL loading error: '" << SOIL_last_result() << "' (" << path << ")" << endl;
     texture_id = -1;
   }
+  cout << "Successfully loaded texture " << path << endl << endl;
   return texture_id;
 }
 
