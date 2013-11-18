@@ -5,7 +5,13 @@ Fluid simulation based survival game.
 Team email: android.ahoy.agi13@gmail.com    
 
 Team member contact:
-  Max - maxroth@kth.se
+
+    Elias   - ?
+    Gustaf  - gsjogren@kth.se
+    Max     - maxroth@kth.se
+    Olivier - perret@kth.se
+    Suvir   - suvir@kth.se
+    
     
 # Setup
 I'm a bit amazed at how easy it was. Follow these steps:
@@ -30,6 +36,10 @@ I'm a bit amazed at how easy it was. Follow these steps:
     
     sudo apt-get install cmake xorg-dev libglu1-mesa-dev
     sudo apt-get install ubuntu-desktop xorg
+    sudo apt-get install libboost-all-dev
+    sudo apt-get install libsoil-dev
+    sudo apt-get install libglm-dev
+
 
 ### 3. Build glfw for Unix
    

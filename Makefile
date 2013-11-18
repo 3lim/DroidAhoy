@@ -1,8 +1,8 @@
 #hello_world: 1.1.cpp
 #	g++ -o hello 1.1.cpp
 
-BOOST = -lboost_system -lboost_system-mt -lboost_filesystem -lboost_filesystem-mt
-GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(BOOST) 
+FILEMANAGEMENT = -lboost_system -lboost_filesystem -lSOIL
+GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(FILEMANAGEMENT) 
 
 all: demo
 

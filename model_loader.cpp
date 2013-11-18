@@ -1,5 +1,10 @@
 #include "headers/model_loader.h"
+#include <SOIL/SOIL.h>
 #include <iostream>
+
+/*
+ *  Uses SOIL to load textures into memory.
+ */
 
 using namespace std;
 
@@ -7,6 +12,19 @@ ModelGroup ModelLoader::mdl = ModelGroup();
 
 ModelGroup ModelLoader::get_last_model(){
   return mdl;
+}
+
+GLuint load_texture(const string & path, const GLenum active_texture){
+  glActiveTexture(active_texture);
+  GLuint texture_id = SOIL_load_OGL_texture
+    (
+     path.c_str(),
+     SOIL_LOAD_AUTO,
+     SOIL_CREATE_NEW_ID,
+     SOIL_FLAG_INVERT_Y
+     );
+  if(texture_id == 0)
+    cerr << "SOIL loading error: '" << SOIL_last_result() << "' (" << path << ")" << endl;
 }
 
 vec3 ModelLoader::get_approx_center(ModelGroup & mdl){
