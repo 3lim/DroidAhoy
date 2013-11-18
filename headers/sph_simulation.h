@@ -14,8 +14,11 @@ public:
 	SPHSimulation(int, const string& = "");
 	void update(float);
 	void render();
+  void update_vertices();
+  vector<float> particle_vertices;
+	const int numberParticles;
+
 private:
-	int numberParticles;
 	Particle* particles;
 	vector<vec3> accelerationAtParticles;// x: number density
 										 // y: near number density
