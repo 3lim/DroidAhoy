@@ -1,0 +1,126 @@
+package com.example.droidahoy;
+
+import android.content.Context;
+import android.hardware.*;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageView;
+
+public class AhoyStart extends Activity implements SensorEventListener {
+
+
+	private Sensor mAccelerometer;
+	private Sensor sOrientation;
+	
+	//Rotat.
+    float[] mRotationM = new float[16];
+    float[] mOldRotationM = new float[16];
+    
+    float[] mInclinationM = new float[16];
+    float[] mOldInclinationM = new float[16];
+    
+    float[] mOrientation = new float[3];
+    float[] mOldOreintation = new float[3];
+    
+    String[] mRotationString =  new String[16];
+    String[] mOldRotationString =  new String[16];
+    
+    String[] mInclinationString =  new String[16];
+    String[] mOldInclinationString =  new String[16];
+    
+    String[] mOrientationString =  new String[3];
+    String[] mOldOreintationString =  new String[3];
+    
+    //All
+	private boolean mInitialized;
+	private SensorManager mSensorManager;
+
+	// Sensitivity of app. Needs to be calibrated.
+	//private final float NOISE = (float) 0.5;
+
+	/** Called when the activity is first created. */
+
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		mInitialized = false;
+
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		sOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		mSensorManager.registerListener(this, sOrientation,SensorManager.SENSOR_DELAY_NORMAL);
+		
+		//Accel.
+	     /*
+		mAccelerometer = mSensorManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mSensorManager.registerListener(this, mAccelerometer,
+				SensorManager.SENSOR_DELAY_NORMAL);
+		*/
+				
+		
+		
+	}
+
+	protected void onResume() {
+		super.onResume();
+		mSensorManager.registerListener(this, mAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+		mSensorManager.registerListener(this, sOrientation, SensorManager.SENSOR_DELAY_NORMAL);
+	}
+
+	protected void onPause() {
+		super.onPause();
+		mSensorManager.unregisterListener(this);
+	}
+
+	// Apparently not useful yet, ignore for now for now
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	}
+
+	public void onSensorChanged(SensorEvent event_in) {
+		final SensorEvent event = event_in;
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				
+				//Orient.
+			    float[] mGravs = new float[3];
+			    float[] mGeoMags = new float[3];
+				boolean success = SensorManager.getRotationMatrix(mRotationM, mInclinationM, mGravs, mGeoMags);
+                
+				if (success) {
+                    // getOrientation values
+                    SensorManager.getOrientation(mRotationM, mOrientation);
+                    
+                    for(int i=0; i<15; i++){
+                    	mRotationString[i] = Float.toString(mRotationM[i]);
+                    	mOldRotationString[i] = Float.toString(mOldRotationM[i]);
+                    }
+
+                
+                TextView tvX = (TextView)findViewById(R.id.x_axis);
+                tvX.setText(mRotationString[0]);    
+                TextView tvY = (TextView)findViewById(R.id.y_axis);
+                tvY.setText(mRotationString[1]);
+                TextView tvZ = (TextView)findViewById(R.id.z_axis);
+                tvZ.setText(mRotationString[2]);
+                
+
+				ImageView iv = (ImageView) findViewById(R.id.image);
+
+
+
+					tvX.setText((mRotationString[0]));
+					tvY.setText((mRotationString[1]));
+					tvZ.setText((mRotationString[2]));
+
+					iv.setVisibility(View.VISIBLE);
+
+				}
+		}
+	});
+}
+	
+}

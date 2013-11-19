@@ -1,0 +1,222 @@
+/*
+ * server.h
+ *
+ *  Created on: Nov 17, 2013
+ *      Author: gustaf
+ */
+
+#ifndef SERVER_H_
+#define SERVER_H_
+
+class Socket
+{
+private:
+    int sockfd;
+    struct sockaddr_un local;
+
+public:
+    Socket();
+    virtual ~Socket();
+
+    bool create();
+    bool bind(const string &);
+    bool listen() const;
+    bool accept(Socket &) const;
+
+    bool send(const string &) const;
+    int recv(string &) const;
+
+    void close();
+
+    bool is_valid() const
+    {
+        return sockfd != -1;
+    }
+};
+
+
+bool Socket::create()
+{
+    sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+
+    if (!is_valid())
+    {
+        return false;
+    }
+
+    int reuseAddress = 1;
+
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const char*) &reuseAddress, sizeof(reuseAddress)) == -1)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
+bool Socket::bind(const string &socketAddress)
+{
+    if (!is_valid())
+    {
+        return false;
+    }
+
+    local.sun_family = AF_UNIX;
+    strcpy(local.sun_path, socketAddress.c_str());
+    unlink(local.sun_path);
+    int len = strlen(local.sun_path) + sizeof(local.sun_family);
+
+    int bind_return = ::bind(sockfd, (struct sockaddr *) &local, len);
+
+    if (bind_return == -1)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
+bool Socket::listen() const
+{
+    if (!is_valid())
+    {
+        return false;
+    }
+
+    int listen_return = ::listen(sockfd, MAXCLIENTCONNECTIONS);
+
+    if (listen_return == -1)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
+bool Socket::accept(Socket &socket) const
+{
+    int addr_length = sizeof(local);
+
+    socket.sockfd = ::accept(sockfd, (sockaddr *) &local, (socklen_t *) &addr_length);
+
+    if (socket.sockfd <= 0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
+int Socket::recv(string &str) const
+{
+    char buf[MAXRECV + 1];
+
+    str = "";
+
+    memset(buf, 0, MAXRECV + 1);
+
+    int status = ::recv(sockfd, buf, MAXRECV, 0);
+
+    if (status == -1)
+    {
+        cout << "status == -1   errno == " << errno << "  in Socket::recv" << endl;
+        return 0;
+    }
+    else if (status == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        str = buf;
+        return status;
+    }
+}
+
+
+bool Socket::send(const string &str) const
+{
+    int status = ::send(sockfd, str.c_str(), str.size(), MSG_NOSIGNAL);
+
+    if (status == -1)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
+class ServerSocket : private Socket
+{
+public:
+    ServerSocket(const string &);
+    ServerSocket() {};
+    virtual ~ServerSocket();
+
+    void accept(ServerSocket &);
+
+    const ServerSocket & operator << (const string &) const;
+    const ServerSocket & operator >> (string &) const;
+};
+
+
+ServerSocket::ServerSocket(const string &socketAddress)
+{
+    if (!Socket::create())
+    {
+        throw SocketException("Could not create server socket");
+    }
+
+    if (!Socket::bind(socketAddress))
+    {
+        throw SocketException("Could not bind to port");
+    }
+
+    if (!Socket::listen())
+    {
+        throw SocketException("Could not listen to socket");
+    }
+}
+
+
+void ServerSocket::accept(ServerSocket &socket)
+{
+    if (!Socket::accept(socket))
+    {
+        throw SocketException("Could not accept socket");
+    }
+}
+
+
+const ServerSocket & ServerSocket::operator << (const string &str) const
+{
+    if (!Socket::send(str))
+    {
+        throw SocketException("Could not write to socket");
+    }
+
+    return *this;
+}
+
+
+const ServerSocket & ServerSocket::operator >> (string &str) const
+{
+    if (!Socket::recv(str))
+    {
+        throw SocketException("Could not read from socket");
+    }
+
+    return *this;
+}
+
+
+#endif /* SERVER_H_ */

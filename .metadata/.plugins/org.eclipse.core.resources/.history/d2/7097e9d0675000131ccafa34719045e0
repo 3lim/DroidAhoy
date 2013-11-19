@@ -1,0 +1,17 @@
+/*
+ * DroidServer.h
+ *
+ *  Created on: Nov 18, 2013
+ *      Author: gustaf
+ */
+
+#ifndef DROIDSERVER_H_
+#define DROIDSERVER_H_
+
+class DroidServer {
+public:
+	DroidServer();
+	virtual ~DroidServer();
+};
+
+#endif /* DROIDSERVER_H_ */

@@ -1,0 +1,157 @@
+package com.example.droidahoy;
+
+import android.content.Context;
+import android.hardware.*;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageView;
+
+public class AhoyStart extends Activity implements SensorEventListener {
+
+
+	private Sensor sOrientation;
+
+	//Rotat.
+	float[] mRotationM = new float[16];
+	float[] mOldRotationM = new float[16];
+
+	float[] mInclinationM = new float[16];
+	float[] mOldInclinationM = new float[16];
+
+	float[] mOrientation = new float[3];
+	float[] mOldOreintation = new float[3];
+	
+	int[] mOrientationint = new float[3];
+	int[] mOldOreintationint = new float[3];
+
+	String[] mRotationString =  new String[16];
+	String[] mOldRotationString =  new String[16];
+
+	String[] mInclinationString =  new String[16];
+	String[] mOldInclinationString =  new String[16];
+
+	String[] mOrientationString =  new String[3];
+	String[] mOldOreintationString =  new String[3];
+
+	//All
+	private boolean mInitialized;
+	private SensorManager mSensorManager;
+
+	// Sensitivity of app. Needs to be calibrated.
+	//private final float NOISE = (float) 0.5;
+
+	/** Called when the activity is first created. */
+
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		mInitialized = false;
+
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		sOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+		mSensorManager.registerListener(this, sOrientation,SensorManager.SENSOR_DELAY_NORMAL);
+
+
+
+	}
+
+
+	protected void onResume() {
+		super.onResume();
+		mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+	}
+
+	protected void onPause() {
+		super.onPause();
+		mSensorManager.unregisterListener(this);
+	}
+
+	// Apparently not useful yet, ignore for now for now
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	}
+
+	public void onSensorChanged(SensorEvent event_in) {
+		final SensorEvent event = event_in;
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+				//Orient.
+				if(event.sensor.getType()==Sensor.TYPE_ROTATION_VECTOR){
+					SensorManager.getRotationMatrixFromVector(mRotationM,event.values);
+
+					// getOrientation values
+					SensorManager.remapCoordinateSystem(mRotationM,SensorManager.AXIS_X, SensorManager.AXIS_Z, mRotationM);
+					SensorManager.getOrientation(mRotationM, mOrientation);
+					int temp=Math.round((((float)Math.toDegrees(mOrientation[0]))));
+					mOrientationint[0]=temp;
+					temp=Math.round((((float)Math.toDegrees(mOrientation[1]))));
+					mOrientationint[1]=temp;
+					temp=Math.round((((float)Math.toDegrees(mOrientation[2]))));
+					mOrientationint[2]=temp;
+
+					TextView tvX = (TextView) findViewById(R.id.x_axis);
+					TextView tvY = (TextView) findViewById(R.id.y_axis);
+					TextView tvZ = (TextView) findViewById(R.id.z_axis);
+
+					tvX.setText(String.valueOf(mOrientationint[0]));
+					tvY.setText(String.valueOf(mOrientationint[1]));
+					tvZ.setText(String.valueOf(mOrientationint[2]));
+
+					/* Prints out RotationMatrix
+                    for(int i=0; i<15; i++){
+                    	mRotationM[i]=(float)Math.toDegrees(mRotationM[i]);
+                    	mOldRotationM[i]=(float)Math.toDegrees(mOldRotationM[i]);
+                    }    
+
+                TextView tvM0 = (TextView)findViewById(R.id.m0);
+                tvM0.setText(String.valueOf(mRotationM[0]));    
+                TextView tvM1 = (TextView)findViewById(R.id.m1);
+                tvM1.setText(String.valueOf(mRotationM[1]));
+                TextView tvM2 = (TextView)findViewById(R.id.m2);
+                tvM2.setText(String.valueOf(mRotationM[2]));
+                TextView tvM3 = (TextView)findViewById(R.id.m3);
+                tvM3.setText(String.valueOf(mRotationM[3]));    
+                TextView tvM4 = (TextView)findViewById(R.id.m4);
+                tvM4.setText(String.valueOf(mRotationM[4]));
+                TextView tvM5 = (TextView)findViewById(R.id.m5);
+                tvM5.setText(String.valueOf(mRotationM[5]));
+                TextView tvM6 = (TextView)findViewById(R.id.m6);
+                tvM6.setText(String.valueOf(mRotationM[6]));    
+                TextView tvM7 = (TextView)findViewById(R.id.m7);
+                tvM7.setText(String.valueOf(mRotationM[7]));
+                TextView tvM8 = (TextView)findViewById(R.id.m8);
+                tvM8.setText(String.valueOf(mRotationM[8]));
+                TextView tvM9 = (TextView)findViewById(R.id.m9);
+                tvM9.setText(String.valueOf(mRotationM[9]));    
+                TextView tvM10 = (TextView)findViewById(R.id.m10);
+                tvM10.setText(String.valueOf(mRotationM[10]));
+                TextView tvM11 = (TextView)findViewById(R.id.m11);
+                tvM11.setText(String.valueOf(mRotationM[11]));
+                TextView tvM12 = (TextView)findViewById(R.id.m12);
+                tvM12.setText(String.valueOf(mRotationM[12]));    
+                TextView tvM13 = (TextView)findViewById(R.id.m13);
+                tvM13.setText(String.valueOf(mRotationM[13]));
+                TextView tvM14 = (TextView)findViewById(R.id.m14);
+                tvM14.setText(String.valueOf(mRotationM[14]));
+                TextView tvM15 = (TextView)findViewById(R.id.m15);
+                tvM15.setText(String.valueOf(mRotationM[15]));
+
+					 */
+
+
+					ImageView iv = (ImageView) findViewById(R.id.image);
+
+					iv.setVisibility(View.VISIBLE);
+
+				}
+
+			}
+		});
+	}
+
+}

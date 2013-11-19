@@ -1,12 +1,50 @@
 
-**** Build of configuration Debug for project AndroidControls ****
+**** Build of configuration Debug for project PortListen ****
 
-Nothing to build for project AndroidControls
+make all 
+Building file: ../listen.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
+../listen.cpp: In function ‘size_t Recv(char*, size_t)’:
+../listen.cpp:28:23: error: ‘remoteSocket’ was not declared in this scope
+../listen.cpp: In function ‘int main(int, char**)’:
+../listen.cpp:78:3: error: ‘cout’ was not declared in this scope
+../listen.cpp:78:3: note: suggested alternative:
+/usr/include/c++/4.6/iostream:62:18: note:   ‘std::cout’
+../listen.cpp:78:21: error: ‘endl’ was not declared in this scope
+../listen.cpp:78:21: note: suggested alternative:
+/usr/include/c++/4.6/ostream:543:5: note:   ‘std::endl’
+../listen.cpp:64:7: warning: unused variable ‘message’ [-Wunused-variable]
+make: *** [listen.o] Error 1
 
-**** Build of configuration Debug for project AndroidControls ****
+**** Build Finished ****
 
-Nothing to build for project AndroidControls
+**** Build of configuration Debug for project PortListen ****
 
-**** Build of configuration Debug for project AndroidControls ****
+make all 
+Building file: ../listen.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
+Finished building: ../listen.cpp
+ 
+Building target: PortListen
+Invoking: Cross G++ Linker
+g++  -o "PortListen"  ./listen.o   
+Finished building target: PortListen
+ 
 
-Nothing to build for project AndroidControls
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+make: Nothing to be done for `all'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+make: Nothing to be done for `all'.
+
+**** Build Finished ****

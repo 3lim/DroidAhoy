@@ -1,0 +1,12 @@
+using DroidServer;
+
+int main(){
+
+	if(true){
+
+	  DroidServer GooseMobile = DroidServer("4444","192.168.43.1");
+	  GooseMobile.startConnection();
+
+	}
+	  return 0;
+}

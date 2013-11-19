@@ -1,0 +1,37 @@
+
+**** Build of configuration Debug for project DroidOrientation - Serverside ****
+
+make all 
+Building file: ../server.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"server.d" -MT"server.d" -o "server.o" "../server.cpp"
+../server.cpp:10:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:10:7: error: ‘System’ has not been declared
+../server.cpp:11:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:11:7: error: ‘System’ has not been declared
+../server.cpp:11:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:11:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:12:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:12:7: error: ‘System’ has not been declared
+../server.cpp:12:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:12:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:13:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:13:7: error: ‘System’ has not been declared
+../server.cpp:13:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:13:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:14:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:14:7: error: ‘System’ has not been declared
+../server.cpp:14:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:14:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:15:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:15:7: error: ‘System’ has not been declared
+../server.cpp:15:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:15:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:16:7: error: expected nested-name-specifier before ‘System’
+../server.cpp:16:7: error: ‘System’ has not been declared
+../server.cpp:16:13: error: expected ‘;’ before ‘.’ token
+../server.cpp:16:13: error: expected unqualified-id before ‘.’ token
+../server.cpp:18:1: error: expected unqualified-id before ‘public’
+make: *** [server.o] Error 1
+
+**** Build Finished ****

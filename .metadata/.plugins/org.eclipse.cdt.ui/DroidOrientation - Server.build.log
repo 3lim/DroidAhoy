@@ -1,0 +1,38 @@
+
+**** Build of configuration Debug for project DroidOrientation - Server ****
+
+make all 
+Building file: ../src/DroidOrientation.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/DroidOrientation.d" -MT"src/DroidOrientation.d" -o "src/DroidOrientation.o" "../src/DroidOrientation.cpp"
+../src/DroidOrientation.cpp:7:8: error: expected ‘:’ before ‘static’
+../src/DroidOrientation.cpp:67:1: error: expected ‘;’ after class definition
+../src/DroidOrientation.cpp: In static member function ‘static void DroidOrientation::Main()’:
+../src/DroidOrientation.cpp:9:3: error: ‘IPAddress’ was not declared in this scope
+../src/DroidOrientation.cpp:9:13: error: expected ‘;’ before ‘ipAd’
+../src/DroidOrientation.cpp:16:3: error: ‘TcpListener’ was not declared in this scope
+../src/DroidOrientation.cpp:16:15: error: expected ‘;’ before ‘myList’
+../src/DroidOrientation.cpp:19:3: error: ‘myList’ was not declared in this scope
+../src/DroidOrientation.cpp:21:3: error: ‘Console’ was not declared in this scope
+../src/DroidOrientation.cpp:26:3: error: ‘Socket’ was not declared in this scope
+../src/DroidOrientation.cpp:26:10: error: expected ‘;’ before ‘s’
+../src/DroidOrientation.cpp:27:51: error: ‘s’ was not declared in this scope
+../src/DroidOrientation.cpp:29:3: error: ‘byte’ was not declared in this scope
+../src/DroidOrientation.cpp:29:8: error: expected primary-expression before ‘]’ token
+../src/DroidOrientation.cpp:29:10: error: expected ‘;’ before ‘b’
+../src/DroidOrientation.cpp:30:19: error: ‘b’ was not declared in this scope
+../src/DroidOrientation.cpp:33:17: error: ‘null’ was not declared in this scope
+../src/DroidOrientation.cpp:37:18: error: ‘Convert’ was not declared in this scope
+../src/DroidOrientation.cpp:39:15: error: request for member ‘ToString’ in ‘cc’, which is of non-class type ‘char’
+../src/DroidOrientation.cpp:42:15: error: switch quantity not an integer
+../src/DroidOrientation.cpp:50:3: error: ‘ASCIIEncoding’ was not declared in this scope
+../src/DroidOrientation.cpp:50:17: error: expected ‘;’ before ‘asen’
+../src/DroidOrientation.cpp:51:10: error: ‘asen’ was not declared in this scope
+../src/DroidOrientation.cpp:62:9: error: expected type-specifier before ‘Exception’
+../src/DroidOrientation.cpp:62:19: error: expected ‘)’ before ‘e’
+../src/DroidOrientation.cpp:62:19: error: expected ‘{’ before ‘e’
+../src/DroidOrientation.cpp:62:19: error: ‘e’ was not declared in this scope
+../src/DroidOrientation.cpp:62:20: error: expected ‘;’ before ‘)’ token
+make: *** [src/DroidOrientation.o] Error 1
+
+**** Build Finished ****

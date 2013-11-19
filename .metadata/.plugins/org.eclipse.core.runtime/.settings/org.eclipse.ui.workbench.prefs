@@ -1,3 +1,4 @@
 //org.eclipse.ui.commands/state/org.eclipse.egit.ui.RepositoriesToggleBranchCommit/org.eclipse.ui.commands.toggleState=true
 //org.eclipse.ui.commands/state/org.eclipse.egit.ui.RepositoriesToggleBranchHierarchy/org.eclipse.ui.commands.toggleState=true
+UIActivities.org.eclipse.cdt.debug.dsfgdbActivity=true
 eclipse.preferences.version=1
