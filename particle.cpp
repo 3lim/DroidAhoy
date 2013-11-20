@@ -3,20 +3,22 @@
 Particle::Particle() : 
 	position(0,0,0),
 	velocity(0,0,0),
-	density(0),
-	size(0)
+	density(1.0),
+	size(0.5)
 {}
 
 Particle::Particle(vec3 &position) : 
 	position(position),
 	velocity(0,0,0),
-	density(0),
-	size(0)
+	density(1.0),
+	size(0.5)
 {}
 
 Particle::Particle(float x, float y, float z) : 
 	position(x,y,z),
 	velocity(0,0,0),
-	density(0),
-	size(0)
+	density(1.0),
+	size(0.5)
 {}
+
+Particle::~Particle() {}

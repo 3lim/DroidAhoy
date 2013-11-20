@@ -21,5 +21,6 @@ class Engine{
 
     const int w_window, h_window;
     const string n_window;
+    GLFWwindow* window;
 
 };
