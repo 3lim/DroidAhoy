@@ -22,20 +22,27 @@ vec3 boat_center;
 int DemoEngine::init(){
   using namespace std;
   //glfwSetKeyCallback(window, key_callback );
-
+  
   glewInit();
   
   //glEnable(GL_CULL_FACE);
 
   ShaderManager::load_program("shaders/basic");
  
-  //Set camera initial position
-  cam_pos = glm::vec3(15,5,5);
- 
   //Load boat
   boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
   Model boat = OBJLoader::load_model(string("models/pirate_boat.obj"));
   boat_center = OBJLoader::get_approx_center(boat);
+  
+  //Set camera initial position
+  cam = glm::lookAt(
+      glm::vec3(15,5,5), // 
+      boat_center, // and looks at the origin
+      glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+  );
+
+  //Attach window to keyboard controller 
+  kb = KeyboardController(cam, window);
 
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
@@ -70,6 +77,7 @@ int DemoEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   Model = glm::rotate(Model, 45.0f*dt, glm::vec3(0,1,0));
   start = clock();
+  kb.apply_input(cam);
   return 1;
 }
 
@@ -88,13 +96,8 @@ int DemoEngine::render(){
   glUseProgram(ShaderManager::get_program("basic"));
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
-  glm::mat4 View = glm::lookAt(
-      cam_pos, // 
-      boat_center, // and looks at the origin
-      glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-  );
 
-  glm::mat4 mvp  = Projection * View * Model; // R
+  glm::mat4 mvp  = Projection * cam * Model; // R
 
   glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
    

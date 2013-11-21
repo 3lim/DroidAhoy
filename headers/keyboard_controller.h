@@ -8,11 +8,13 @@ using namespace glm;
 
 class KeyboardController : public Controller{
   private:
-    mat4 mv;
     bool _apply_input(mat4&);
-  
+    static void _key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static clock_t start;
   public:
-    KeyboardController(mat4&);
+    static mat4 m;
+    KeyboardController(mat4&, GLFWwindow*);
+    KeyboardController();
 
   protected:
 };

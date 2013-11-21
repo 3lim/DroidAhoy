@@ -4,14 +4,14 @@ Controller::Controller(){
   t_start = clock(); 
 }
 
+bool Controller::_apply_input(mat4 & output){
+  return false;
+}
+
 bool Controller::apply_input(mat4 & output){
   t_start = clock();
   bool success = _apply_input(output);
   return success;  
-}
-
-mat4 Controller::get_mv(){
-  return mv;  
 }
 
 double Controller::time_since_last_input(){

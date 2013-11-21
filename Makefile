@@ -6,8 +6,8 @@ GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthrea
 
 all: demo
 
-demo: demo_engine.cpp engine.o shader_manager.o obj_loader.o model_loader.o tiny.o
-	gcc -std=c++0x -Wall demo_engine.cpp engine.o shader_manager.o model_loader.o obj_loader.o tiny.o -o run_demo $(GLFW)
+demo: demo_engine.cpp engine.o shader_manager.o obj_loader.o model_loader.o keyboard_controller.o controller.o tiny.o
+	gcc -std=c++0x -Wall demo_engine.cpp engine.o keyboard_controller.o controller.o shader_manager.o model_loader.o obj_loader.o tiny.o -o run_demo $(GLFW)
 
 ahoy: ahoy_engine.cpp engine.o shader_manager.o controller.o model_loader.o
 	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o run_ahoy $(GLFW)

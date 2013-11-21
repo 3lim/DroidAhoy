@@ -7,7 +7,7 @@ using namespace std;
 class Engine{
   private:
     Engine& operator=(Engine&) = delete;
-    
+
   public:
     virtual ~Engine();
     virtual int init()=0;
@@ -21,7 +21,7 @@ class Engine{
 
     const int w_window, h_window;
     const string n_window;
-    glm::vec3 cam_pos;
+    glm::mat4 cam;
     GLFWwindow* window;
 
 };
