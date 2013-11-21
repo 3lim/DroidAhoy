@@ -21,6 +21,7 @@ class Engine{
 
     const int w_window, h_window;
     const string n_window;
+    glm::vec3 cam_pos;
     GLFWwindow* window;
 
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include "libs.h"
-#include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <ctime>
 
