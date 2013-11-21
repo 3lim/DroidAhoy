@@ -37,13 +37,6 @@ int DemoEngine::init(){
   Model boat = OBJLoader::load_model(string("models/pirate_boat.obj"));
   boat_center = OBJLoader::get_approx_center(boat);
 
-	glEnable(GL_DEPTH_TEST);
-  glEnable( GL_BLEND );
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glDisable(GL_ALPHA_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_MULTISAMPLE);
-
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
   boat_vertices = boat.v;
@@ -82,7 +75,16 @@ int DemoEngine::update(){
 
 
 int DemoEngine::render(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glEnable(GL_DEPTH_TEST);
+  glClearDepth(1.0);          
+  glDepthFunc(GL_LEQUAL);           
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+  glEnable(GL_BLEND);           
+  glAlphaFunc(GL_GREATER,0.1);
+  glEnable(GL_ALPHA_TEST);          
+  glEnable(GL_TEXTURE_2D);           
+
   glUseProgram(ShaderManager::get_program("basic"));
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
