@@ -1,9 +1,9 @@
 #include "libs.h"
+#include "texture.h"
 #include <glm/glm.hpp>
 #include <vector>
 
 using namespace std;
-
 using namespace glm;
 
 /*
@@ -13,8 +13,11 @@ using namespace glm;
  */
 struct Model{
   mat4 m;
+
   vector<float> v;
   vector<float> n;
   vector<float> uv;
   vector<unsigned> indices;
+
+  Texture tex;
 };

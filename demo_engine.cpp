@@ -24,36 +24,33 @@ int DemoEngine::init(){
   //glfwSetKeyCallback(window, key_callback );
 
   glewInit();
-  glEnable(GL_CULL_FACE);
+  
+  //glEnable(GL_CULL_FACE);
+
   ShaderManager::load_program("shaders/basic");
  
   //Set camera initial position
-  cam_pos = glm::vec3(4000,2000,2000);
+  cam_pos = glm::vec3(15,5,5);
  
   //Load boat
-  string boat_path = "models/boat.obj";
-  boat_tex_id = OBJLoader::load_texture(string("models/Texture/boat.jpg"), GL_TEXTURE0);
-  ModelGroup boat = OBJLoader::load_model(string("models/boat.obj"));
+  boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
+  Model boat = OBJLoader::load_model(string("models/pirate_boat.obj"));
   boat_center = OBJLoader::get_approx_center(boat);
 
 	glEnable(GL_DEPTH_TEST);
+  glEnable( GL_BLEND );
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glDisable(GL_ALPHA_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_MULTISAMPLE);
 
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
+  boat_vertices = boat.v;
+  boat_indices = boat.indices;
+  boat_uv = boat.uv;
+  boat_normals = boat.n;
 
-  //Converting model vertices to one array buffer
-  for(unsigned i=0; i < 1; i++){
-    for(unsigned j=0; j<boat.mdls[i].v.size(); j++)
-      boat_vertices.push_back(boat.mdls[i].v[j]);
-    for(unsigned j=0; j<boat.mdls[i].indices.size(); j++) 
-      boat_indices.push_back(boat.mdls[i].indices[j]);
-    for(unsigned j=0; j<boat.mdls[i].uv.size(); j++) 
-      boat_uv.push_back(boat.mdls[i].uv[j]);
-    for(unsigned j=0; j<boat.mdls[i].n.size(); j++) 
-      boat_normals.push_back(boat.mdls[i].n[j]);
-  }
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * boat_vertices.size(), &boat_vertices[0], GL_STATIC_DRAW); 
 
   glGenBuffers(1, &elementbuffer);
