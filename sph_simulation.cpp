@@ -7,191 +7,153 @@ using std::cout;
 using std::endl;
 using glm::dot;
 
-void SPHSimulation::update_vertices(){
-  for(int i=0; i<numberParticles; i++){
-    particle_vertices[i*3] = particles[i].getPosition().x;
-    particle_vertices[i*3+1] = particles[i].getPosition().y;
-    particle_vertices[i*3+2] = particles[i].getPosition().z;
-  }
-}
+SPHSimulation::SPHSimulation(const string& parametersFile) : 
+  SPHSimulation(SimulationParameters(parametersFile))
+{}
 
-SPHSimulation::SPHSimulation(int numberParticles, const string& parametersFile) : 
-  particle_vertices(3*numberParticles),
-  numberParticles(numberParticles),
-  parameters(parametersFile)
-   {
-    accelerationAtParticles.resize(numberParticles, vec3(0.0f, 0.0f, 0.0f));
-    densityAtParticles.resize(numberParticles, vec3(1.0f, 1.0f,0.0f));
-    particles = new Particle[numberParticles];
+SPHSimulation::SPHSimulation(const SimulationParameters& param) : 
+  numberParticles(floor(sqrt(param.getNumberParticles()))*floor(sqrt(param.getNumberParticles()))),
+  walls({ 
+        vec2(param.getSceneWidth()/2, 0.0), 
+        vec2(-param.getSceneWidth()/2, 0.0), 
+        vec2(0.0, param.getSceneLength()/2), 
+        vec2(0.0, -param.getSceneLength()/2) 
+      }),
+  wallsNormal({ 
+              vec2(-1.0, 0.0), 
+              vec2(1.0, 0.0), 
+              vec2(0.0, -1.0), 
+              vec2(0.0, 1.0) 
+            }),
+  kernelRadius(param.getKernelRadius()),
+  massDensity0(param.getMassDensity0()),
+  gravity(param.getGravity()),
+  rebound(param.getRebound()),
+  viscosityScale(param.getViscosityScale()),
+  pressureScale(param.getPressureScale()),
+  heightOffset(param.getHeightOffset()),
+  heightScale(param.getHeightScale())
+{
+  particles = new Particle[numberParticles];
+  if (param.getInitialSetup() == "square"){
+    int tmp = sqrt(numberParticles);
+    for (int i = 0; i < tmp; i++) {
+      for (int j = 0; j < tmp; j++) { 
+        particles[i*tmp+j].setPosition(
+          vec2(
+            -param.getSceneWidth()/2+param.getSceneWidth()*(float)(i+1)/(tmp+1), 
+            -param.getSceneLength()/2+param.getSceneLength()*(float)(j+1)/(tmp+1)
+          )
+        );
+      }
+    }
+  } else if (param.getInitialSetup() == "line"){  
     for (int i = 0; i < numberParticles; i++) {
-      particles[i].getPosition() = vec3((float)i/numberParticles, 0, 0);
+      particles[i].setPosition(
+        vec2(
+          -param.getSceneWidth()/2+param.getSceneWidth()*(float)(i+1)/(numberParticles+1), 
+          0
+        )
+      );
     }
+  }
+}
 
-    numberWalls = 1;
-    walls = new Wall(vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0)); // TO CHANGE
-    // for (int i = 0; i < numberWalls; i++){
-    //     walls[i]
+
+
+SPHSimulation::~SPHSimulation(){
+  delete[] particles;
+}
+
+void SPHSimulation::update(float timeStep){
+  setupParticles();
+  computeMassDensityAndPressure();
+  computeForces();
+  integrateParticles(timeStep);
+}
+
+time_t last = 0;
+
+void SPHSimulation::setupParticles(){
+  /*bool wave = false;
+  if (glfwGetTime() - last > 3.0){
+    last = glfwGetTime();
+    wave = true;
+  }*/
+  for (int i = 0; i < numberParticles; i++){
+    particles[i].massDensity = 0;
+    particles[i].setAcceleration(vec2(0.0, 0.0));
+    // if (particles[i].getPosition().x < -0.7){
+    //   particles[i].setPosition(vec2(0.7, particles[i].getPosition().y));
+    //   particles[i].incrAcceleration(vec2(wave ? -200.0 : -200.0, 0.0));
     // }
   }
+}
 
-void SPHSimulation::update(float timeStep) {
-  accelerationAtParticles.resize(numberParticles, vec3(0.0f, 0.0f, 0.0f));
-  densityAtParticles.resize(numberParticles, vec3(1.0f, 1.0f, 0.0f));
-  computeDensityAtParticles();
-  computePressureGradientForce();
-  applyExternalForces();
-  for (int i = 0; i < numberParticles; i++) {
-    particles[i].updateVelocity(timeStep, accelerationAtParticles[i]);
+void SPHSimulation::computeMassDensityAndPressure(){
+  const float kernelRadius2 = pow(kernelRadius, 2);
+  const float cst = 4 / (Pi * pow(kernelRadius, 8));
+  for (int i = 0; i < numberParticles; i++){
+    for (int j = i; j < numberParticles; j++){
+      const vec2 r = particles[i].getPosition() - particles[j].getPosition();
+      const float norm2 = dot(r,r);
+      if (norm2 >= kernelRadius2) continue;
+      const float tmp = cst * pow(kernelRadius2-norm2,3);
+      particles[i].massDensity += particles[j].mass*tmp;
+      particles[j].massDensity += particles[i].mass*tmp;
+    }
+    particles[i].pressure = - gravity * (particles[i].massDensity - massDensity0) / massDensity0;
   }
+}
 
-  diffuseAndDissipateVelocity(timeStep);
-  for (int i = 0; i < numberParticles; i++) {
-    const vec3& oldPosition = particles[i].getPosition();
+void SPHSimulation::computeForces(){
+  const float pressureCst = -30 / (Pi * pow(kernelRadius, 5));
+  const float viscoCst = 40 / (Pi * pow(kernelRadius, 5));
+  const float kernelRadius2 = pow(kernelRadius, 2);
+
+  for (int i = 0; i < numberParticles; i++){
+    const float pressureCoef = particles[i].pressure / pow(particles[i].massDensity,2);
+    for (int j = i+1; j < numberParticles; j++){
+      const vec2 r = particles[i].getPosition() - particles[j].getPosition();
+      const float norm2 = dot(r,r);
+      if (norm2 >= kernelRadius2) continue;
+      const float norm = sqrt(norm2);
+      //pressure force
+      const float pressureCoef2 = pressureCoef + particles[j].pressure / pow(particles[j].massDensity,2);
+      const float tmp = - pressureCoef2 * pressureCst * pow(norm-kernelRadius, 2) / norm;
+      const vec2 pressureForce = pressureScale * tmp * r;
+      //viscosity force
+      const vec2 viscoForce = viscosityScale * (particles[j].getVelocity() - particles[i].getVelocity()) * viscoCst * (kernelRadius - norm) / (particles[i].massDensity * particles[j].massDensity);
+
+      particles[i].incrAcceleration(particles[j].mass * (pressureForce + viscoForce));
+      particles[j].incrAcceleration(-particles[i].mass * (pressureForce + viscoForce));
+    }
+  }
+}
+
+void SPHSimulation::integrateParticles(float timeStep){
+  for (int i = 0; i < numberParticles; i++){
+    // cout << particles[i].getPosition().x << " " << particles[i].getPosition().y << endl;
+    particles[i].updateVelocity(timeStep);
     particles[i].updatePosition(timeStep);
-    // walls->detectCollision(oldPosition, particles[i]);
-    // for (int j = 0; j < numberWalls; j++){   
-    // walls[j]->detectCollision(oldPosition, particles[i]);
-    // }
-  }
-  cout << particles[10].getPosition().x << " "<< particles[10].getPosition().y<< " "<<particles[10].getPosition().z << endl;
-}
-
-void SPHSimulation::computeDensityAtParticles() {
-  const float influenceRadius = parameters.getInfluenceRadiusScale() * particles[0].getRadius();
-  const float influenceRadius2 = influenceRadius * influenceRadius;
-  const float normFactor = 15.0f / ( Pi * influenceRadius * influenceRadius * influenceRadius );
-  const float volume = particles[0].getVolume();
-  const float mass = particles[0].getMass();
-  for (int i = 0; i < numberParticles; i++) {
-    for (int j = i+1; j < numberParticles; j++) {
-      const vec3  sep     = particles[i].getPosition() - particles[j].getPosition();
-      const float dist2   = dot(sep, sep);
-      if( dist2 < influenceRadius2 ) {   // Particles are close enough to contribute density to each other.
-        const float q    = 1.0f - sqrt(dist2) / influenceRadius;
-        const float q2   = pow(q,2);
-        const float q3   = q2 * q ;
-        const float q4   = q2 * q2;
-        // ASSERT( ( 0.0f <= q ) && ( q <= 1.0f ) );
-        densityAtParticles[i].x       += q3 * normFactor * volume; // number density
-        densityAtParticles[i].y     += q4 * normFactor * volume; // near number density
-        densityAtParticles[i].z         += q3 * normFactor * mass;   // massdensity
-
-        densityAtParticles[j].x       += q3 * normFactor * volume;
-        densityAtParticles[j].y     += q4 * normFactor * volume;
-        densityAtParticles[j].z         += q3 * normFactor * mass;
+    particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
+    for (int j = 0; j < 4; j++){
+      // float penetration = dot((particles[i].getPosition() - walls[i]), wallsNormal[i]) - particles[i].radius;
+      float penetration = dot((particles[i].getPosition() - walls[j]), wallsNormal[j]);
+      if (penetration < 0) {
+        float vPen = dot(particles[i].getVelocity(), wallsNormal[j]);
+        particles[i].incrPosition(-penetration * wallsNormal[j]);
+        particles[i].incrVelocity(-(1 + rebound) * vPen * wallsNormal[j]);
       }
     }
   }
 }
 
-void SPHSimulation::computePressureGradientForce() {
-  const float influenceRadius = parameters.getInfluenceRadiusScale() * particles[0].getRadius();
-  const float influenceRadius2 = influenceRadius * influenceRadius;
-  const float hardCoreRadius = parameters.getHardCoreRadius();
-  const float hardCoreRadius2 = hardCoreRadius * hardCoreRadius;
-  const float waveSpeed2 = parameters.getStiffness();
-  const float waveSpeed2Near = parameters.getStiffness() * parameters.getNearToFar();
-  const float targetNumberDensity = parameters.getTargetNumberDensity();
-  for (int i = 0; i < numberParticles; i++) {
-    for (int j = i+1; j < numberParticles; j++) {
-      vec3  sep     = particles[i].getPosition() - particles[j].getPosition();
-      float dist2   = dot(sep, sep);
-      if(     ( dist2 < hardCoreRadius2 )
-          ||  ( abs(sep.x) < hardCoreRadius )
-          ||  ( abs(sep.y) < hardCoreRadius )
-          ||  ( abs(sep.z) < hardCoreRadius ) ) {   // Particles too close. Pressure gradient would be zero.
-        // Impose a random separation.
-        sep.x += hardCoreRadius * (float(rand()) / float(RAND_MAX) - 0.5f);
-        sep.y += hardCoreRadius * (float(rand()) / float(RAND_MAX) - 0.5f);
-        sep.z += hardCoreRadius * (float(rand()) / float(RAND_MAX) - 0.5f);
-        dist2 = dot(sep, sep) ;
-      }
 
-      if( dist2 < influenceRadius2 ) {   // Particles are close enough to apply pressure on each other.
-        const float dist    = sqrt(dist2) ;
-        const float q       = 1.0f - dist / influenceRadius ;
-        const float q2      = pow(q,2) ;
-
-        // ASSERT( ( 0.0f <= q ) && ( q <= 1.0f ) ) ;
-
-        const vec3      dir         = sep / ( dist + FLT_EPSILON );
-
-        // Compute acceleration due to pressure gradient.
-        const float q3          = q2 * q  ;
-        const float pressure    = waveSpeed2     * ( densityAtParticles[i].x + densityAtParticles[j].x - 2.0f * targetNumberDensity ) ;
-        const float pressNear   = waveSpeed2Near * ( densityAtParticles[i].y + densityAtParticles[j].y ) ;
-        const float dReg        = pressure  * q2 ;
-        const float dNear       = pressNear * q3 ;
-        const vec3  accel       = ( dReg + dNear ) * dir ;
-        accelerationAtParticles[i] += accel ;
-        accelerationAtParticles[j] -= accel ;
-        // ASSERT( ! IsNan(accelerationAtParticles[i]) && ! IsInf(accelerationAtParticles[i]) ) ;
-        // ASSERT( ! IsNan(accelerationAtParticles[j]) && ! IsInf(accelerationAtParticles[j]) ) ;
-      }
-    }
+void SPHSimulation::render(){
+  for (int i = 0; i < numberParticles; i++){
+    particles[i].render();
   }
-}
-
-void SPHSimulation::applyExternalForces() {
-  const vec3& gravityAcceleration = parameters.getGravityAcceleration();
-  const float ambientDensity = parameters.getAmbientDensity();
-  for (int i = 0; i < numberParticles; i++) {
-    const float & density           = particles[i].getDensity() ;
-    // const float & density           = densityAtParticles[i].z ;
-    const float   relativeDensity   = ( density - ambientDensity ) / density ;
-    accelerationAtParticles[i] += gravityAcceleration * relativeDensity;
-  }
-}
-
-void SPHSimulation::diffuseAndDissipateVelocity(float timeStep) {
-  const float influenceRadius   = parameters.getInfluenceRadiusScale() * particles[0].getRadius();
-  const float influenceRadius2  = influenceRadius * influenceRadius;
-  const float speedLimit2       = 2.0f * parameters.getStiffness() ;
-  const float radialViscosityGain = parameters.getRadialViscosity() * timeStep;
-  const float viscousGain         = parameters.getViscousGain();
-
-  for (int i = 0; i < numberParticles; i++) {
-    for (int j = i+1; j < numberParticles; j++) {
-      vec3&  velA    = particles[i].getVelocity() ;
-
-      // ASSERT( ! IsNan( velA ) && ! IsInf( velA ) ) ;
-      // ASSERT( ! IsInf( velA.Mag2() ) ) ;
-      // ASSERT( velA.Mag2() < 1e8f ) ;
-
-      const vec3  sep     = particles[i].getPosition() - particles[j].getPosition() ;
-      const float dist2   = dot(sep,sep);
-      if( dist2 < influenceRadius2 ) {   // Particles are near enough to exchange velocity.
-        const float     dist    = sqrt(dist2) ;
-        const vec3      sepDir  = sep / dist ;
-        vec3&           velB    = particles[j].getVelocity() ;
-        const vec3      velDiff = velA - velB ;
-        const float     velSep  = dot(velDiff, sepDir) ;
-        if( velSep < 0.0f ) {   // Particles are approaching.
-          const float infl    = 1.0f - dist / influenceRadius ;
-          const float velSepA         = dot(velA, sepDir) ;                           // Component of velocity of particle A along separation direction.
-          const float velSepB         = dot(velB, sepDir) ;                           // Component of velocity of particle B along separation direction.
-          const float velSepTarget    = ( velSepA + velSepB ) * 0.5f ;            // Component of target velocity along separation direction.
-          const float diffSepA        = velSepTarget - velSepA ;                  // Difference between A's velocity-along-separation and target.
-          const float changeSepA      = radialViscosityGain * diffSepA * infl ;  // Amount of velocity change to apply.
-          const vec3  changeA         = changeSepA * sepDir ;                     // Velocity change to apply.
-          velA += changeA ;                                                       // Apply velocity change to A.
-          velB -= changeA ;                                                       // Apply commensurate change to B.
-
-          // ASSERT( ! IsNan( velA ) && ! IsInf( velA ) ) ;
-          // ASSERT( ! IsNan( velB ) && ! IsInf( velB ) ) ;
-          // ASSERT( velA.Mag2() < 1e8f ) ;
-          // ASSERT( velB.Mag2() < 1e8f ) ;
-        }
-      }
-    }
-    // Dissipate velocity.
-    vec3 & vel = particles[i].getVelocity() ;
-    vel *= viscousGain ;
-    // Apply speed limit.
-    const float velMag2 =  dot(vel, vel);
-    if( velMag2 > speedLimit2 ) {   // Particle is going too fast.
-      const float reduction = sqrt( speedLimit2 / velMag2 ) ;
-      vel *= reduction ;
-    }
-  }
+  glPushMatrix();
+  glPopMatrix();
 }

@@ -1,9 +1,17 @@
-influenceRadiusScale	3.0
-hardCoreRadius			0.001
-targetNumberDensity		2.2
-ambientDensity			1.0
-nearToFar				2.0
-stiffness				20.0
-viscousGain				0.99
-radialViscosity			30.0
-gravityAcceleration		0.0 0.0 -10.0
+# initial conditions, reset the simulation to change
+# initialSetup : square or line
+initialSetup			square
+# numberParticles : rounded to the nearest perfect square
+numberParticles			300
+sceneWidth				1.0
+sceneLength				1.0
+
+# simulation parameters, change in real time
+kernelRadius			0.12
+massDensity0			10
+gravity 				-10.0
+rebound					0.5
+viscosityScale			1.0
+pressureScale			1.0
+heightOffset			0.0
+heightScale				0.0

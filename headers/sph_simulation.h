@@ -3,7 +3,6 @@
 
 #include "particle.h"
 #include "simulation_parameters.h"
-#include "wall.h"
 #include <vector>
 
 using std::vector;
@@ -11,29 +10,29 @@ using std::vector;
 class SPHSimulation
 {
 public:
-	SPHSimulation(int, const string& = "");
+	SPHSimulation(const string& = "");
+	~SPHSimulation();
 	void update(float);
 	void render();
-  void update_vertices();
-  vector<float> particle_vertices;
-	const int numberParticles;
-
 private:
+	SPHSimulation(const SimulationParameters&);
+	int numberParticles;
 	Particle* particles;
-	vector<vec3> accelerationAtParticles;// x: number density
-										 // y: near number density
-										 // z: massdensity
-	vector<vec3> densityAtParticles;
+	vec2 walls[4];
+	vec2 wallsNormal[4];
+	float kernelRadius;
+	float massDensity0;
+	float gravity;
+	float rebound;
+	float viscosityScale;
+	float pressureScale;
+	float heightOffset;
+	float heightScale;
 
-	int numberWalls;
-	Wall* walls;
-
-	SimulationParameters parameters;
-	
-	void computeDensityAtParticles();
-	void computePressureGradientForce();
-	void applyExternalForces();
-	void diffuseAndDissipateVelocity(float);
+	void setupParticles();
+	void computeMassDensityAndPressure();
+	void computeForces();
+	void integrateParticles(float);
 };
 
 #endif

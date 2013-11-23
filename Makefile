@@ -6,11 +6,11 @@ GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthrea
 
 all: demo
 
-demo: ahoy_engine.cpp engine.o shader_manager.o controls.o obj_loader.o model_loader.o tiny.o sph_simulation.o particle.o wall.o simulation_parameters.o
-	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o model_loader.o obj_loader.o tiny.o sph_simulation.o particle.o wall.o simulation_parameters.o -o run_demo $(GLFW)
+demo: ahoy_engine.cpp engine.o shader_manager.o controls.o obj_loader.o model_loader.o tiny.o sph_simulation.o particle.o simulation_parameters.o
+	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o model_loader.o obj_loader.o tiny.o sph_simulation.o particle.o simulation_parameters.o -o run_demo $(GLFW)
 
-ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o particle.o sph_simulation.o wall.o simulation_parameters.o
-	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o particle.o sph_simulation.o wall.o simulation_parameters.o -o run_ahoy $(GLFW)
+ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o particle.o sph_simulation.o simulation_parameters.o
+	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o particle.o sph_simulation.o simulation_parameters.o -o run_ahoy $(GLFW)
 
 # Compile all classes
 %.o:	%.cpp

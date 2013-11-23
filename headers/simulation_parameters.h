@@ -11,25 +11,31 @@ class SimulationParameters
 {
 public:
 	SimulationParameters(const string&);
-	const float& getInfluenceRadiusScale() { return influenceRadiusScale; }
-	const float& getHardCoreRadius() { return hardCoreRadius; }
-	const float& getTargetNumberDensity() { return targetNumberDensity; }
-	const float& getAmbientDensity() { return ambientDensity; }
-	const float& getNearToFar() { return nearToFar; }
-	const float& getStiffness() { return stiffness; }
-	const float& getViscousGain() { return viscousGain; }
-	const float& getRadialViscosity() { return radialViscosity; }
-	const vec3& getGravityAcceleration() { return gravityAcceleration; }
+	string getInitialSetup() const { return initialSetup; }
+	int getNumberParticles() const { return numberParticles; }
+	float getSceneLength() const { return sceneLength; }
+	float getSceneWidth() const { return sceneWidth; }
+	float getKernelRadius() const { return kernelRadius; }
+	float getMassDensity0() const { return massDensity0; }
+	float getGravity() const { return gravity; }
+	float getRebound() const { return rebound; }
+	float getViscosityScale() const { return viscosityScale; }
+	float getPressureScale() const { return pressureScale; }
+	float getHeightOffset() const { return heightOffset; }
+	float getHeightScale() const { return heightScale; }
 private:
-	float influenceRadiusScale;
-	float hardCoreRadius;
-	float targetNumberDensity;
-	float ambientDensity;
-	float nearToFar;
-	float stiffness;
-	float viscousGain;
-	float radialViscosity;
-	vec3  gravityAcceleration;
+	string initialSetup;
+	int numberParticles;
+	float sceneWidth;
+	float sceneLength;
+	float kernelRadius;
+	float massDensity0;
+	float gravity;
+	float rebound;
+	float viscosityScale;
+	float pressureScale;
+	float heightOffset;
+	float heightScale;
 };
 
 #endif
