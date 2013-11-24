@@ -64,7 +64,7 @@ int AhoyEngine::init(){
 glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
 
 int AhoyEngine::update(){
-  sim.update(timeStep);
+  sim.update(timeStep/10);
   /*sim.update_vertices();
   glBindBuffer(GL_ARRAY_BUFFER, vb);
   float* bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);

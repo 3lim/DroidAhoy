@@ -3,6 +3,7 @@
 
 #include "particle.h"
 #include "simulation_parameters.h"
+#include "spatial_hashing.h"
 #include <vector>
 
 using std::vector;
@@ -18,8 +19,13 @@ private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
 	Particle* particles;
+
+	SpatialHashing spatialHashing;
+
+	float sceneWidth, sceneLength;
 	vec2 walls[4];
 	vec2 wallsNormal[4];
+	
 	float kernelRadius;
 	float massDensity0;
 	float gravity;
