@@ -12,7 +12,7 @@ SpatialHashing::SpatialHashing(float sizeSquare, float sceneWidth, float sceneLe
 	},
 	allNeighbouringCellIndices{
 		-nbColumns-1, -nbColumns, -nbColumns+1,
-				  -1, 			   1 		  ,
+				  -1, 		0,	   1 		  ,
 		 nbColumns-1,  nbColumns, nbColumns+1	
 	}
 {}

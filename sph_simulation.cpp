@@ -13,21 +13,22 @@ SPHSimulation::SPHSimulation(const string& parametersFile) :
 
 SPHSimulation::SPHSimulation(const SimulationParameters& param) : 
   numberParticles(floor(sqrt(param.getNumberParticles()))*floor(sqrt(param.getNumberParticles()))),
+  oceanSurface(param.getMassDensity0(), 10, 10, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
   spatialHashing(param.getKernelRadius(), param.getSceneWidth(), param.getSceneLength()),
   sceneWidth(param.getSceneWidth()),
   sceneLength(param.getSceneLength()),
   walls({ 
-        vec2(sceneWidth/2, 0.0), 
-        vec2(-sceneWidth/2, 0.0), 
-        vec2(0.0, sceneLength/2), 
-        vec2(0.0, -sceneLength/2) 
-      }),
+    vec2(sceneWidth/2, 0.0), 
+    vec2(-sceneWidth/2, 0.0), 
+    vec2(0.0, sceneLength/2), 
+    vec2(0.0, -sceneLength/2) 
+  }),
   wallsNormal({ 
-              vec2(-1.0, 0.0), 
-              vec2(1.0, 0.0), 
-              vec2(0.0, -1.0), 
-              vec2(0.0, 1.0) 
-            }),
+    vec2(-1.0, 0.0), 
+    vec2(1.0, 0.0), 
+    vec2(0.0, -1.0), 
+    vec2(0.0, 1.0) 
+  }),
   kernelRadius(param.getKernelRadius()),
   massDensity0(param.getMassDensity0()),
   gravity(param.getGravity()),
@@ -70,8 +71,9 @@ void SPHSimulation::update(float timeStep){
   computeMassDensityAndPressure();
   computeForces();
   integrateParticles(timeStep);
+  oceanSurface.update(spatialHashing, kernelRadius);
   spatialHashing.clear();
-  cout << glfwGetTime() << " " << last << endl;
+  // cout << glfwGetTime() << " " << last << endl;
   last++;
 }
 
@@ -139,7 +141,7 @@ void SPHSimulation::computeMassDensityAndPressure(){
     particles[i].pressure = - gravity * (particles[i].massDensity - massDensity0) / massDensity0;
   }
   #else
-  array<int,4> neighbouringCellIndices = spatialHashing.getForwardNeighbouringCellIndices();
+  const array<int,4>& neighbouringCellIndices = spatialHashing.getForwardNeighbouringCellIndices();
   // for each cell
   for (int cellIndex = 0; cellIndex < spatialHashing.getNumberCells(); cellIndex++){
     forward_list<Particle*>& particlesCell = spatialHashing.getListParticles(cellIndex);
@@ -215,7 +217,7 @@ void SPHSimulation::computeForces(){
     }
   }
   #else
-  array<int,4> neighbouringCellIndices = spatialHashing.getForwardNeighbouringCellIndices();
+  const array<int,4>& neighbouringCellIndices = spatialHashing.getForwardNeighbouringCellIndices();
   // for each cell
   for (int cellIndex = 0; cellIndex < spatialHashing.getNumberCells(); cellIndex++){
     forward_list<Particle*>& particlesCell = spatialHashing.getListParticles(cellIndex);
@@ -261,6 +263,7 @@ void SPHSimulation::integrateParticles(float timeStep){
 
 void SPHSimulation::render(){
   glPushMatrix();
+  oceanSurface.render();
   for (int i = 0; i < numberParticles; i++){
     particles[i].render();
   }

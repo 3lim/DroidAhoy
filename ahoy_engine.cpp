@@ -104,7 +104,10 @@ int AhoyEngine::render(){
   //    GL_UNSIGNED_INT,          
   //    (void*)0                  
   //); 
+  glPushMatrix();
+  glRotatef(-90,1,0,0);
   sim.render();
+  glPopMatrix();
 
   return 1;
 }

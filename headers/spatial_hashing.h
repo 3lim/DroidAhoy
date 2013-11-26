@@ -23,8 +23,8 @@ public:
 	void addToMap(Particle*);
 	void render();
 	int getIndexBox(const vec2&);
-	array<int,4>& getForwardNeighbouringCellIndices() { return forwardNeighbouringCellIndices; }
-	array<int,8>& getAllNeighbouringCellIndices() { return allNeighbouringCellIndices; }
+	const array<int,4>& getForwardNeighbouringCellIndices() { return forwardNeighbouringCellIndices; }
+	const array<int,9>& getAllNeighbouringCellIndices() { return allNeighbouringCellIndices; }
 	bool areCellsNeighbours(int, int);
 private:
 	map<int, forward_list<Particle*>> hashmap;
@@ -32,7 +32,7 @@ private:
 	vec2 bottomLeftCorner;
 	int nbRows, nbColumns;
 	array<int,4> forwardNeighbouringCellIndices;
-	array<int,8> allNeighbouringCellIndices;
+	array<int,9> allNeighbouringCellIndices;
 };
 
 #endif

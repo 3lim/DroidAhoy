@@ -14,4 +14,4 @@ rebound					1.0
 viscosityScale			1.0
 pressureScale			1.0
 heightOffset			0.0
-heightScale				0.0
+heightScale				0.2

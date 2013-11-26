@@ -4,6 +4,7 @@
 #include "particle.h"
 #include "simulation_parameters.h"
 #include "spatial_hashing.h"
+#include "ocean_surface.h"
 #include <vector>
 
 using std::vector;
@@ -19,6 +20,8 @@ private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
 	Particle* particles;
+
+	OceanSurface oceanSurface;
 
 	SpatialHashing spatialHashing;
 
