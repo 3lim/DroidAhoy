@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../cube.cpp \
 ../listen.cpp 
 
 OBJS += \
+./cube.o \
 ./listen.o 
 
 CPP_DEPS += \
+./cube.d \
 ./listen.d 
 
 
