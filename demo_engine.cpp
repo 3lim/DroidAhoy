@@ -42,7 +42,7 @@ int DemoEngine::init(){
   );
 
   //Attach window to keyboard controller 
-  kb = KeyboardController(cam, window);
+  kb = KeyboardController(window);
 
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
@@ -76,8 +76,8 @@ clock_t start = clock();
 int DemoEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   Model = glm::rotate(Model, 45.0f*dt, glm::vec3(0,1,0));
+  kb.apply_input(cam,dt);
   start = clock();
-  kb.apply_input(cam);
   return 1;
 }
 

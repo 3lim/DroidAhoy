@@ -7,14 +7,16 @@ using namespace glm;
 
 class Controller{
   private:
-    virtual bool _apply_input(mat4&);
+    virtual bool _apply_input(mat4&, float);
     clock_t t_start;
+
   public:
     Controller();
-    mat4 m;
-    bool apply_input(mat4&);
+    Controller(GLFWwindow *);
+    bool apply_input(mat4&, float);
 
-    double time_since_last_input();
+    float dt();
 
   protected:
+    GLFWwindow * scope;
 };
