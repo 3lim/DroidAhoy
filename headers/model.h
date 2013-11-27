@@ -18,6 +18,9 @@ using namespace glm;
 class Model{
 
   private:
+    mat4 pt;
+    bool t_invalid;
+  
     //Buffer ids
     GLuint vb, ib, uvb, nb, tex;
   

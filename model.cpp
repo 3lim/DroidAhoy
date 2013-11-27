@@ -1,4 +1,5 @@
 #include "headers/model.h"
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 using namespace std;
@@ -9,7 +10,8 @@ Model::Model(){
   has_uv = false;
   has_n = false;
   has_indices = false;
-
+  t_invalid = false;
+  pt = mat4(1.0f);
   up = vec3(0.0f, 1.0f, 0.0f);
   right = vec3(1.0f, 0.0f, 0.0f);
 }
@@ -19,6 +21,10 @@ Model::Model(vector<float> _v, vector<float> _n, vector<float> _uv, vector<unsig
   uv = _uv;
   indices = _indices;
   tex_params = _tex;
+  t_invalid = false;
+  pt = mat4(1.0f);
+  up = vec3(0.0f, 1.0f, 0.0f);
+  right = vec3(1.0f, 0.0f, 0.0f);
 
   ready_for_draw = has_v = has_uv = has_n = has_indices =  true;
   has_program = false;
@@ -63,7 +69,7 @@ bool Model::init(){
   bool ready = false;
   ready = has_program && has_v && has_indices;
   if(has_uv)
-    ready = ready && has_tex;
+    ready = ready && has_n && has_tex;
   
   return ready_for_draw = ready;
 }
@@ -165,15 +171,35 @@ void Model::draw(mat4 vp){
     cerr << "\tVertices? " << has_v <<endl;
     cerr << "\tIndices? " << has_indices <<endl;
     cerr << "\tUVs? " << has_uv <<endl;
-    cerr << "\tNormals? " << has_n <<endl;
     if(has_uv)
+      cerr << "\tNormals? " << has_n <<endl;
       cerr << "\tLoaded texture? " << has_tex <<endl;
     cerr << "\tLoaded program? " << has_program <<endl;
   }
 }
 
 mat4 Model::get_transformation(){
-  return mat4(1.0f);
+  if(t_invalid){
+    //Form rotation
+    mat4 rotX(1.0f), rotY(1.0f), rotZ(1.0f), rota;
+    rotX = rotate(rotX, rot.x, right);
+    rotY = rotate(rotY, rot.y, up);
+    rotZ = rotate(rotZ, rot.z, cross(right,up));
+    rota = rotZ * rotY * rotX;
+
+    //Form translation
+    mat4 transX(1.0f), transY(1.0f), transZ(1.0f), transa;
+    transX = translate(transX, pos.x*right);
+    transY = translate(transY, pos.y*up);
+    transZ = translate(transZ, pos.z*cross(right,up));
+    transa = transZ * transY * transZ;
+
+    //Total transformation
+    return pt = rota * transa;
+  }
+  else{
+    return pt;
+  }
 }
 
 void Model::set_rotation(float ax, float ay, float az){
@@ -183,10 +209,12 @@ void Model::set_rotation(float ax, float ay, float az){
 }
 
 void Model::set_rotation(vec3 r){
+  t_invalid = true;
   rot = r;
 }
 
 void Model::add_rotation(float ax, float ay, float az){
+  t_invalid = true;
   rot.x += ax;
   rot.y += ay;
   rot.z += az;
@@ -197,16 +225,19 @@ const vec3& Model::get_rotation(){
 }
 
 void Model::set_position(float x, float y, float z){
+  t_invalid = true;
   pos.x = x;
   pos.y = y;
   pos.z = z;
 }
 
 void Model::set_position(vec3 p){
+  t_invalid = true;
   pos = p;
 }
 
 void Model::add_position(float x, float y, float z){
+  t_invalid = true;
   pos.x += x;
   pos.y += y;
   pos.z += z;
@@ -216,9 +247,6 @@ const vec3& Model::get_position(){
   return pos;
 }
 
-void Model::set_up(float x, float y, float z){
-  up = vec3(x,y,z);
-}
 
 /*
 
@@ -226,7 +254,13 @@ void Model::set_up(float x, float y, float z){
    rotations and translations.
 
  */
+void Model::set_up(float x, float y, float z){
+  t_invalid = true;
+  up = vec3(x,y,z);
+}
+
 void Model::set_up(vec3 _up){
+  t_invalid = true;
   up = _up;
 }
 
@@ -235,10 +269,12 @@ const vec3& Model::get_up(){
 }
 
 void Model::set_right(vec3 _right){
+  t_invalid = true;
   right = _right;
 }
 
 void Model::set_right(float x, float y, float z){
+  t_invalid = true;
   right = vec3(x,y,z);
 }
 
