@@ -2,7 +2,7 @@
 
 using namespace std;
 
-struct Texture{
+struct TextureParams{
   float ambient[3];
   float diffuse[3];
   float specular[3];

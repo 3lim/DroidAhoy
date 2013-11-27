@@ -1,16 +1,17 @@
 #hello_world: 1.1.cpp
 #	g++ -o hello 1.1.cpp
 
-BOOST = -lboost_system -lboost_system-mt -lboost_filesystem -lboost_filesystem-mt
-GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(BOOST) 
+FILEMANAGEMENT = -lboost_system -lboost_filesystem -lSOIL
+GLFW =  -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(FILEMANAGEMENT) 
+# GLFW =  -lglfw3 -lOpenGL32 -lGLU -lGLEW -lboost_filesystem -lboost_system -lSOIL
 
 all: demo
 
-demo: ahoy_engine.cpp engine.o shader_manager.o controls.o obj_loader.o model_loader.o tiny.o sph_simulation.o particle.o simulation_parameters.o spatial_hashing.o ocean_surface.o
-	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o model_loader.o obj_loader.o tiny.o sph_simulation.o particle.o simulation_parameters.o spatial_hashing.o ocean_surface.o -o run_demo $(GLFW)
+demo: demo_engine.cpp engine.o shader_manager.o obj_loader.o model.o model_loader.o keyboard_controller.o controller.o tiny.o sph_simulation.o particle.o simulation_parameters.o spatial_hashing.o ocean_surface.o
+	gcc -std=c++0x -Wall demo_engine.cpp engine.o keyboard_controller.o controller.o shader_manager.o model_loader.o model.o obj_loader.o tiny.o sph_simulation.o particle.o simulation_parameters.o spatial_hashing.o ocean_surface.o -o run_demo $(GLFW)
 
-ahoy: ahoy_engine.cpp engine.o shader_manager.o controls.o model_loader.o particle.o sph_simulation.o simulation_parameters.o spatial_hashing.o ocean_surface.o
-	g++ -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o particle.o sph_simulation.o simulation_parameters.o spatial_hashing.o ocean_surface.o -o run_ahoy $(GLFW)
+ahoy: ahoy_engine.cpp engine.o shader_manager.o controller.o model_loader.o 
+	gcc -std=c++0x -Wall ahoy_engine.cpp engine.o shader_manager.o -o model_loader.o run_ahoy $(GLFW)
 
 # Compile all classes
 %.o:	%.cpp

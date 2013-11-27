@@ -12,6 +12,7 @@ public:
 	OceanSurface(float, int, int, float, float, float, float);
 	const vector<float>& getOceanVertices() { return oceanVertices; }
 	const vector<unsigned>& getOceanIndices() { return oceanIndices; }
+	const vector<unsigned>& getOceanNormals() { return oceanIndices; }
 	void update(SpatialHashing& hashing, float kernelRadius);
 	void render();
 private:
