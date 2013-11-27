@@ -75,7 +75,7 @@ glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
 clock_t start = clock();
 int DemoEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
-  Model = glm::rotate(Model, 45.0f*dt, glm::vec3(0,1,0));
+  //Model = glm::rotate(Model, 45.0f*dt, glm::vec3(0,1,0));
   kb.apply_input(cam,dt);
   start = clock();
   return 1;
