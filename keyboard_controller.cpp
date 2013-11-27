@@ -23,7 +23,7 @@ bool KeyboardController::_apply_input(mat4& out, float dt){
     out = translate(out, vec3(dt*vec4(5.0f,0.0f,0.0f,0.0f)*out));
     success= true;  
   }
-  if(glfwGetKey(scope, GLFW_KEY_S) == GLFW_PRESS ){
+  if(glfwGetKey(scope, GLFW_KEY_S)){
     out = translate(out, vec3(dt*vec4(0.0f,0.0f,-5.0f,0.0f)*out));
     success= true;  
   }
