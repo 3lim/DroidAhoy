@@ -12,10 +12,11 @@ public:
 	OceanSurface(float, int, int, float, float, float, float);
 	const vector<float>& getOceanVertices() { return oceanVertices; }
 	const vector<unsigned>& getOceanIndices() { return oceanIndices; }
-	void update(SpatialHashing& hashing, const float kernelRadius);
+	void update(SpatialHashing& hashing, float kernelRadius);
 	void render();
 private:
 	vector<float> oceanVertices;
+	vector<float> oceanNormals;
 	vector<unsigned> oceanIndices;
 	float massDensity0;
 	int nbRows, nbColumns;

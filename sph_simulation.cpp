@@ -11,9 +11,9 @@ SPHSimulation::SPHSimulation(const string& parametersFile) :
   SPHSimulation(SimulationParameters(parametersFile))
 {}
 
-SPHSimulation::SPHSimulation(const SimulationParameters& param) : 
+SPHSimulation::SPHSimulation(const SimulationParameters& param) :
   numberParticles(floor(sqrt(param.getNumberParticles()))*floor(sqrt(param.getNumberParticles()))),
-  oceanSurface(param.getMassDensity0(), 10, 10, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
+  oceanSurface(param.getMassDensity0(), 20, 20, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
   spatialHashing(param.getKernelRadius(), param.getSceneWidth(), param.getSceneLength()),
   sceneWidth(param.getSceneWidth()),
   sceneLength(param.getSceneLength()),
@@ -68,6 +68,20 @@ int last = 0;
 
 void SPHSimulation::update(float timeStep){
   setupParticles();
+  if (last % 80 == 0){
+  for (int i = 0; i < numberParticles; i++){
+    if (particles[i].position.y > sceneWidth/2*0.8){
+      particles[i].acceleration.y = -200;
+    }
+  }
+    
+  }
+  // for (int i = 0; i < numberParticles; i++){
+  //   if (particles[i].position.y < -sceneWidth/2*0.8){
+  //     particles[i].position.y = sceneWidth/2;
+  //     particles[i].acceleration.y = -5000;
+  //   }
+  // }
   computeMassDensityAndPressure();
   computeForces();
   integrateParticles(timeStep);
@@ -99,7 +113,6 @@ void SPHSimulation::setupParticles(){
 
 #define HASHMAP
 
-// functor to compute density
 class DensityComputer{
 public:
   DensityComputer(float kernelRadius) :
@@ -126,17 +139,7 @@ void SPHSimulation::computeMassDensityAndPressure(){
   #ifndef HASHMAP
   for (int i = 0; i < numberParticles; i++){
     for (int j = i; j < numberParticles; j++){
-      #ifdef FUNCTOR
       computeDensity(particles[i], particles[j]);
-      #else
-      const vec2 r = particles[i].position - particles[j].position;
-      const float norm2 = dot(r,r);
-      if (norm2 < kernelRadius2){
-        const float tmp = cst * pow(kernelRadius2-norm2,3);
-        particles[i].massDensity += particles[j].mass*tmp;
-        particles[j].massDensity += particles[i].mass*tmp;
-      }
-      #endif
     }
     particles[i].pressure = - gravity * (particles[i].massDensity - massDensity0) / massDensity0;
   }
@@ -170,7 +173,6 @@ void SPHSimulation::computeMassDensityAndPressure(){
   #endif
 }
 
-// functor to compute forces
 class ForcesComputer{
 public:
   ForcesComputer(float kernelRadius, float viscosityScale, float pressureScale) :
@@ -262,20 +264,20 @@ void SPHSimulation::integrateParticles(float timeStep){
 
 
 void SPHSimulation::render(){
-  glPushMatrix();
+  
   oceanSurface.render();
-  for (int i = 0; i < numberParticles; i++){
-    particles[i].render();
-  }
-  spatialHashing.render();
-  glBegin(GL_LINE_STRIP);
-  glLineWidth(2.0f);
-  glColor3f(1,0,0);
-    glVertex3f(-sceneWidth/2,-sceneLength/2,0);
-    glVertex3f(-sceneWidth/2,sceneLength/2,0);
-    glVertex3f(sceneWidth/2, sceneLength/2,0);
-    glVertex3f(sceneWidth/2, -sceneLength/2,0);
-    glVertex3f(-sceneWidth/2,-sceneLength/2,0);
-  glEnd();
+  // for (int i = 0; i < numberParticles; i++){
+  //   particles[i].render();
+  // }
+  // spatialHashing.render();
+  // glBegin(GL_LINE_STRIP);
+  // glLineWidth(2.0f);
+  // glColor3f(1,0,0);
+  //   glVertex3f(-sceneWidth/2,-sceneLength/2,0);
+  //   glVertex3f(-sceneWidth/2,sceneLength/2,0);
+  //   glVertex3f(sceneWidth/2, sceneLength/2,0);
+  //   glVertex3f(sceneWidth/2, -sceneLength/2,0);
+  //   glVertex3f(-sceneWidth/2,-sceneLength/2,0);
+  // glEnd();
   glPopMatrix();
 }

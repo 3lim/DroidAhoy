@@ -20,6 +20,12 @@ int AhoyEngine::init(){
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
   glEnable(GL_MULTISAMPLE);
+  glEnable(GL_LIGHTING);
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_AUTO_NORMAL);
+  glEnable(GL_NORMALIZE);
+  glEnable(GL_LIGHT1);
+
   /*if (GLEW_OK != glewInit())
   {
       std::cout << "GLEW failed!" << std::endl;
@@ -64,7 +70,7 @@ int AhoyEngine::init(){
 glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
 
 int AhoyEngine::update(){
-  sim.update(timeStep/10);
+  sim.update(timeStep/2);
   /*sim.update_vertices();
   glBindBuffer(GL_ARRAY_BUFFER, vb);
   float* bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -78,7 +84,7 @@ int AhoyEngine::update(){
 
 int AhoyEngine::render(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-  /*glUseProgram(ShaderManager::get_program("basic"));
+  // glUseProgram(ShaderManager::get_program("basic"));
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
   glm::mat4 View = glm::lookAt(
@@ -89,14 +95,14 @@ int AhoyEngine::render(){
 
   glm::mat4 mvp  = Projection * View * Model; // R
 
-  glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
+  // glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
    
   // 1rst attribute buffer : vertices
-  glEnableVertexAttribArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, vb);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+  // glEnableVertexAttribArray(0);
+  // glBindBuffer(GL_ARRAY_BUFFER, vb);
+  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
  
-  glDrawArrays(GL_POINTS, 0, sim.numberParticles * 3); */
+  // glDrawArrays(GL_POINTS, 0, sim.numberParticles * 3); 
   //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
   //glDrawElements(
   //    GL_TRIANGLES,             
@@ -105,7 +111,8 @@ int AhoyEngine::render(){
   //    (void*)0                  
   //); 
   glPushMatrix();
-  glRotatef(-90,1,0,0);
+  glRotatef(30,0,1,0);
+  glTranslatef(0,0,-2.0f);
   sim.render();
   glPopMatrix();
 
