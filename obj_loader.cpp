@@ -41,28 +41,30 @@ Model OBJLoader::load_model(const string & filepath) {
    
   //OBS: Only loads .obj with 1 group (!!!)
   //while(it != shapes.end()){
-    obj_data.v = (*it).mesh.positions;
-    obj_data.n = (*it).mesh.normals;
-    obj_data.uv = (*it).mesh.texcoords;
-    obj_data.indices = (*it).mesh.indices;
+   obj_data.set_vertices((*it).mesh.positions);
+   obj_data.set_normals((*it).mesh.normals);
+   obj_data.set_uvs((*it).mesh.texcoords);
+   obj_data.set_indices((*it).mesh.indices);
 
-    for(int i=0; i<3; i++){
-      obj_data.tex.ambient[i] = (*it).material.ambient[i];
-      obj_data.tex.diffuse[i] = (*it).material.diffuse[i];
-      obj_data.tex.specular[i] = (*it).material.specular[i];
-      obj_data.tex.transmittance[i] = (*it).material.transmittance[i];
-      obj_data.tex.emission[i] = (*it).material.emission[i];
-    }
-    obj_data.tex.shininess = (*it).material.shininess;
-    obj_data.tex.ior = (*it).material.ior;
-    obj_data.tex.ambient_texpath = (*it).material.ambient_texname;
-    obj_data.tex.diffuse_texpath = (*it).material.diffuse_texname;
-    obj_data.tex.specular_texpath = (*it).material.specular_texname;
-    obj_data.tex.normal_texpath = (*it).material.normal_texname;
-    
-    //obj_data.mdls.push_back(obj_data);
-    //obj_data.texs.push_back(obj_data.tex);
-    //++it;   
+   TextureParams tex;
+   for(int i=0; i<3; i++){
+     tex.ambient[i] = (*it).material.ambient[i];
+     tex.diffuse[i] = (*it).material.diffuse[i];
+     tex.specular[i] = (*it).material.specular[i];
+     tex.transmittance[i] = (*it).material.transmittance[i];
+     tex.emission[i] = (*it).material.emission[i];
+   }
+   tex.shininess = (*it).material.shininess;
+   tex.ior = (*it).material.ior;
+   tex.ambient_texpath = (*it).material.ambient_texname;
+   tex.diffuse_texpath = (*it).material.diffuse_texname;
+   tex.specular_texpath = (*it).material.specular_texname;
+   tex.normal_texpath = (*it).material.normal_texname;
+  
+   obj_data.set_texture_params(tex); 
+   //obj_data.mdls.push_back(obj_data);
+   //obj_data.texs.push_back(obj_data.tex);
+   //++it;   
   //}
 
   return obj_data;
