@@ -1,10 +1,12 @@
 #include "engine.h"
 #include "sph_simulation.h"
+#include "keyboard_controller.h"
 
 class AhoyEngine : public Engine{
   private:
     AhoyEngine();
     SPHSimulation sim;
+    KeyboardController kb; 
     float timeStep;
   public:
     ~AhoyEngine();

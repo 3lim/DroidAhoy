@@ -1,10 +1,10 @@
 #include "headers/ocean_surface.h"
-#include <GL/glu.h>	
 #include <iostream>
 
 using glm::dot;
 
 OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float sceneWidth, float sceneLength, float heightOffset, float heightScale) :
+	first(true),
 	massDensity0(massDensity0),
 	nbRows(nbRows),
 	nbColumns(nbColumns),
@@ -13,6 +13,7 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 	heightOffset(heightOffset),
 	heightScale(heightScale)
 {
+
 	oceanVertices.resize(3*nbRows*nbColumns);
 	oceanNormals.resize(3*nbRows*nbColumns);
 	oceanIndices.clear();
@@ -34,6 +35,7 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 			oceanVertices[3*(i*nbColumns+j)+2]=0.0f;
 		}
 	}
+	
 }
 
 
@@ -159,4 +161,43 @@ void OceanSurface::render(){
 	}
 	glEnd();
 	glPopMatrix();
+}
+
+void OceanSurface::draw(const mat4 &vp){
+	if (first){
+		glGenBuffers(1, &ib);
+	    glBindBuffer(GL_ARRAY_BUFFER, ib);
+	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanIndices.size(), oceanIndices.data(), GL_STATIC_DRAW);
+
+	    glGenBuffers(1, &vb);
+	    glBindBuffer(GL_ARRAY_BUFFER, vb);
+	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanVertices.size(), oceanVertices.data(), GL_STATIC_DRAW);
+
+	    glGenBuffers(1, &nb);
+	    glBindBuffer(GL_ARRAY_BUFFER, nb);
+	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanNormals.size(), oceanNormals.data(), GL_STATIC_DRAW);
+	    first = false;
+	}
+
+	//glUseProgram(program_id);
+	
+    //glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &vp[0][0]);
+    //Vertices
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vb);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+    //normals
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, nb);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+    //glDrawArrays(GL_TRIANGLES, 0, boat_vertices.size()); 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
+    glDrawElements(
+        GL_TRIANGLES,             
+        oceanIndices.size(),    
+        GL_UNSIGNED_INT,          
+        (void*)0                  
+    );
 }

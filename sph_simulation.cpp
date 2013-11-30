@@ -87,7 +87,7 @@ void SPHSimulation::update(float timeStep){
   integrateParticles(timeStep);
   oceanSurface.update(spatialHashing, kernelRadius);
   spatialHashing.clear();
-  // cout << glfwGetTime() << " " << last << endl;
+  cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
   last++;
 }
 
@@ -280,4 +280,8 @@ void SPHSimulation::render(){
   //   glVertex3f(-sceneWidth/2,-sceneLength/2,0);
   // glEnd();
   glPopMatrix();
+}
+
+void SPHSimulation::draw(const mat4& vp){
+  oceanSurface.draw(vp);
 }

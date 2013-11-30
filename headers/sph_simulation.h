@@ -5,9 +5,11 @@
 #include "simulation_parameters.h"
 #include "spatial_hashing.h"
 #include "ocean_surface.h"
+#include <glm/glm.hpp>
 #include <vector>
 
 using std::vector;
+using glm::mat4;
 
 class SPHSimulation
 {
@@ -16,6 +18,7 @@ public:
 	~SPHSimulation();
 	void update(float);
 	void render();
+	void draw(const mat4&);
 private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
