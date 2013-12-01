@@ -3,11 +3,60 @@
 #include <glm/gtx/quaternion.hpp>
 #include <iostream>
 
-mat4 KeyboardController::m = mat4();
 clock_t KeyboardController::start = clock();
 
 KeyboardController::KeyboardController(GLFWwindow * window) : Controller(window){}
 KeyboardController::KeyboardController():Controller(){}
+
+bool KeyboardController::apply_input(mat4 & output, float dt){
+  bool success = _apply_input(output, dt);
+  return success;  
+}
+
+bool KeyboardController::apply_input(Transformable& out, float dt){
+  //Keys
+  bool success = false;
+  float speed = dt * 5.0f;
+  if(glfwGetKey(scope, GLFW_KEY_W)){
+    out.add_position(0.0f,0.0f,speed);
+    success= true;  
+  }
+  if(glfwGetKey(scope, GLFW_KEY_A)){
+    out.add_position(speed,0.0f,0.0f);
+    success= true;  
+  }
+  if(glfwGetKey(scope, GLFW_KEY_S)){
+    out.add_position(0.0f,0.0f,-speed);
+    success= true;  
+  }
+  if(glfwGetKey(scope, GLFW_KEY_D)){
+    out.add_position(-speed,0.0f,0.0f);
+    success= true;  
+  }
+
+  //Mouse
+  if(glfwGetMouseButton(scope, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+    int w, h;
+    double xpos, ypos;
+    glfwGetWindowSize(scope, &w, &h);
+    glfwGetCursorPos(scope, &xpos, &ypos);
+
+    double xcen = w - (double) w/2;
+    double ycen = h - (double) h/2;
+
+    //x & y distance [-1, 1] relative to the center
+    double x = (xpos - xcen)/xcen;
+    double y = (ypos - ycen)/ycen;
+
+    double xd = (double) dt * x * 60.0f;
+    double yd = (double) dt * y * 60.0f;
+    
+    out.add_rotation(yd,xd,0);
+    success = true;
+  }
+  return success;  
+
+}
 
 using namespace std;
 bool KeyboardController::_apply_input(mat4& out, float dt){
@@ -32,7 +81,6 @@ bool KeyboardController::_apply_input(mat4& out, float dt){
   }
 
   //Mouse
-  //TODO
   if(glfwGetMouseButton(scope, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
     int w, h;
     double xpos, ypos;

@@ -1,5 +1,6 @@
 #pragma once
 #include "libs.h"
+#include "camera.h"
 #include <string>
 
 using namespace std;
@@ -21,7 +22,7 @@ class Engine{
 
     const int w_window, h_window;
     const string n_window;
-    glm::mat4 cam;
+    Camera cam;
     GLFWwindow* window;
 
 };

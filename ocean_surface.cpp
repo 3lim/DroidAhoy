@@ -142,9 +142,10 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 		}
 	}
 
-	//boat->add_position(0.001,0.001,0);
-	//const vec3& boat_position = boat->get_position();
-	//boat->set_position(boat_position.x, boat_position.y, interpolateHeightAtPosition(boat_position));
+	boat->add_position(0.001,0.001,0);
+	const vec3& boat_position = boat->get_position();
+	boat->set_position(boat_position.x, boat_position.y, interpolateHeightAtPosition(boat_position));
+	//boat->set_position(oceanVertices[3*50], oceanVertices[3*50+1], oceanVertices[3*50+2]);
 
 	for (int i = 0; i < nbRows*nbColumns; i++){
 		float norm = sqrt(oceanNormals[3*i+0]*oceanNormals[3*i+0]+oceanNormals[3*i+1]*oceanNormals[3*i+1]+oceanNormals[3*i+2]*oceanNormals[3*i+2]);

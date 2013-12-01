@@ -12,7 +12,7 @@ Model::Model(){
   has_indices = false;
 }
 
-Model::Model(vector<float> _v, vector<float> _n, vector<float> _uv, vector<unsigned> _indices, TextureParams _tex){
+Model::Model(const vector<float>& _v, const vector<float>& _n, const vector<float>& _uv, const vector<unsigned>& _indices, const TextureParams& _tex){
   v = _v;
   uv = _uv;
   indices = _indices;
@@ -69,7 +69,7 @@ bool Model::init(){
 /*
    Mutators and accessors for model properties (vertices, normals, uvs, indices & texture)
  */
-void Model::set_vertices(vector<float> _v){
+void Model::set_vertices(const vector<float>& _v){
   v = _v;
   has_v = true;
 }
@@ -81,7 +81,7 @@ const vector<float>& Model::get_vertices(){
   return v;
 }
 
-void Model::set_normals(vector<float> _n){
+void Model::set_normals(const vector<float>& _n){
   n = _n;
   has_n = true;
 }
@@ -90,7 +90,7 @@ const vector<float>& Model::get_normals(){
   return n;
 }
 
-void Model::set_indices(vector<unsigned> _indices){
+void Model::set_indices(const vector<unsigned>& _indices){
   indices = _indices;
   has_indices = true;
 }
@@ -99,7 +99,7 @@ const vector<unsigned>& Model::get_indices(){
   return indices;
 }
 
-void Model::set_uvs(vector<float> _uv){
+void Model::set_uvs(const vector<float>& _uv){
   uv = _uv;
   has_uv = true;
 }
@@ -113,20 +113,20 @@ void Model::set_texture(unsigned _tex_id){
   has_tex = true;
 }
 
-void Model::set_texture_params(TextureParams _tex_params){
+void Model::set_texture_params(const TextureParams& _tex_params){
   tex_params = _tex_params;
 }
 
 /*
 
-   Draws the model onto the framebuffer. Assumes the following layout for the shader:
-
-    1: vertex
-    2: normal
-    3: uv 
+    Draws the model onto the framebuffer. Assumes the following layout for the shader:
+    
+      1: vertex
+      2: normal
+      3: uv 
 
 */
-void Model::draw(mat4 vp){
+void Model::draw(const mat4 &vp){
   if(ready_for_draw){
     glUseProgram(program_id);
 

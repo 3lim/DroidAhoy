@@ -11,7 +11,8 @@ class KeyboardController : public Controller{
     bool _apply_input(mat4&, float);
     static clock_t start;
   public:
-    static mat4 m;
+    bool apply_input(Transformable&, float);
+    bool apply_input(mat4&, float);
     KeyboardController(GLFWwindow*);
     KeyboardController();
 

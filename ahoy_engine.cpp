@@ -9,6 +9,8 @@
 
 AhoyEngine::~AhoyEngine(){}
 
+mat4 cam_old(1.0f);
+
 int AhoyEngine::init(){
 
   if (GLEW_OK != glewInit()) {
@@ -32,18 +34,19 @@ int AhoyEngine::init(){
   boat->set_texture(boat_tex_id);
   boat->set_program(ShaderManager::get_program("boat"));
   boat->init();
-  //boat->set_scale(0.05);
+  boat->set_scale(0.05);
   const vec3& boat_center = OBJLoader::get_approx_center(*boat);
   //boat->add_position(0,0,10);
 
   sim->setBoat(boat);
   
-  //Set camera initial position
-  cam = glm::lookAt(
-      glm::vec3(15,5,5), // 
-      boat_center, // and looks at the origin
-      glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-  );
+
+  glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
+  glm::mat4 cam_init = glm::lookAt(glm::vec3(15,5,5),boat_center, glm::vec3(0,1,0));
+
+  //Initialize camera
+  cam = Camera(p, cam_init);
+  cam_old = cam_init;
 
   //Attach window to keyboard controller */
   kb = KeyboardController(window);
@@ -56,7 +59,7 @@ int AhoyEngine::update(){
 
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   //boat->add_rotation(0.0f, 10.0f*dt, 0.0f);
-  kb.apply_input(cam,dt);
+  kb.apply_input(cam_old,dt);
   start = clock();
   return 1;
 }
@@ -73,9 +76,8 @@ int AhoyEngine::render(){
   glEnable(GL_ALPHA_TEST);          
   glEnable(GL_TEXTURE_2D);           
 
-  glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
-
-  glm::mat4 vp = Projection * cam;
+  glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
+  glm::mat4 vp = p*cam_old;
 
   boat->draw(vp);
   sim->draw(vp);

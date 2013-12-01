@@ -1,5 +1,4 @@
 #include "headers/model.h"
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 using namespace std;
@@ -9,26 +8,53 @@ Transformable::Transformable(){
   pt = mat4(1.0f);
   up = vec3(0.0f, 1.0f, 0.0f);
   right = vec3(1.0f, 0.0f, 0.0f);
+  forward = vec3(0.0f, 0.0f, 1.0f);
+  _scale = 1.0f;
 }
 
-mat4 Transformable::get_transformation(){
+float Transformable::get_scale(){
+  return _scale;
+}
+
+void Transformable::set_scale(float new_scale){
+  t_invalid = true;
+  _scale = new_scale;
+}
+
+const mat4& Transformable::get_transformation(){
   if(t_invalid){
     //Form rotation
     mat4 rotX(1.0f), rotY(1.0f), rotZ(1.0f), rota;
     rotX = rotate(rotX, rot.x, right);
     rotY = rotate(rotY, rot.y, up);
-    rotZ = rotate(rotZ, rot.z, cross(right,up));
+    rotZ = rotate(rotZ, rot.z, forward);
     rota = rotZ * rotY * rotX;
+    
+    //Update up and right
+    //up = vec3(rota * vec4(0,1.0f,0,0));
+    //right = vec3(rota * vec4(1.0f,0,0,0));
+    //forward = cross(right, up); 
+    //
+    //cout << endl << endl;
+    //cout << "up:\t"     << up.x << ", "       << up.y << ", " << up.z << endl;
+    //cout << "right:\t"  << right.x << ", "    << right.y      << ", " << right.z << endl;
+    //cout << "forward:\t"<< forward.x  << ", " << forward.y << "," << forward.z << endl;
 
     //Form translation
     mat4 transX(1.0f), transY(1.0f), transZ(1.0f), transa;
     transX = translate(transX, pos.x*right);
     transY = translate(transY, pos.y*up);
-    transZ = translate(transZ, pos.z*cross(right,up));
-    transa = transZ * transY * transZ;
+    transZ = translate(transZ, pos.z*forward);
+    transa = transZ * transY * transX;
+
+    mat4 scaler(1.0f);
+    scaler = glm::scale(scaler, vec3(_scale));
 
     //Total transformation
-    return pt = transa * rota;
+    pt = transa * rota * scaler;
+
+    t_invalid = false;
+    return pt;
   }
   else{
     return pt;
@@ -36,6 +62,7 @@ mat4 Transformable::get_transformation(){
 }
 
 void Transformable::set_rotation(float ax, float ay, float az){
+  t_invalid = true;
   rot.x = ax;
   rot.y = ay;
   rot.z = az;
