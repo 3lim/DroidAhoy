@@ -5,103 +5,83 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <ctime>
 
 AhoyEngine::~AhoyEngine(){}
 
 GLuint vb;
 GLuint mvp_id;
-GLuint elementbuffer;
+GLuint boat_tex_id;
+GLuint elementbuffer, uvbuffer, normalbuffer;
 vector<float> boat_vertices = vector<float>();
+vector<float> boat_uv = vector<float>();
+vector<float> boat_normals = vector<float>();
 vector<unsigned> boat_indices = vector<unsigned>();
 vec3 boat_center;
-glm::vec3 camPos(4000,2000,2000);
+Model boat;
 
 int AhoyEngine::init(){
   using namespace std;
   //glfwSetKeyCallback(window, key_callback );
-
+  
   glewInit();
+  
+  //glEnable(GL_CULL_FACE);
+
   ShaderManager::load_program("shaders/basic");
-  
+ 
   //Load boat
-  string boat_path = "models/boat.obj";
-  ModelGroup boat = OBJLoader::load_model(boat_path);
+  boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
+  boat = OBJLoader::load_model(string("models/pirate_boat.obj"));
+  boat.set_texture(boat_tex_id);
+  boat.set_program(ShaderManager::get_program("basic"));
+  boat.init();
   boat_center = OBJLoader::get_approx_center(boat);
-  cout << "boat center point: " << boat_center.x << " " <<boat_center.y << " " <<boat_center.z << endl;
-
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_MULTISAMPLE);
-
-	glGenBuffers(1, &vb);
-	glBindBuffer(GL_ARRAY_BUFFER, vb);
-
-  //Converting model vertices to one array buffer
-  for(unsigned i=0; i < boat.mdls.size(); i++){
-    for(unsigned j=0; j<boat.mdls[i].v.size(); j++)
-      boat_vertices.push_back(boat.mdls[i].v[j]);
-    for(unsigned j=0; j<boat.mdls[i].indices.size(); j++) 
-      boat_indices.push_back(boat.mdls[i].indices[j]);
-  }
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * boat_vertices.size(), &boat_vertices[0], GL_STATIC_DRAW); 
-
-  glGenBuffers(1, &elementbuffer);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * boat_indices.size(), &boat_indices[0], GL_STATIC_DRAW);
   
-  mvp_id = glGetUniformLocation(ShaderManager::get_program("basic"), "MVP");
+  //Set camera initial position
+  cam = glm::lookAt(
+      glm::vec3(15,5,5), // 
+      boat_center, // and looks at the origin
+      glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+  );
 
+  //Attach window to keyboard controller 
+  kb = KeyboardController(window);
   return 1;
 }
 
-glm::mat4 Model = glm::mat4(1.0f);  // Changes for each model !
-
+clock_t start = clock();
 int AhoyEngine::update(){
-  Model = glm::rotate(Model, 0.2f, glm::vec3(0,1,0));
-//  camPos.x += 0.5f;
-//  camPos.x = (float) (((int )camPos.x) % 1000);
-//  camPos.z += 0.5f;
-//  camPos.z = (float) (((int )camPos.z) % 1000);
-//  camPos.y += 0.5f;
-//  camPos.y = (float) (((int )camPos.y) % 1000);
+  float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
+  boat.add_rotation(10.0f*dt, 10.0f*dt, 0.0f);
+  kb.apply_input(cam,dt);
+  start = clock();
   return 1;
 }
 
 
 int AhoyEngine::render(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-  glUseProgram(ShaderManager::get_program("basic"));
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glEnable(GL_DEPTH_TEST);
+  glClearDepth(1.0);          
+  glDepthFunc(GL_LEQUAL);           
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+  glEnable(GL_BLEND);           
+  glAlphaFunc(GL_GREATER,0.1);
+  glEnable(GL_ALPHA_TEST);          
+  glEnable(GL_TEXTURE_2D);           
 
   glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
-  glm::mat4 View = glm::lookAt(
-      camPos, // 
-      boat_center, // and looks at the origin
-      glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-  );
 
-  glm::mat4 mvp        = Projection * View * Model; // R
+  glm::mat4 vp = Projection * cam;
 
-  glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
-   
-  // 1rst attribute buffer : vertices
-  glEnableVertexAttribArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, vb);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
- 
-  //glDrawArrays(GL_TRIANGLES, 0, boat_vertices.size()); 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-  glDrawElements(
-      GL_TRIANGLES,             
-      boat_indices.size(),    
-      GL_UNSIGNED_INT,          
-      (void*)0                  
-  ); 
+  boat.draw(vp);
 
   return 1;
 }
 
 int main(){
-  AhoyEngine ahoy = AhoyEngine(640, 480, "Ahoy World!");
+  AhoyEngine ahoy = AhoyEngine(640, 480, "Demo World!");
   ahoy.run();
 }
 
