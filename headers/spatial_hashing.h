@@ -12,6 +12,7 @@ using std::forward_list;
 
 class SpatialHashing {
 public:
+	SpatialHashing() {}
 	SpatialHashing(float, float, float);
 	void clear();
 	int getNumberCells();

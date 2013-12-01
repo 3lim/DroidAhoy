@@ -5,6 +5,7 @@ using glm::dot;
 
 OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float sceneWidth, float sceneLength, float heightOffset, float heightScale) :
 	first(true),
+	ib(0),
 	massDensity0(massDensity0),
 	nbRows(nbRows),
 	nbColumns(nbColumns),
@@ -13,7 +14,6 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 	heightOffset(heightOffset),
 	heightScale(heightScale)
 {
-
 	oceanVertices.resize(3*nbRows*nbColumns);
 	oceanNormals.resize(3*nbRows*nbColumns);
 	oceanIndices.clear();
@@ -35,7 +35,21 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 			oceanVertices[3*(i*nbColumns+j)+2]=0.0f;
 		}
 	}
-	
+	glGenBuffers(1, &ib);
+    glBindBuffer(GL_ARRAY_BUFFER, ib);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanIndices.size(), oceanIndices.data(), GL_STATIC_DRAW);
+
+    glGenBuffers(1, &vb);
+    glBindBuffer(GL_ARRAY_BUFFER, vb);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanVertices.size(), oceanVertices.data(), GL_DYNAMIC_DRAW);
+
+    glGenBuffers(1, &nb);
+    glBindBuffer(GL_ARRAY_BUFFER, nb);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanNormals.size(), oceanNormals.data(), GL_DYNAMIC_DRAW);
+
+    program_id = ShaderManager::get_program("basic");
+    mvp_id = glGetUniformLocation(program_id, "MVP");
+
 }
 
 
@@ -77,8 +91,10 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 			}
 		}
 		oceanVertices[3*i+2] = heightScale*(t1/(t2*massDensity0)+heightOffset);
+
 		// std::cout << " " << oceanVertices[3*i+2] << std::endl;
 	}
+
 	float xd = sceneWidth / nbRows;
 	float yd = sceneLength / nbColumns;
 	float z1,z2,z3,z4,xres,yres,zres=xd*yd;
@@ -125,11 +141,26 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 		oceanNormals[3*i+1] /= norm;
 		oceanNormals[3*i+2] /= norm;
 	}
+	{	
+		glBindBuffer(GL_ARRAY_BUFFER, vb);
+		float * bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		for (int i = 0; i < nbRows*nbColumns*3; i++){
+			bufferCopy[i] = oceanVertices[i];
+		}
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+	}
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, nb);
+		float * bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		for (int i = 0; i < nbRows*nbColumns*3; i++){
+			bufferCopy[i] = oceanNormals[i];
+		}
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+	}
 }
 
 void OceanSurface::render(){
-	int numberFaces = 2*(nbRows-1)*(nbColumns-1);
-	// glShadeModel(GL_SMOOTH);
+	/*	int numberFaces = 2*(nbRows-1)*(nbColumns-1);
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
         glEnable(GL_AUTO_NORMAL);
@@ -144,15 +175,6 @@ void OceanSurface::render(){
 			oceanNormals[3*oceanIndices[i]+1],
 			oceanNormals[3*oceanIndices[i]+2]
 		);
-	/*	glNormal3f(
-			0.f,
-			i % 4 ? 1.f : 0.f,
-			i % 4 ? 0.f : 1.f
-		);*/
-		// std::cout << std::endl;
-		// std::cout << oceanNormals[3*oceanIndices[i]] << std::endl;
-		// std::cout << oceanNormals[3*oceanIndices[i]+1] << std::endl;
-		// std::cout << oceanNormals[3*oceanIndices[i]+2] << std::endl;
 		glVertex3f(
 			oceanVertices[3*oceanIndices[i]],
 			oceanVertices[3*oceanIndices[i]+1],
@@ -160,44 +182,33 @@ void OceanSurface::render(){
 		);
 	}
 	glEnd();
-	glPopMatrix();
+	glPopMatrix();*/
 }
 
 void OceanSurface::draw(const mat4 &vp){
-	if (first){
-		glGenBuffers(1, &ib);
-	    glBindBuffer(GL_ARRAY_BUFFER, ib);
-	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanIndices.size(), oceanIndices.data(), GL_STATIC_DRAW);
 
-	    glGenBuffers(1, &vb);
-	    glBindBuffer(GL_ARRAY_BUFFER, vb);
-	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanVertices.size(), oceanVertices.data(), GL_STATIC_DRAW);
-
-	    glGenBuffers(1, &nb);
-	    glBindBuffer(GL_ARRAY_BUFFER, nb);
-	    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanNormals.size(), oceanNormals.data(), GL_STATIC_DRAW);
-	    first = false;
-	}
-
-	//glUseProgram(program_id);
+	glUseProgram(program_id);
 	
-    //glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &vp[0][0]);
+    glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &vp[0][0]);
+    
     //Vertices
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vb);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     //normals
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, nb);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    //glDrawArrays(GL_TRIANGLES, 0, boat_vertices.size()); 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
     glDrawElements(
         GL_TRIANGLES,             
-        oceanIndices.size(),    
+        2*(nbRows-1)*(nbColumns-1),    
         GL_UNSIGNED_INT,          
         (void*)0                  
     );
+
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(0);
 }

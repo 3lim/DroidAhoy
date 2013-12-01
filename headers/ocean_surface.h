@@ -2,8 +2,8 @@
 #define _OCEANSURFACE_
 
 #include "libs.h"
+#include "shader_manager.h"
 #include "spatial_hashing.h"
-#include <GLFW/glfw3.h>
 #include "particle.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -13,6 +13,7 @@ using std::vector;
 
 class OceanSurface{
 public:
+	OceanSurface() {}
 	OceanSurface(float, int, int, float, float, float, float);
 	const vector<float>& getOceanVertices() { return oceanVertices; }
 	const vector<unsigned>& getOceanIndices() { return oceanIndices; }
@@ -27,9 +28,9 @@ private:
 	//Uniform ids, program id
     GLuint mvp_id, program_id;
 
-	vector<float> oceanVertices;
-	vector<float> oceanNormals;
-	vector<unsigned> oceanIndices;
+    vector<unsigned> oceanIndices;
+    vector<float> oceanVertices;
+    vector<float> oceanNormals;
 
 	float massDensity0;
 	int nbRows, nbColumns;

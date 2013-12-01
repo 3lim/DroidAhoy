@@ -14,7 +14,8 @@ using glm::mat4;
 class SPHSimulation
 {
 public:
-	SPHSimulation(const string& = "");
+	SPHSimulation() {}
+	SPHSimulation(const string&);
 	~SPHSimulation();
 	void update(float);
 	void render();

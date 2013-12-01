@@ -1,7 +1,7 @@
 #ifndef _PARTICLE_
 #define _PARTICLE_
 
-#include <GL/glu.h>
+#include "libs.h"
 #include <glm/glm.hpp>
 
 using glm::vec2;

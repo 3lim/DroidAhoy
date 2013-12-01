@@ -166,6 +166,9 @@ void Model::draw(mat4 vp){
         GL_UNSIGNED_INT,          
         (void*)0                  
     );
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(3);
   } else{
     cerr << "Model not ready to be drawn." << endl;
     cerr << "\tVertices? " << has_v <<endl;
@@ -195,7 +198,7 @@ mat4 Model::get_transformation(){
     transa = transZ * transY * transZ;
 
     //Total transformation
-    return pt = rota * transa;
+    return pt = transa * rota;
   }
   else{
     return pt;
