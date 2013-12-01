@@ -9,6 +9,16 @@ Transformable::Transformable(){
   up = vec3(0.0f, 1.0f, 0.0f);
   right = vec3(1.0f, 0.0f, 0.0f);
   forward = vec3(0.0f, 0.0f, 1.0f);
+  _scale = 1.0f;
+}
+
+float Transformable::get_scale(){
+  return _scale;
+}
+
+void Transformable::set_scale(float new_scale){
+  t_invalid = true;
+  _scale = new_scale;
 }
 
 const mat4& Transformable::get_transformation(){
@@ -37,10 +47,11 @@ const mat4& Transformable::get_transformation(){
     transZ = translate(transZ, pos.z*forward);
     transa = transZ * transY * transX;
 
+    mat4 scaler(1.0f);
+    scaler = glm::scale(scaler, vec3(_scale));
+
     //Total transformation
-    pt = transa * rota;
-
-
+    pt = scaler * transa * rota;
 
     t_invalid = false;
     return pt;

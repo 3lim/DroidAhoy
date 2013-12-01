@@ -26,6 +26,7 @@ class Transformable{
     vec3 up;
     vec3 right;
     vec3 forward;
+    float _scale;
 
   public:
     Transformable();
@@ -49,6 +50,8 @@ class Transformable{
     void set_right(float,float,float);
     void set_right(vec3);
     const vec3& get_right();
-
+  
+    void set_scale(float);
+    float get_scale();
 
 };
