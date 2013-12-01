@@ -68,4 +68,8 @@ Model OBJLoader::load_model(const string & filepath) {
   //}
 
   return obj_data;
-}	
+} 
+
+Model* OBJLoader::load_model_pointer(const string & filepath){
+  return new Model(load_model(filepath));
+}

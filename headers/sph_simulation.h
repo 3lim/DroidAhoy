@@ -20,6 +20,7 @@ public:
 	void update(float);
 	void render();
 	void draw(const mat4&);
+	void setBoat(Model* boat) { oceanSurface.setBoat(boat); }
 private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
