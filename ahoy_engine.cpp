@@ -30,17 +30,19 @@ int AhoyEngine::init(){
   sim = new SPHSimulation("parameters.txt");
   //Load boat
   GLuint boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
-  boat = OBJLoader::load_model_pointer(string("models/pirate_boat.obj"));
-  boat->set_texture(boat_tex_id);
-  boat->set_program(ShaderManager::get_program("boat"));
-  boat->init();
-  boat->set_scale(0.05);
-  const vec3& boat_center = OBJLoader::get_approx_center(*boat);
-  //boat->add_position(0,0,10);
+  Model* boat_model = OBJLoader::load_model_pointer(string("models/pirate_boat.obj"));
+  boat_model->set_texture(boat_tex_id);
+  boat_model->set_program(ShaderManager::get_program("boat"));
+  boat_model->init();
+  boat_model->set_scale(0.02);
+  boat_model->set_rotation(90,0,0);
+  sim->addBoat(*boat_model);
+
+  const vec3& boat_center = OBJLoader::get_approx_center(*boat_model);
   
 
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 cam_init = glm::lookAt(glm::vec3(15,5,5),boat_center, glm::vec3(0,1,0));
+  glm::mat4 cam_init = glm::lookAt(glm::vec3(1,1,1), glm::vec3(0,0,1), glm::vec3(0,0,1));
 
   //Initialize camera
   cam = Camera(p, cam_init);
@@ -53,7 +55,7 @@ int AhoyEngine::init(){
 
 clock_t start = clock();
 int AhoyEngine::update(){
-  sim->update(timeStep/2);
+  sim->update(timeStep/5);
 
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   //boat->add_rotation(0.0f, 10.0f*dt, 0.0f);
@@ -77,7 +79,7 @@ int AhoyEngine::render(){
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
   glm::mat4 vp = p*cam_old;
 
-  boat->draw(vp);
+  //boat->draw(vp);
   sim->draw(vp);
   /*glPushMatrix();
   //glRotatef(-45,1,0,0);

@@ -54,11 +54,8 @@ const mat4& Transformable::get_transformation(){
     pt = transa * rota * scaler;
 
     t_invalid = false;
-    return pt;
   }
-  else{
-    return pt;
-  }
+  return pt;
 }
 
 void Transformable::set_rotation(float ax, float ay, float az){

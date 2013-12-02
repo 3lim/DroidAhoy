@@ -5,6 +5,7 @@
 #include "simulation_parameters.h"
 #include "spatial_hashing.h"
 #include "ocean_surface.h"
+#include "boat.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -20,6 +21,7 @@ public:
 	void update(float);
 	void render();
 	void draw(const mat4&);
+	void addBoat(const Model& m) { boats.push_back(Boat(m)); }
 private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
@@ -28,6 +30,8 @@ private:
 	OceanSurface oceanSurface;
 
 	SpatialHashing spatialHashing;
+
+	vector<Boat> boats;
 
 	float sceneWidth, sceneLength;
 	vec2 walls[4];

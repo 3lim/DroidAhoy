@@ -2,12 +2,12 @@
 # initialSetup : square or line
 initialSetup			square
 # numberParticles : rounded to the nearest perfect square
-numberParticles			800
+numberParticles			1000
 sceneWidth				1.5
 sceneLength				1.5
 
 # simulation parameters, change in real time
-kernelRadius			0.11
+kernelRadius			0.15
 massDensity0			3
 gravity 				-10.0
 rebound					0.2

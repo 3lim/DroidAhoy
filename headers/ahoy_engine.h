@@ -7,7 +7,6 @@ class AhoyEngine : public Engine{
   private:
     AhoyEngine();
     SPHSimulation *sim;
-    Model *boat;
     KeyboardController kb;
     float timeStep;
   public:

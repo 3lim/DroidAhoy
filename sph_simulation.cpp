@@ -68,20 +68,11 @@ int last = 0;
 
 void SPHSimulation::update(float timeStep){
   setupParticles();
-  if (last % 80 == 0){
-  for (int i = 0; i < numberParticles; i++){
-    if (particles[i].position.y > sceneWidth/2*0.8){
-      particles[i].acceleration.y = -300;
-    }
-  }
-    
-  }
-  // for (int i = 0; i < numberParticles; i++){
-  //   if (particles[i].position.y < -sceneWidth/2*0.8){
-  //     particles[i].position.y = sceneWidth/2;
-  //     particles[i].acceleration.y = -5000;
-  //   }
-  // }
+  if (last % 80 == 0)
+    for (int i = 0; i < numberParticles; i++)
+      if (particles[i].position.y > sceneWidth/2*0.8)
+        particles[i].acceleration.y = -500 ;
+
   computeMassDensityAndPressure();
   computeForces();
   integrateParticles(timeStep);
@@ -111,7 +102,7 @@ void SPHSimulation::setupParticles(){
   }
 }
 
-//#define HASHMAP
+#define HASHMAP
 
 class DensityComputer{
 public:
@@ -251,6 +242,18 @@ void SPHSimulation::integrateParticles(float timeStep){
     particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
     particles[i].updateWalls(walls, wallsNormal, rebound);
   }
+  /*
+  for (Boat &b : boats){
+    vec3 normal3 = oceanSurface.interpolateNormalAtPosition(b.position);
+    vec2 normal2(normal3.x, normal3.y);
+    b.velocity = 10.0f*normal2;
+    //b.velocity *= 0.95f;
+    //b.setDirection();
+    b.updatePosition(timeStep);
+    b.updateWalls(walls, wallsNormal, 1.0f);
+    b.height = oceanSurface.interpolateHeightAtPosition(b.position);
+    b.update();
+  }*/
 }
 
 
@@ -275,5 +278,8 @@ void SPHSimulation::render(){
 }
 
 void SPHSimulation::draw(const mat4& vp){
-  oceanSurface.draw(vp);
+  /*oceanSurface.draw(vp);
+  for (Boat &b : boats){
+    b.draw(vp);
+  }*/
 }

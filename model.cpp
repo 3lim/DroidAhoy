@@ -13,6 +13,7 @@ Model::Model(){
 }
 
 Model::Model(const Model& that) : 
+  Transformable(that),
   vb(that.vb),
   ib(that.ib),
   uvb(that.uvb),
