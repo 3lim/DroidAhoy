@@ -1,0 +1,1 @@
+cube.d: ../cube.cpp

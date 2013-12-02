@@ -1,3 +1,8 @@
 INDEX VERSION 1.126+/home/gustaf/android-ahoy/.metadata/.plugins/org.eclipse.jdt.core
+<<<<<<< HEAD
 3978612357.index
 3095016758.index
+=======
+1904682271.index
+3630211405.index
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738

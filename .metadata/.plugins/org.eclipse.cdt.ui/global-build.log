@@ -1,51 +1,91 @@
 
-**** Build of configuration Debug for project PortListen ****
+**** Build of configuration Debug for project Cube ****
 
 make all 
-Building file: ../listen.cpp
+Building file: ../cube.cpp
 Invoking: Cross G++ Compiler
-g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
-../listen.cpp: In function ‘size_t Recv(char*, size_t)’:
-../listen.cpp:28:23: error: ‘remoteSocket’ was not declared in this scope
-../listen.cpp: In function ‘int main(int, char**)’:
-../listen.cpp:78:3: error: ‘cout’ was not declared in this scope
-../listen.cpp:78:3: note: suggested alternative:
-/usr/include/c++/4.6/iostream:62:18: note:   ‘std::cout’
-../listen.cpp:78:21: error: ‘endl’ was not declared in this scope
-../listen.cpp:78:21: note: suggested alternative:
-/usr/include/c++/4.6/ostream:543:5: note:   ‘std::endl’
-../listen.cpp:64:7: warning: unused variable ‘message’ [-Wunused-variable]
-make: *** [listen.o] Error 1
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"cube.d" -MT"cube.d" -o "cube.o" "../cube.cpp"
+Finished building: ../cube.cpp
+ 
+Building target: Cube
+Invoking: Cross G++ Linker
+g++  -o "Cube"  ./cube.o   
+../cube.cpp:12: error: undefined reference to 'glClearColor'
+../cube.cpp:13: error: undefined reference to 'glShadeModel'
+../cube.cpp:17: error: undefined reference to 'glClear'
+../cube.cpp:19: error: undefined reference to 'glColor3f'
+../cube.cpp:20: error: undefined reference to 'glLoadIdentity'
+../cube.cpp:23: error: undefined reference to 'gluLookAt'
+../cube.cpp:24: error: undefined reference to 'glScalef'
+../cube.cpp:25: error: undefined reference to 'glRotatef'
+../cube.cpp:26: error: undefined reference to 'glRotatef'
+../cube.cpp:27: error: undefined reference to 'glRotatef'
+../cube.cpp:28: error: undefined reference to 'glutWireCube'
+../cube.cpp:29: error: undefined reference to 'glFlush'
+../cube.cpp:33: error: undefined reference to 'glViewport'
+../cube.cpp:35: error: undefined reference to 'glMatrixMode'
+../cube.cpp:36: error: undefined reference to 'glLoadIdentity'
+../cube.cpp:41: error: undefined reference to 'glFrustum'
+../cube.cpp:42: error: undefined reference to 'glMatrixMode'
+../cube.cpp:48: error: undefined reference to 'glutDestroyWindow'
+../cube.cpp:74: error: undefined reference to 'glutPostRedisplay'
+../cube.cpp:79: error: undefined reference to 'glutInit'
+../cube.cpp:80: error: undefined reference to 'glutInitDisplayMode'
+../cube.cpp:81: error: undefined reference to 'glutInitWindowSize'
+../cube.cpp:82: error: undefined reference to 'glutInitWindowPosition'
+../cube.cpp:83: error: undefined reference to 'glutCreateWindow'
+../cube.cpp:85: error: undefined reference to 'glutDisplayFunc'
+../cube.cpp:86: error: undefined reference to 'glutKeyboardFunc'
+../cube.cpp:87: error: undefined reference to 'glutReshapeFunc'
+../cube.cpp:88: error: undefined reference to 'glutMainLoop'
+collect2: ld returned 1 exit status
+make: *** [Cube] Error 1
 
 **** Build Finished ****
 
 **** Build of configuration Debug for project PortListen ****
 
 make all 
-Building file: ../listen.cpp
+Building file: ../cube.cpp
 Invoking: Cross G++ Compiler
-g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
-Finished building: ../listen.cpp
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"cube.d" -MT"cube.d" -o "cube.o" "../cube.cpp"
+Finished building: ../cube.cpp
  
 Building target: PortListen
 Invoking: Cross G++ Linker
-g++  -o "PortListen"  ./listen.o   
-Finished building target: PortListen
- 
-
-**** Build Finished ****
-
-**** Build of configuration Debug for project PortListen ****
-
-make all 
-make: Nothing to be done for `all'.
-
-**** Build Finished ****
-
-**** Build of configuration Debug for project PortListen ****
-
-make all 
-make: Nothing to be done for `all'.
+g++  -o "PortListen"  ./cube.o ./listen.o   
+/usr/bin/ld: error: ./listen.o: multiple definition of 'main'
+/usr/bin/ld: ./cube.o: previous definition here
+../cube.cpp:11: error: undefined reference to 'glClearColor'
+../cube.cpp:12: error: undefined reference to 'glShadeModel'
+../cube.cpp:16: error: undefined reference to 'glClear'
+../cube.cpp:18: error: undefined reference to 'glColor3f'
+../cube.cpp:19: error: undefined reference to 'glLoadIdentity'
+../cube.cpp:22: error: undefined reference to 'gluLookAt'
+../cube.cpp:23: error: undefined reference to 'glScalef'
+../cube.cpp:24: error: undefined reference to 'glRotatef'
+../cube.cpp:25: error: undefined reference to 'glRotatef'
+../cube.cpp:26: error: undefined reference to 'glRotatef'
+../cube.cpp:27: error: undefined reference to 'glutWireCube'
+../cube.cpp:28: error: undefined reference to 'glFlush'
+../cube.cpp:32: error: undefined reference to 'glViewport'
+../cube.cpp:33: error: undefined reference to 'glMatrixMode'
+../cube.cpp:34: error: undefined reference to 'glLoadIdentity'
+../cube.cpp:35: error: undefined reference to 'glFrustum'
+../cube.cpp:36: error: undefined reference to 'glMatrixMode'
+../cube.cpp:42: error: undefined reference to 'glutDestroyWindow'
+../cube.cpp:62: error: undefined reference to 'glutPostRedisplay'
+../cube.cpp:67: error: undefined reference to 'glutInit'
+../cube.cpp:68: error: undefined reference to 'glutInitDisplayMode'
+../cube.cpp:69: error: undefined reference to 'glutInitWindowSize'
+../cube.cpp:70: error: undefined reference to 'glutInitWindowPosition'
+../cube.cpp:71: error: undefined reference to 'glutCreateWindow'
+../cube.cpp:73: error: undefined reference to 'glutDisplayFunc'
+../cube.cpp:74: error: undefined reference to 'glutKeyboardFunc'
+../cube.cpp:75: error: undefined reference to 'glutReshapeFunc'
+../cube.cpp:76: error: undefined reference to 'glutMainLoop'
+collect2: ld returned 1 exit status
+make: *** [PortListen] Error 1
 
 **** Build Finished ****
 

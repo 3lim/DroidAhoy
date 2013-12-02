@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <workbench progressCount="23" version="2.0">
+=======
+<workbench progressCount="22" version="2.0">
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="65" y="24">
 <fastViewData fastViewLocation="1024"/>
@@ -14,19 +18,30 @@
 <coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="48" y="30"/>
 <coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="40" y="30"/>
 <coolItem id="org.eclipse.cdt.ui.CElementCreationActionSet" itemType="typeToolBarContribution" x="156" y="30"/>
+<<<<<<< HEAD
 <coolItem id="org.eclipse.cdt.ui.buildConfigActionSet" itemType="typeToolBarContribution" x="82" y="30"/>
 <coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+=======
+<coolItem id="org.eclipse.cdt.ui.buildConfigActionSet" itemType="typeToolBarContribution" x="189" y="30"/>
+<coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="120" y="30"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="68" y="30"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<<<<<<< HEAD
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.android.ide.eclipse.editors.CommonXmlEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+=======
+<coolItem id="com.android.ide.eclipse.editors.CommonXmlEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="UserSeparator" itemType="typeSeparator"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="124" y="30"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="30"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="120" y="30"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="40" y="30"/>
@@ -48,6 +63,7 @@
 </folder>
 </info>
 </editorArea>
+<<<<<<< HEAD
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="PortListener.cpp" partName="PortListener.cpp" path="/home/gustaf/android-ahoy/PortListen/PortListener.cpp" title="PortListener.cpp" tooltip="PortListen/PortListener.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PortListen/PortListener.cpp"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="262" selectionTopPixel="0"/>
@@ -72,6 +88,37 @@
 <views>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
+=======
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" partName="AhoyStart.java" path="/home/gustaf/android-ahoy/AhoyApp/src/com/example/droidahoy/AhoyStart.java" title="AhoyStart.java" tooltip="AhoyApp/src/com/example/droidahoy/AhoyStart.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3747" selectionTopPixel="2409"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="listen.cpp" partName="listen.cpp" path="/home/gustaf/android-ahoy/PortListen/listen.cpp" title="listen.cpp" tooltip="PortListen/listen.cpp" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PortListen/listen.cpp"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1251" selectionTopPixel="1030"/>
+</editor>
+<editor id="com.android.ide.eclipse.editors.CommonXmlEditor" name="main.xml" partName="main.xml" path="/home/gustaf/android-ahoy/AhoyApp/res/layout/main.xml" title="main.xml" tooltip="AhoyApp/res/layout/main.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/AhoyApp/res/layout/main.xml"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" partName="AhoyStart.java" path="/home/gustaf/android-ahoy/Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java" title="AhoyStart.java" tooltip="Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="3" selectionOffset="2356" selectionTopPixel="2981"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="listen.cpp" partName="listen.cpp" path="/home/gustaf/android-ahoy/Cube/listen.cpp" title="listen.cpp" tooltip="Cube/listen.cpp" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cube/listen.cpp"/>
+<editorState selectionHorizontalPixel="0" selectionLength="40" selectionOffset="2913" selectionTopPixel="2246"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.team.ui.GenericHistoryView" partName="History"/>
+<view id="org.eclipse.team.sync.views.SynchronizeView" partName="Synchronize"/>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
+<view id="org.eclipse.egit.ui.StagingView" partName="Git Staging"/>
+<view id="org.eclipse.egit.ui.RepositoriesView" partName="Git Repositories">
+<viewState CommonNavigator.LINKING_ENABLED="0"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 </view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Tasks">
@@ -154,7 +201,11 @@
 <viewState/>
 </view>
 </views>
+<<<<<<< HEAD
 <perspectives activePart="org.eclipse.cdt.ui.editor.CEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+=======
+<perspectives activePart="com.android.ide.eclipse.ddms.views.LogCatView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -330,47 +381,81 @@
 <view id="org.eclipse.ui.views.PropertySheet"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
+<<<<<<< HEAD
 <view id="org.eclipse.cdt.ui.includeBrowser"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.cdt.make.ui.views.MakeView"/>
 <view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+=======
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.cdt.make.ui.views.MakeView"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<layout>
+<mainWindow>
+<info folder="true" part="topLeft">
+<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
 <page content="org.eclipse.cdt.ui.CView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
+<<<<<<< HEAD
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@1e5e871" ratio="0.7666113" ratioLeft="923" ratioRight="281" relationship="2" relative="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+=======
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1e5e871" ratio="0.7666113" ratioLeft="923" ratioRight="281" relationship="2" relative="topLeft">
+<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="2">
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.24937862" ratioLeft="301" ratioRight="906" relationship="2" relative="topLeft"/>
+<<<<<<< HEAD
 <info folder="true" part="bottom" ratio="0.5788618" ratioLeft="356" ratioRight="259" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+=======
+<info folder="true" part="bottom" ratio="0.5788618" ratioLeft="356" ratioRight="259" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
 <page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
 <page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<<<<<<< HEAD
 <page content="org.eclipse.cdt.ui.includeBrowser" label="Include Browser"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+=======
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
 <part id="5"/>
+<<<<<<< HEAD
 <part id="6"/>
+=======
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 </presentation>
 </folder>
 </info>
-<info folder="true" part="topRight" ratio="0.7494481" ratioLeft="679" ratioRight="227" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="topRight" ratio="0.7494481" ratioLeft="679" ratioRight="227" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.cdt.make.ui.views.MakeView" label="Make Target"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
@@ -469,7 +554,11 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.24937862" ratioLeft="301" ratioRight="906" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.5463415" ratioLeft="336" ratioRight="279" relationship="4" relative="org.eclipse.ui.editorss">
+<<<<<<< HEAD
 <folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
+=======
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -507,6 +596,7 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<<<<<<< HEAD
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/PortListen/PortListener.cpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/PortListen/PortListener.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/PortListen/Controls.cpp"/>
@@ -662,6 +752,162 @@
 </item>
 <item active="true" historyLabel="Controls.h" index="3">
 <position info="not_deleted" x="13" y="17"/>
+=======
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/PortListen/listen.cpp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" path="/AhoyApp/res/layout/main.xml"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=AhoyApp/\/home\/gustaf\/Android SDK\/adt-bundle-linux-x86-20131030\/sdk\/platforms\/android-19\/android.jar&lt;java.io(BufferedReader.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Cube/listen.cpp"/>
+</editors>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4185" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4185" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4185" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="973" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4185" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="973" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position/>
+</item>
+<item historyLabel="BufferedReader.class" index="3">
+<position/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1065" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4608" y="0"/>
+</item>
+<item historyLabel="BufferedReader.class" index="3">
+<position/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="4979" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1272" y="0"/>
+</item>
+<item historyLabel="BufferedReader.class" index="3">
+<position/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1272" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="909" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="3970" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="4">
+<position info="not_deleted" x="3275" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="1902" y="0"/>
+</item>
+<item historyLabel="main.xml" index="2"/>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="1902" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="1844" y="1"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="1857" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2476" y="1"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2470" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2479" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="4">
+<position info="not_deleted" x="2356" y="3"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2479" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2470" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2356" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1226" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="2479" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="5520" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1226" y="0"/>
+</item>
+<item historyLabel="BufferedReader.class" index="3">
+<position/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="814" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="5989" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1228" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="4">
+<position info="not_deleted" x="2356" y="3"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1228" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="BufferedReader.class" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="listen.cpp" index="5">
+<position info="not_deleted" x="2913" y="40"/>
+</item>
+<item historyLabel="listen.cpp" index="1">
+<position info="not_deleted" x="1251" y="0"/>
+</item>
+<item historyLabel="AhoyStart.java" index="0">
+<position info="not_deleted" x="3747" y="0"/>
+</item>
+<item active="true" historyLabel="AhoyStart.java" index="4">
+<position info="not_deleted" x="2356" y="3"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -680,6 +926,7 @@
 </trimLayout>
 </window>
 <mruList>
+<<<<<<< HEAD
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" tooltip="AhoyApp/src/com/example/droidahoy/AhoyStart.java">
 <persistable path="/AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
 </file>
@@ -724,6 +971,34 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="listen.cpp" tooltip="PortListen/listen.cpp">
 <persistable path="/PortListen/listen.cpp"/>
+=======
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="BufferedReader.class" tooltip="java.io.BufferedReader">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=AhoyApp/\/home\/gustaf\/Android SDK\/adt-bundle-linux-x86-20131030\/sdk\/platforms\/android-19\/android.jar&lt;java.io(BufferedReader.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="listen.cpp" tooltip="Cube/listen.cpp">
+<persistable path="/Cube/listen.cpp"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" tooltip="Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java">
+<persistable path="/Copy of AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" name="main.xml" tooltip="AhoyApp/res/layout/main.xml">
+<persistable path="/AhoyApp/res/layout/main.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="listen.cpp" tooltip="PortListen/listen.cpp">
+<persistable path="/PortListen/listen.cpp"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="cube.cpp" tooltip="PortListen/cube.cpp">
+<persistable path="/PortListen/cube.cpp"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" tooltip="AhoyApp/src/com/example/droidahoy/AhoyStart.java">
+<persistable path="/AhoyApp/src/com/example/droidahoy/AhoyStart.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" tooltip="AndroidOrientation/src/com/example/droidahoy/AhoyStart.java">
+<persistable path="/AndroidOrientation/src/com/example/droidahoy/AhoyStart.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AhoyStart.java" tooltip="DroidOrientation/src/com/example/droidahoy/AhoyStart.java">
+<persistable path="/DroidOrientation/src/com/example/droidahoy/AhoyStart.java"/>
+>>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 </file>
 </mruList>
 </workbench>
