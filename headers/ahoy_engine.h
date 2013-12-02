@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "model.h"
 #include "sph_simulation.h"
 #include "keyboard_controller.h"
 

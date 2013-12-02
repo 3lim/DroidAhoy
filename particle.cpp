@@ -42,3 +42,14 @@ void Particle::render() {
   glVertex3f(position.x, position.y, height);
   glEnd();
 }
+
+void Particle::updateWalls(vec2 (&walls)[4], vec2 (&wallsNormal)[4], float rebound){
+	for (int j = 0; j < 4; j++){
+      float penetration = dot((position - walls[j]), wallsNormal[j]);
+      if (penetration < 0) {
+        float vPen = dot(velocity, wallsNormal[j]);
+        position += -penetration * wallsNormal[j];
+        velocity += -(1 + rebound) * vPen * wallsNormal[j];
+      }
+    }
+}

@@ -37,6 +37,7 @@ class Model : public Transformable{
 
   public:
     Model();
+    Model(const Model&);
     Model(const vector<float>&, const vector<float>&, const vector<float>&, const vector<unsigned>&, const TextureParams&);
     
     void set_program(unsigned);

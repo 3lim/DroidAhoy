@@ -37,8 +37,6 @@ int AhoyEngine::init(){
   boat->set_scale(0.05);
   const vec3& boat_center = OBJLoader::get_approx_center(*boat);
   //boat->add_position(0,0,10);
-
-  sim->setBoat(boat);
   
 
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);

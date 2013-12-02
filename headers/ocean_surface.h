@@ -5,7 +5,7 @@
 #include "shader_manager.h"
 #include "spatial_hashing.h"
 #include "particle.h"
-#include "model.h"
+//#include "boat.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -22,8 +22,6 @@ public:
 	void update(SpatialHashing& hashing, float kernelRadius);
 	void render();
 	void draw(const mat4&);
-	void setBoat(Model* new_boat) { boat = new_boat; 
-		boat->set_position(oceanVertices[0], oceanVertices[1], oceanVertices[2]); }
 	float interpolateHeightAtPosition(const vec2&);
 	float interpolateHeightAtPosition(const vec3&);
 	vec3 interpolateNormalAtPosition(const vec2&);
@@ -38,8 +36,6 @@ private:
     vector<unsigned> oceanIndices;
     vector<float> oceanVertices;
     vector<float> oceanNormals;
-
-    Model* boat;
 
 	float massDensity0;
 	int nbRows, nbColumns;

@@ -210,13 +210,8 @@ private:
 
 void SPHSimulation::computeForces(){
   ForcesComputer computeForces(kernelRadius, viscosityScale, pressureScale);
-
-  for (int i = 0; i < numberParticles; i++){
-    cout << spatialHashing.getIndexBox(particles[i].position) << endl;
-  }
   #ifndef HASHMAP
   for (int i = 0; i < numberParticles; i++){
-    const float pressureCoef = particles[i].pressure / pow(particles[i].massDensity,2);
     for (int j = i+1; j < numberParticles; j++){
       computeForces(&particles[i], &particles[j]);
     }
@@ -254,14 +249,7 @@ void SPHSimulation::integrateParticles(float timeStep){
     particles[i].updateVelocity(timeStep);
     particles[i].updatePosition(timeStep);
     particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
-    for (int j = 0; j < 4; j++){
-      float penetration = dot((particles[i].position - walls[j]), wallsNormal[j]);
-      if (penetration < 0) {
-        float vPen = dot(particles[i].velocity, wallsNormal[j]);
-        particles[i].position += -penetration * wallsNormal[j];
-        particles[i].velocity += -(1 + rebound) * vPen * wallsNormal[j];
-      }
-    }
+    particles[i].updateWalls(walls, wallsNormal, rebound);
   }
 }
 

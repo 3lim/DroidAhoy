@@ -12,6 +12,28 @@ Model::Model(){
   has_indices = false;
 }
 
+Model::Model(const Model& that) : 
+  vb(that.vb),
+  ib(that.ib),
+  uvb(that.uvb),
+  nb(that.nb),
+  tex(that.tex),
+  mvp_id(that.mvp_id),
+  program_id(that.program_id),
+  ready_for_draw(that.ready_for_draw),
+  has_v(that.has_v),
+  has_indices(that.has_indices),
+  has_uv(that.has_uv),
+  has_n(that.has_n),
+  has_tex(that.has_tex),
+  has_program(that.has_program),
+  v(that.v),
+  n(that.n),
+  uv(that.uv),
+  indices(that.indices),
+  tex_params(that.tex_params)
+{}
+
 Model::Model(const vector<float>& _v, const vector<float>& _n, const vector<float>& _uv, const vector<unsigned>& _indices, const TextureParams& _tex){
   v = _v;
   uv = _uv;
