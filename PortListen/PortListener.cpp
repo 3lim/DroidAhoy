@@ -13,12 +13,10 @@
 
 using namespace glm;
 
-
 PortListener::~PortListener(){}
 
 int PortListener::bindSock(uint16_t port)
 {
-
 	struct sockaddr_in sa;
 
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -30,6 +28,7 @@ int PortListener::bindSock(uint16_t port)
 	sa.sin_family = AF_INET;
 	sa.sin_port = htons(port);
 	sa.sin_addr.s_addr = INADDR_ANY;
+
 	if (bind(sock, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
 		close(sock);
 		return -1;
@@ -43,13 +42,15 @@ int PortListener::bindSock(uint16_t port)
 	return sock;
 }
 
-vec3 <float> PortListener::receiveData(){
+glm::vec3 PortListener::receiveData(){
+
+	char* recvData = new char[1024];
+	int bytes;
 
 	listen = bindSock(4444);
 
 	if (listen == -1) {
 		fprintf(stderr, "bindSock error\n");
-		return "";
 	}
 
 	while ((conn = accept(listen, NULL, NULL)) > 0) {
@@ -64,7 +65,7 @@ vec3 <float> PortListener::receiveData(){
 			float y = (float)recvData[1];
 			float z = (float)recvData[2];
 
-			Vec3 <float> vector(x,y,z);
+			return {x,y,z};
 
 			//std::cout << x << y << z << std::endl;
 
@@ -80,7 +81,7 @@ vec3 <float> PortListener::receiveData(){
 
 	close(listen);
 
-	return vector;
+	return (glm::vec3 v(0,0,0));
 }
 
 int main(int argc, char *argv[])

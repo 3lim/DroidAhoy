@@ -11,12 +11,9 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
-<<<<<<< HEAD
 	<section name="BuildPathsPropertyPage">
 		<item value="2" key="pageIndex"/>
 	</section>
-=======
->>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 	<section name="RefactoringWizard.preview">
 		<item value="400" key="height"/>
 		<item value="600" key="width"/>
@@ -49,8 +46,8 @@
 	<section name="JavadocWizardDialog">
 		<item value="702" key="DIALOG_WIDTH"/>
 		<item value="0" key="DIALOG_Y_ORIGIN"/>
-		<item value="692" key="DIALOG_HEIGHT"/>
 		<item value="257" key="DIALOG_X_ORIGIN"/>
+		<item value="692" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 </section>

@@ -12480,3 +12480,62 @@ HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script
 	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.ApplyRefactoringScriptAction),
 	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@18706f6),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@18706f6)),sourcePriority=16640)
 >>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
+
+!ENTRY org.eclipse.cdt.core 1 0 2013-12-02 13:58:32.648
+!MESSAGE Indexed 'Copy of PortListen' (35 sources, 306 headers) in 12.68 sec: 33,439 declarations; 56,961 references; 4 unresolved inclusions; 19 syntax errors; 219 unresolved names (0.24%)
+
+!ENTRY org.eclipse.ui.ide 4 4 2013-12-02 13:59:19.422
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2013-12-02 13:59:19.422
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2013-12-02 13:59:19.422
+!MESSAGE The project description file (.project) for 'AhoyApp' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SESSION 2013-12-02 13:59:22.592 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_27
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 14:00:03.340
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project AhoyApp
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-12-02 14:00:05.216
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 14:00:05.216
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.create.refactoring.script':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.create.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.CreateRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.create.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.CreateRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 14:00:05.216
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.show.refactoring.history':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.show.refactoring.history,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.ShowRefactoringHistoryAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.show.refactoring.history,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.ShowRefactoringHistoryAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 14:00:05.216
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.apply.refactoring.script':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.ApplyRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.ApplyRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@59cbda),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@59cbda)),sourcePriority=16640)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 14:00:05.899
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.ui 4 4 2013-12-02 14:00:06.872
+!MESSAGE Invalid preference page path: XML Syntax
+
+!ENTRY org.eclipse.cdt.core 1 0 2013-12-02 14:18:36.403
+!MESSAGE Indexed 'PortListener' (2 sources, 273 headers) in 9.63 sec: 21,508 declarations; 40,825 references; 1 unresolved inclusions; 8 syntax errors; 81 unresolved names (0.13%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2013-12-02 14:18:55.048
+!MESSAGE Indexed 'PortListen' (2 sources, 273 headers) in 10.37 sec: 21,508 declarations; 40,825 references; 1 unresolved inclusions; 8 syntax errors; 81 unresolved names (0.13%)

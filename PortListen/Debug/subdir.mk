@@ -4,7 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-<<<<<<< HEAD
 ../PortListener.cpp 
 
 OBJS += \
@@ -12,18 +11,6 @@ OBJS += \
 
 CPP_DEPS += \
 ./PortListener.d 
-=======
-../cube.cpp \
-../listen.cpp 
-
-OBJS += \
-./cube.o \
-./listen.o 
-
-CPP_DEPS += \
-./cube.d \
-./listen.d 
->>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 
 
 # Each subdirectory must supply rules for building sources it contributes

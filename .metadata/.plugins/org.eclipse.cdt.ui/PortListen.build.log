@@ -2,55 +2,26 @@
 **** Build of configuration Debug for project PortListen ****
 
 make all 
-<<<<<<< HEAD
 Building file: ../PortListener.cpp
-In file included from ../PortListener.cpp:3:0:
-../PortListener.h:1:22: fatal error: Controls.h: No such file or directory
 Invoking: Cross G++ Compiler
 g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PortListener.d" -MT"PortListener.d" -o "PortListener.o" "../PortListener.cpp"
-compilation terminated.
+In file included from ../PortListener.cpp:3:0:
+../PortListener.h:18:32: error: ‘new’ cannot appear in a constant-expression
+../PortListener.h:18:32: error: ISO C++ forbids initialization of member ‘recvData’ [-fpermissive]
+../PortListener.h:18:32: error: making ‘recvData’ static [-fpermissive]
+../PortListener.h:18:32: error: invalid in-class initialization of static data member of non-integral type ‘char*’
+../PortListener.h:26:7: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
+../PortListener.cpp: In member function ‘int PortListener::bindSock(uint16_t)’:
+../PortListener.cpp:34:28: error: ‘((PortListener*)this)->PortListener::listen’ cannot be used as a function
+../PortListener.cpp: At global scope:
+../PortListener.cpp:42:1: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
+../PortListener.cpp: In member function ‘glm::core::type::vec3 PortListener::receiveData()’:
+../PortListener.cpp:49:10: error: could not convert ‘(const char*)""’ from ‘const char*’ to ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’
+../PortListener.cpp:54:22: error: ‘recvData’ was not declared in this scope
+../PortListener.cpp:80:10: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
+../PortListener.cpp:80:23: error: expected primary-expression before ‘vector’
+../PortListener.cpp:80:23: error: expected ‘)’ before ‘vector’
+../PortListener.cpp:81:1: warning: control reaches end of non-void function [-Wreturn-type]
 make: *** [PortListener.o] Error 1
-=======
-Building file: ../cube.cpp
-Invoking: Cross G++ Compiler
-g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"cube.d" -MT"cube.d" -o "cube.o" "../cube.cpp"
-Finished building: ../cube.cpp
- 
-Building target: PortListen
-Invoking: Cross G++ Linker
-g++  -o "PortListen"  ./cube.o ./listen.o   
-/usr/bin/ld: error: ./listen.o: multiple definition of 'main'
-/usr/bin/ld: ./cube.o: previous definition here
-../cube.cpp:11: error: undefined reference to 'glClearColor'
-../cube.cpp:12: error: undefined reference to 'glShadeModel'
-../cube.cpp:16: error: undefined reference to 'glClear'
-../cube.cpp:18: error: undefined reference to 'glColor3f'
-../cube.cpp:19: error: undefined reference to 'glLoadIdentity'
-../cube.cpp:22: error: undefined reference to 'gluLookAt'
-../cube.cpp:23: error: undefined reference to 'glScalef'
-../cube.cpp:24: error: undefined reference to 'glRotatef'
-../cube.cpp:25: error: undefined reference to 'glRotatef'
-../cube.cpp:26: error: undefined reference to 'glRotatef'
-../cube.cpp:27: error: undefined reference to 'glutWireCube'
-../cube.cpp:28: error: undefined reference to 'glFlush'
-../cube.cpp:32: error: undefined reference to 'glViewport'
-../cube.cpp:33: error: undefined reference to 'glMatrixMode'
-../cube.cpp:34: error: undefined reference to 'glLoadIdentity'
-../cube.cpp:35: error: undefined reference to 'glFrustum'
-../cube.cpp:36: error: undefined reference to 'glMatrixMode'
-../cube.cpp:42: error: undefined reference to 'glutDestroyWindow'
-../cube.cpp:62: error: undefined reference to 'glutPostRedisplay'
-../cube.cpp:67: error: undefined reference to 'glutInit'
-../cube.cpp:68: error: undefined reference to 'glutInitDisplayMode'
-../cube.cpp:69: error: undefined reference to 'glutInitWindowSize'
-../cube.cpp:70: error: undefined reference to 'glutInitWindowPosition'
-../cube.cpp:71: error: undefined reference to 'glutCreateWindow'
-../cube.cpp:73: error: undefined reference to 'glutDisplayFunc'
-../cube.cpp:74: error: undefined reference to 'glutKeyboardFunc'
-../cube.cpp:75: error: undefined reference to 'glutReshapeFunc'
-../cube.cpp:76: error: undefined reference to 'glutMainLoop'
-collect2: ld returned 1 exit status
-make: *** [PortListen] Error 1
->>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738
 
 **** Build Finished ****
