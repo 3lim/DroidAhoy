@@ -48,3 +48,123 @@ make all
 make: Nothing to be done for `all'.
 
 **** Build Finished ****
+
+**** Clean-only build of configuration Debug for project PortListen ****
+
+make clean 
+rm -rf  ./listen.o  ./listen.d  PortListen
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../listen.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
+Finished building: ../listen.cpp
+ 
+Building target: PortListen
+Invoking: Cross G++ Linker
+g++  -o "PortListen"  ./listen.o   
+Finished building target: PortListen
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+make: Nothing to be done for `all'.
+
+**** Build Finished ****
+
+**** Clean-only build of configuration Debug for project PortListen ****
+
+make clean 
+rm -rf  ./listen.o  ./listen.d  PortListen
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../listen.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"listen.d" -MT"listen.d" -o "listen.o" "../listen.cpp"
+Finished building: ../listen.cpp
+ 
+Building target: PortListen
+Invoking: Cross G++ Linker
+g++  -o "PortListen"  ./listen.o   
+Finished building target: PortListen
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+make: Nothing to be done for `all'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+make: Nothing to be done for `all'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../PortListen.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PortListen.d" -MT"PortListen.d" -o "PortListen.o" "../PortListen.cpp"
+../PortListen.cpp:7:24: fatal error: portlisten.h: No such file or directory
+compilation terminated.
+make: *** [PortListen.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../Controls.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Controls.d" -MT"Controls.d" -o "Controls.o" "../Controls.cpp"
+In file included from ../Controls.cpp:1:0:
+../Controls.h:2:18: fatal error: libs.h: No such file or directory
+compilation terminated.
+make: *** [Controls.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../Controls.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Controls.d" -MT"Controls.d" -o "Controls.o" "../Controls.cpp"
+In file included from ../Controls.cpp:1:0:
+../Controls.h:2:18: fatal error: libs.h: No such file or directory
+compilation terminated.
+make: *** [Controls.o] Error 1
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project PortListen ****
+
+make all 
+Building file: ../PortListener.cpp
+In file included from ../PortListener.cpp:3:0:
+../PortListener.h:1:22: fatal error: Controls.h: No such file or directory
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PortListener.d" -MT"PortListener.d" -o "PortListener.o" "../PortListener.cpp"
+compilation terminated.
+make: *** [PortListener.o] Error 1
+
+**** Build Finished ****

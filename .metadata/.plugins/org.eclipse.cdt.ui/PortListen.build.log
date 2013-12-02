@@ -2,6 +2,12 @@
 **** Build of configuration Debug for project PortListen ****
 
 make all 
-make: Nothing to be done for `all'.
+Building file: ../PortListener.cpp
+In file included from ../PortListener.cpp:3:0:
+../PortListener.h:1:22: fatal error: Controls.h: No such file or directory
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PortListener.d" -MT"PortListener.d" -o "PortListener.o" "../PortListener.cpp"
+compilation terminated.
+make: *** [PortListener.o] Error 1
 
 **** Build Finished ****

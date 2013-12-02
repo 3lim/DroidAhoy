@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../listen.cpp 
+../PortListener.cpp 
 
 OBJS += \
-./listen.o 
+./PortListener.o 
 
 CPP_DEPS += \
-./listen.d 
+./PortListener.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
