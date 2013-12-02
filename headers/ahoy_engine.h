@@ -10,7 +10,7 @@ class AhoyEngine : public Engine{
     AhoyEngine(int width, int height, string name) : Engine(width,height,name){
     }
     int init();
-    int update();
+    int _update();
     int render();
 
   protected:

@@ -18,19 +18,19 @@ bool KeyboardController::apply_input(Transformable& out, float dt){
   bool success = false;
   float speed = dt * 5.0f;
   if(glfwGetKey(scope, GLFW_KEY_W)){
-    out.add_position(0.0f,0.0f,speed);
+    out.translate(0.0f,0.0f,speed);
     success= true;  
   }
   if(glfwGetKey(scope, GLFW_KEY_A)){
-    out.add_position(speed,0.0f,0.0f);
+    out.translate(speed,0.0f,0.0f);
     success= true;  
   }
   if(glfwGetKey(scope, GLFW_KEY_S)){
-    out.add_position(0.0f,0.0f,-speed);
+    out.translate(0.0f,0.0f,-speed);
     success= true;  
   }
   if(glfwGetKey(scope, GLFW_KEY_D)){
-    out.add_position(-speed,0.0f,0.0f);
+    out.translate(-speed,0.0f,0.0f);
     success= true;  
   }
 
@@ -48,10 +48,10 @@ bool KeyboardController::apply_input(Transformable& out, float dt){
     double x = (xpos - xcen)/xcen;
     double y = (ypos - ycen)/ycen;
 
-    double xd = (double) dt * x * 60.0f;
-    double yd = (double) dt * y * 60.0f;
+    double xd = (double) dt * x * 60.0f/180.0f * 3.14f; 
+    double yd = (double) dt * y * 60.0f/180.0f * 3.14f;
     
-    out.add_rotation(yd,xd,0);
+    out.rotate(yd,xd,0);
     success = true;
   }
   return success;  

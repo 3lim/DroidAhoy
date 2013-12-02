@@ -12,7 +12,7 @@ using namespace glm;
   Struct inspired by tiny_obj_loader
 
   Redefined as class to include object specific
-  coordinate axles (up, right, up x right) and 
+  coordinate axles (_up, _right, _up x _right) and 
   more easily interpreted mutators.
 
  */

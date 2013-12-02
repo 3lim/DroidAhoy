@@ -41,7 +41,7 @@ int AhoyEngine::init(){
   //Set camera initial position
   cam = glm::lookAt(
       glm::vec3(15,5,5), // 
-      boat_center, // and looks at the origin
+      boat_center, // and looks at the _origin
       glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
   );
 
@@ -53,7 +53,7 @@ int AhoyEngine::init(){
 clock_t start = clock();
 int AhoyEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
-  boat.add_rotation(10.0f*dt, 10.0f*dt, 0.0f);
+  boat.rotate(10.0f*dt, 10.0f*dt, 0.0f);
   kb.apply_input(cam,dt);
   start = clock();
   return 1;
@@ -63,8 +63,8 @@ int AhoyEngine::update(){
 int AhoyEngine::render(){
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
-  glClearDepth(1.0);          
-  glDepthFunc(GL_LEQUAL);           
+  glClearDe_pth(1.0);          
+  glDe_pthFunc(GL_LEQUAL);           
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
   glEnable(GL_BLEND);           
   glAlphaFunc(GL_GREATER,0.1);
