@@ -1,0 +1,18 @@
+/*
+ * Controls.cpp
+ *
+ *  Created on: Dec 1, 2013
+ *      Author: gustaf
+ */
+
+#include "Controls.h"
+
+Controls::Controls() {
+	// TODO Auto-generated constructor stub
+
+}
+
+Controls::~Controls() {
+	// TODO Auto-generated destructor stub
+}
+

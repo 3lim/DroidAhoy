@@ -1,0 +1,73 @@
+/* listen.cpp */
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "PortListen.h"
+#include <string.h>
+#include <iostream>
+
+PortListen::~PortListen(){}
+
+int main(int argc, char *argv[])
+{
+	port.receiveData();
+	return 1;
+}
+
+int PortListen::bindSock(uint16_t port)
+{
+
+	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (sock == -1) {
+		return sock;
+	}
+
+	sa.sin_family = AF_INET;
+	sa.sin_port = htons(port);
+	sa.sin_addr.s_addr = INADDR_ANY;
+	if (bind(sock, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
+		close(sock);
+		return -1;
+	}
+
+	if (listen(sock, SOMAXCONN) == -1) {
+		close(sock);
+		return -1;
+	}
+
+	return sock;
+}
+
+std::string PortListen::receiveData(){
+
+
+		listen = port.bindSock(4444);
+		if (listen == -1) {
+			fprintf(stderr, "bindSock error\n");
+			return "";
+		}
+
+
+		while ((conn = accept(listen, NULL, NULL)) > 0) {
+
+				bytes = recv(conn, recvData, 1023, 0);
+				if (bytes == -1) {
+					std::cout << "error on recv" << std::endl;
+				}
+				else {
+					recvData[bytes] = '\0';
+					std::cout << recvData << std::endl;
+				}
+
+			close(conn);
+		}
+
+		close(listen);
+
+		return recvData;
+}
+
+
+

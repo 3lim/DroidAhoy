@@ -1,0 +1,17 @@
+/*
+ * Controls.h
+ *
+ *  Created on: Dec 1, 2013
+ *      Author: gustaf
+ */
+
+#ifndef CONTROLS_H_
+#define CONTROLS_H_
+
+class Controls {
+public:
+	Controls();
+	virtual ~Controls();
+};
+
+#endif /* CONTROLS_H_ */
