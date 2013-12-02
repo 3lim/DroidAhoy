@@ -5,5 +5,6 @@
 class OBJLoader : public ModelLoader{
   private:
   public:
-    static ModelGroup load_model(const string&);
+    static Model load_model(const string&);
+    static Model* load_model_pointer(const string&);
 };

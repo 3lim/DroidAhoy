@@ -17,13 +17,8 @@ using namespace std;
 using namespace glm;
 
 
-ModelGroup OBJLoader::load_model(const string & filepath) {
-  ModelGroup obj_data;
-  obj_data.mdls = vector<Model>();
-  obj_data.texs = vector<Texture>();
-
-  cout << "Loading " << filepath << endl;
-
+Model OBJLoader::load_model(const string & filepath) {
+  Model obj_data;
   //tiny_obj_loader parsing
   vector<tinyobj::shape_t> shapes;
   string base_path = filepath.substr(0, filepath.find_last_of("/")+1);
@@ -35,41 +30,46 @@ ModelGroup OBJLoader::load_model(const string & filepath) {
     return obj_data;
   }
   cout << "Successfully loaded " << filename << endl;
-  cout << "# parts: " << shapes.size()  << endl;
-  for(unsigned i=0; i<shapes.size(); i++)
-    cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl
-         <<  " material name: " << shapes[i].material.name << endl << endl;
+  //cout << "# parts: " << shapes.size()  << endl;
+  //for(unsigned i=0; i<shapes.size(); i++)
+  //  cout << "part #" << i << " vertices count: " << shapes[i].mesh.positions.size()  << endl
+  //       <<  " material name: " << shapes[i].material.name << endl << endl;
   
   cout << endl;
   //Convert to Engine's internal mdl format
   auto it = shapes.begin();
-  Model curr_mdl;
-  Texture curr_tex;
    
-  while(it != shapes.end()){
-    curr_mdl.v = (*it).mesh.positions;
-    curr_mdl.n = (*it).mesh.normals;
-    curr_mdl.uv = (*it).mesh.texcoords;
-    curr_mdl.indices = (*it).mesh.indices;
+  //OBS: Only loads .obj with 1 group (!!!)
+  //while(it != shapes.end()){
+   obj_data.set_vertices((*it).mesh.positions);
+   obj_data.set_normals((*it).mesh.normals);
+   obj_data.set_uvs((*it).mesh.texcoords);
+   obj_data.set_indices((*it).mesh.indices);
 
-    for(int i=0; i<3; i++){
-      curr_tex.ambient[i] = (*it).material.ambient[i];
-      curr_tex.diffuse[i] = (*it).material.diffuse[i];
-      curr_tex.specular[i] = (*it).material.specular[i];
-      curr_tex.transmittance[i] = (*it).material.transmittance[i];
-      curr_tex.emission[i] = (*it).material.emission[i];
-    }
-    curr_tex.shininess = (*it).material.shininess;
-    curr_tex.ior = (*it).material.ior;
-    curr_tex.ambient_texpath = (*it).material.ambient_texname;
-    curr_tex.diffuse_texpath = (*it).material.diffuse_texname;
-    curr_tex.specular_texpath = (*it).material.specular_texname;
-    curr_tex.normal_texpath = (*it).material.normal_texname;
-    
-    obj_data.mdls.push_back(curr_mdl);
-    obj_data.texs.push_back(curr_tex);
-    ++it;   
-  }
+   TextureParams tex;
+   for(int i=0; i<3; i++){
+     tex.ambient[i] = (*it).material.ambient[i];
+     tex.diffuse[i] = (*it).material.diffuse[i];
+     tex.specular[i] = (*it).material.specular[i];
+     tex.transmittance[i] = (*it).material.transmittance[i];
+     tex.emission[i] = (*it).material.emission[i];
+   }
+   tex.shininess = (*it).material.shininess;
+   tex.ior = (*it).material.ior;
+   tex.ambient_texpath = (*it).material.ambient_texname;
+   tex.diffuse_texpath = (*it).material.diffuse_texname;
+   tex.specular_texpath = (*it).material.specular_texname;
+   tex.normal_texpath = (*it).material.normal_texname;
+  
+   obj_data.set_texture_params(tex); 
+   //obj_data.mdls.push_back(obj_data);
+   //obj_data.texs.push_back(obj_data.tex);
+   //++it;   
+  //}
 
   return obj_data;
-}	
+} 
+
+Model* OBJLoader::load_model_pointer(const string & filepath){
+  return new Model(load_model(filepath));
+}

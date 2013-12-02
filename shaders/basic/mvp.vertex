@@ -1,11 +1,15 @@
 #version 330 core
 
 layout(location = 0) in vec3 v_ms;
+layout(location = 2) in vec3 vertexNormal;
+layout(location = 3) in vec2 vertexUV;
 
 uniform mat4 MVP;
+out VS_OUT { vec3 N; vec2 UV; } vs_out;
 
 void main()
 {
-	//gl_Position = vec4(v_ms , 1);	
 	gl_Position = MVP * vec4(v_ms, 1);	
+  vs_out.N = vertexNormal;
+  vs_out.UV = vertexUV;
 }
