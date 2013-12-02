@@ -22,5 +22,9 @@ class Camera : public Transformable{
     Camera(const mat4&);
     Camera(const mat4&, const mat4&);
 
+    vec3 up();
+    vec3 right();
+    vec3 forward();
+
     mat4 get_view();
 };

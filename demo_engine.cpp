@@ -33,9 +33,7 @@ int DemoEngine::init(){
   boat.set_program(ShaderManager::get_program("basic"));
   boat.init();
   boat_center = OBJLoader::get_approx_center(boat);
-  boat.set_scale(0.05f);
-  boat.set_position(0,0,0);
-  boat.set_rotation(90,0,0);
+  boat.set_scale(0.15f);
    
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
   glm::mat4 cam_init = glm::lookAt(glm::vec3(15,5,5),boat_center, glm::vec3(0,1,0));
@@ -52,7 +50,7 @@ int DemoEngine::init(){
 clock_t start = clock();
 int DemoEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
-  boat.rotate(0, -5.0f *dt, 0.0f);
+  //boat.rotate(0, -1.0f *dt, 0.0f);
   kb.apply_input(cam,dt);
   start = clock();
   return 1;

@@ -9,7 +9,7 @@ using namespace glm;
 class Controller{
   private:
     virtual bool _apply_input(mat4&, float);
-    clock_t t_start;
+    clock_t _t_start;
 
   public:
     Controller();

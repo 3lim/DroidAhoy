@@ -18,9 +18,9 @@ class Transformable{
 
   protected:
     mat4 _pt;
-    bool t_invalid;
-    bool t_order_reverse;
-    vec3 pos;
+    bool _t_invalid;
+    bool _t_order_reverse;
+    vec3 _pos;
     quat _ori;
 
     //Use cross to determine forward
@@ -35,13 +35,14 @@ class Transformable{
     const mat4& get_transformation();
    
     /* Model relative directions */ 
-    vec3 up();
-    vec3 right();
-    vec3 forward();
+    virtual vec3 up();
+    virtual vec3 right();
+    virtual vec3 forward();
   
     void rotate(float,float,float);
     void set_rotation(vec3);
     void set_rotation(float,float,float);
+    void set_rotation(const quat&);
     const vec3 get_rotation();
 
     void translate(float,float,float);
