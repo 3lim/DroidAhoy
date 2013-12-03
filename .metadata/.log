@@ -46,3 +46,33 @@ HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script
 HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script,
 	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.ApplyRefactoringScriptAction),
 	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@1ef3212),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@1ef3212)),sourcePriority=16640)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:49.916
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:51.680
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:51.810
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:52.164
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:52.359
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:05:52.581
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+!SESSION 2013-12-03 10:16:25.517 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_27
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:19:29.429
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project AhoyApp
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-03 10:19:34.717
+!MESSAGE Failed to load properties file for project 'AhoyApp'
