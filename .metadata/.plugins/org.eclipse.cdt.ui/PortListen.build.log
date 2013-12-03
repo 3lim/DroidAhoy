@@ -2,26 +2,6 @@
 **** Build of configuration Debug for project PortListen ****
 
 make all 
-Building file: ../PortListener.cpp
-Invoking: Cross G++ Compiler
-g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PortListener.d" -MT"PortListener.d" -o "PortListener.o" "../PortListener.cpp"
-In file included from ../PortListener.cpp:3:0:
-../PortListener.h:18:32: error: ‘new’ cannot appear in a constant-expression
-../PortListener.h:18:32: error: ISO C++ forbids initialization of member ‘recvData’ [-fpermissive]
-../PortListener.h:18:32: error: making ‘recvData’ static [-fpermissive]
-../PortListener.h:18:32: error: invalid in-class initialization of static data member of non-integral type ‘char*’
-../PortListener.h:26:7: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
-../PortListener.cpp: In member function ‘int PortListener::bindSock(uint16_t)’:
-../PortListener.cpp:34:28: error: ‘((PortListener*)this)->PortListener::listen’ cannot be used as a function
-../PortListener.cpp: At global scope:
-../PortListener.cpp:42:1: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
-../PortListener.cpp: In member function ‘glm::core::type::vec3 PortListener::receiveData()’:
-../PortListener.cpp:49:10: error: could not convert ‘(const char*)""’ from ‘const char*’ to ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’
-../PortListener.cpp:54:22: error: ‘recvData’ was not declared in this scope
-../PortListener.cpp:80:10: error: ‘glm::core::type::vec3 {aka glm::detail::tvec3<float>}’ is not a template
-../PortListener.cpp:80:23: error: expected primary-expression before ‘vector’
-../PortListener.cpp:80:23: error: expected ‘)’ before ‘vector’
-../PortListener.cpp:81:1: warning: control reaches end of non-void function [-Wreturn-type]
-make: *** [PortListener.o] Error 1
+make: Nothing to be done for `all'.
 
 **** Build Finished ****

@@ -12539,3 +12539,684 @@ HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script
 
 !ENTRY org.eclipse.cdt.core 1 0 2013-12-02 14:18:55.048
 !MESSAGE Indexed 'PortListen' (2 sources, 273 headers) in 10.37 sec: 21,508 declarations; 40,825 references; 1 unresolved inclusions; 8 syntax errors; 81 unresolved names (0.13%)
+!SESSION 2013-12-02 20:53:15.000 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_27
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 20:53:41.410
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project AhoyApp
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 20:53:45.519
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+!SESSION 2013-12-02 21:13:12.419 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_27
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 21:13:49.365
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project AhoyApp
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 21:13:53.426
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-12-02 21:20:08.087
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 21:20:08.087
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.create.refactoring.script':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.create.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.CreateRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.create.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.CreateRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 21:20:08.087
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.show.refactoring.history':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.show.refactoring.history,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.ShowRefactoringHistoryAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.show.refactoring.history,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.ShowRefactoringHistoryAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-12-02 21:20:08.087
+!MESSAGE Conflict for 'org.eclipse.ltk.ui.refactor.apply.refactoring.script':
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.jdt.internal.ui.refactoring.actions.ApplyRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.jdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+HandlerActivation(commandId=org.eclipse.ltk.ui.refactor.apply.refactoring.script,
+	handler=ActionDelegateHandlerProxy(null,org.eclipse.ltk.ui.refactoring.actions.ApplyRefactoringScriptAction),
+	expression=AndExpression(ActionSetExpression(org.eclipse.cdt.ui.CodingActionSet,org.eclipse.ui.internal.WorkbenchWindow@154ea79),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@154ea79)),sourcePriority=16640)
+
+!ENTRY org.eclipse.ui 4 4 2013-12-02 21:20:09.405
+!MESSAGE Invalid preference page path: XML Syntax
+
+!ENTRY org.eclipse.core.resources 4 376 2013-12-02 21:59:14.857
+!MESSAGE Marker id 1640 not found.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.755
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:456)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:236)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.757
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.775
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:456)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:391)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:314)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:240)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.776
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.777
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:743)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:779)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:510)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:322)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:240)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.777
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.819
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:456)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:236)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.819
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.821
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:456)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:391)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:314)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:240)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.821
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY org.eclipse.core.resources 4 1 2013-12-02 22:03:11.822
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:269)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AndExpression.evaluate(AndExpression.java:29)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:743)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:779)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:510)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:322)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:240)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2013-12-02 22:03:11.823
+!MESSAGE Resource is out of sync with the file system: '/AhoyApp/src/com/example/droidahoy/AhoyStart.java'.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:03:13.278
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-02 22:03:13.283
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:03:13.293
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:03:13.382
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-02 22:03:13.391
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-12-02 22:03:13.391
+!MESSAGE Errors running builder 'Android Resource Manager' on project 'AhoyApp'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:03:14.771
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-02 22:03:14.772
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-02 22:03:14.773
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-12-02 22:03:14.773
+!MESSAGE Errors running builder 'Android Resource Manager' on project 'AhoyApp'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:27.144
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:27.276
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-02 22:07:27.277
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:27.278
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:27.285
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-02 22:07:27.297
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-12-02 22:07:27.297
+!MESSAGE Errors running builder 'Android Resource Manager' on project 'AhoyApp'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:39.259
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-02 22:07:39.259
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-12-02 22:07:39.260
+!MESSAGE Failed to load properties file for project 'AhoyApp'
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-02 22:07:39.260
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-12-02 22:07:39.260
+!MESSAGE Errors running builder 'Android Resource Manager' on project 'AhoyApp'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.build.builders.BaseBuilder.abortOnBadSetup(BaseBuilder.java:326)
+	at com.android.ide.eclipse.adt.internal.build.builders.ResourceManagerBuilder.build(ResourceManagerBuilder.java:88)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 4 2013-12-02 22:23:04.178
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.views.ProblemView.
+
+!ENTRY org.eclipse.cdt.core 1 0 2013-12-03 00:16:11.176
+!MESSAGE Indexed 'Copy of PortListen' (2 sources, 411 headers) in 34.80 sec: 30,206 declarations; 71,437 references; 1 unresolved inclusions; 7 syntax errors; 92 unresolved names (0.09%)
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-03 00:21:07.438
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.IllegalArgumentException
+	at java.net.URI.create(URI.java:859)
+	at java.net.URI.resolve(URI.java:1045)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.getArtifactTimeStamp(AdditionalInput.java:376)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.needsRebuild(AdditionalInput.java:337)
+	at org.eclipse.cdt.managedbuilder.internal.core.InputType.needsRebuild(InputType.java:1619)
+	at org.eclipse.cdt.managedbuilder.internal.core.Tool.needsRebuild(Tool.java:3307)
+	at org.eclipse.cdt.managedbuilder.internal.core.ToolChain.needsRebuild(ToolChain.java:2068)
+	at org.eclipse.cdt.managedbuilder.internal.core.FolderInfo.needsRebuild(FolderInfo.java:344)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1685)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1669)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performCleanning(CommonBuilder.java:936)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performPrebuildGeneration(CommonBuilder.java:858)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:739)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:504)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:450)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:432)
+	at org.eclipse.ui.actions.BuildAction$1.runInWorkspace(BuildAction.java:305)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 4: Copy of PortListen
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.net.URI.create(URI.java:857)
+	... 28 more
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-03 00:21:09.720
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.cdt.managedbuilder.core 4 75 2013-12-03 00:21:09.720
+!MESSAGE Errors running builder 'CDT Builder' on project 'Copy of PortListen'.
+!STACK 0
+java.lang.IllegalArgumentException
+	at java.net.URI.create(URI.java:859)
+	at java.net.URI.resolve(URI.java:1045)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.getArtifactTimeStamp(AdditionalInput.java:376)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.needsRebuild(AdditionalInput.java:337)
+	at org.eclipse.cdt.managedbuilder.internal.core.InputType.needsRebuild(InputType.java:1619)
+	at org.eclipse.cdt.managedbuilder.internal.core.Tool.needsRebuild(Tool.java:3307)
+	at org.eclipse.cdt.managedbuilder.internal.core.ToolChain.needsRebuild(ToolChain.java:2068)
+	at org.eclipse.cdt.managedbuilder.internal.core.FolderInfo.needsRebuild(FolderInfo.java:344)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1685)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1669)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performCleanning(CommonBuilder.java:936)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performPrebuildGeneration(CommonBuilder.java:858)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:739)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:504)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:450)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:432)
+	at org.eclipse.ui.actions.BuildAction$1.runInWorkspace(BuildAction.java:305)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 4: Copy of PortListen
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.net.URI.create(URI.java:857)
+	... 28 more
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-03 00:26:15.991
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.IllegalArgumentException
+	at java.net.URI.create(URI.java:859)
+	at java.net.URI.resolve(URI.java:1045)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.getArtifactTimeStamp(AdditionalInput.java:376)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.needsRebuild(AdditionalInput.java:337)
+	at org.eclipse.cdt.managedbuilder.internal.core.InputType.needsRebuild(InputType.java:1619)
+	at org.eclipse.cdt.managedbuilder.internal.core.Tool.needsRebuild(Tool.java:3307)
+	at org.eclipse.cdt.managedbuilder.internal.core.ToolChain.needsRebuild(ToolChain.java:2068)
+	at org.eclipse.cdt.managedbuilder.internal.core.FolderInfo.needsRebuild(FolderInfo.java:344)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1685)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1669)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performCleanning(CommonBuilder.java:936)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performPrebuildGeneration(CommonBuilder.java:858)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:739)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:501)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:450)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:432)
+	at org.eclipse.ui.actions.BuildAction$1.runInWorkspace(BuildAction.java:305)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 4: Copy of PortListen
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.net.URI.create(URI.java:857)
+	... 28 more
+
+!ENTRY org.eclipse.core.resources 4 75 2013-12-03 00:26:18.277
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.cdt.managedbuilder.core 4 75 2013-12-03 00:26:18.277
+!MESSAGE Errors running builder 'CDT Builder' on project 'Copy of PortListen'.
+!STACK 0
+java.lang.IllegalArgumentException
+	at java.net.URI.create(URI.java:859)
+	at java.net.URI.resolve(URI.java:1045)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.getArtifactTimeStamp(AdditionalInput.java:376)
+	at org.eclipse.cdt.managedbuilder.internal.core.AdditionalInput.needsRebuild(AdditionalInput.java:337)
+	at org.eclipse.cdt.managedbuilder.internal.core.InputType.needsRebuild(InputType.java:1619)
+	at org.eclipse.cdt.managedbuilder.internal.core.Tool.needsRebuild(Tool.java:3307)
+	at org.eclipse.cdt.managedbuilder.internal.core.ToolChain.needsRebuild(ToolChain.java:2068)
+	at org.eclipse.cdt.managedbuilder.internal.core.FolderInfo.needsRebuild(FolderInfo.java:344)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1685)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.needsRebuild(Configuration.java:1669)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performCleanning(CommonBuilder.java:936)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performPrebuildGeneration(CommonBuilder.java:858)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:739)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:501)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:450)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:432)
+	at org.eclipse.ui.actions.BuildAction$1.runInWorkspace(BuildAction.java:305)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 4: Copy of PortListen
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.net.URI.create(URI.java:857)
+	... 28 more
+
+!ENTRY org.eclipse.ui.ide 4 4 2013-12-03 00:47:31.435
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2013-12-03 00:47:31.435
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2013-12-03 00:47:31.435
+!MESSAGE The project description file (.project) for 'AhoyApp' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-03 00:47:32.393
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.egit.core.Activator.getPluginId(Activator.java:72)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.doAutoShare(Activator.java:201)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.access$0(Activator.java:199)
+	at org.eclipse.egit.core.Activator$AutoShareProjects$1.visit(Activator.java:215)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:69)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:49)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.resourceChanged(Activator.java:211)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.debug.core.model.Breakpoint.setAttribute(Breakpoint.java:184)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.decrementInstallCount(JavaBreakpoint.java:794)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.deregisterRequest(JavaBreakpoint.java:262)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.removeRequests(JavaBreakpoint.java:712)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.removeFromTarget(JavaBreakpoint.java:655)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.removeAllBreakpoints(JDIDebugTarget.java:1490)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.cleanup(JDIDebugTarget.java:1447)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.disconnected(JDIDebugTarget.java:1424)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.handleVMDisconnect(JDIDebugTarget.java:969)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher.dispatch(EventDispatcher.java:163)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher.access$0(EventDispatcher.java:104)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher$1.run(EventDispatcher.java:248)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 2 2013-12-03 00:47:32.394
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.egit.core.Activator.getPluginId(Activator.java:72)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.doAutoShare(Activator.java:201)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.access$0(Activator.java:199)
+	at org.eclipse.egit.core.Activator$AutoShareProjects$1.visit(Activator.java:215)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:69)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:49)
+	at org.eclipse.egit.core.Activator$AutoShareProjects.resourceChanged(Activator.java:211)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.debug.core.model.Breakpoint.setAttribute(Breakpoint.java:184)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.decrementInstallCount(JavaBreakpoint.java:794)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.deregisterRequest(JavaBreakpoint.java:262)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.removeRequests(JavaBreakpoint.java:712)
+	at org.eclipse.jdt.internal.debug.core.breakpoints.JavaBreakpoint.removeFromTarget(JavaBreakpoint.java:655)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.removeAllBreakpoints(JDIDebugTarget.java:1490)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.cleanup(JDIDebugTarget.java:1447)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.disconnected(JDIDebugTarget.java:1424)
+	at org.eclipse.jdt.internal.debug.core.model.JDIDebugTarget.handleVMDisconnect(JDIDebugTarget.java:969)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher.dispatch(EventDispatcher.java:163)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher.access$0(EventDispatcher.java:104)
+	at org.eclipse.jdt.internal.debug.core.EventDispatcher$1.run(EventDispatcher.java:248)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

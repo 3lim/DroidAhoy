@@ -1,0 +1,116 @@
+
+/* PortListener.cpp */
+
+#include "PortListener.h"
+
+using namespace glm;
+
+PortListener::PortListener(){}
+
+PortListener::~PortListener(){}
+
+int PortListener::bindSock(uint16_t port)
+{
+	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+	if (sock == -1) {
+		return sock;
+	}
+
+	struct sockaddr_in sa;
+
+		sa.sin_family = AF_INET;
+		sa.sin_port = htons(port);
+		sa.sin_addr.s_addr = INADDR_ANY;
+
+		if (bind(sock, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
+			close(sock);
+			return -1;
+		}
+
+		if (listen(sock, SOMAXCONN) == -1) {
+			close(sock);
+			return -1;
+		}
+
+	return sock;
+}
+
+//glm::vec3 PortListener::receiveData(){
+void PortListener::receiveData(){
+
+	char* recvData = new char[1024];
+	int bytes;
+
+	boundsocket = bindSock(4444);
+
+	if (boundsocket == -1) {
+		fprintf(stderr, "bindSock error\n");
+	}
+
+	while ((conn = accept(boundsocket, NULL, NULL)) > 0) {
+
+		bytes = recv(conn, recvData, 1023, 0);
+		if (bytes == -1) {
+			std::cout << "error on recv" << std::endl;
+		}
+		else {
+			recvData[bytes] = '\0';
+
+			orientation = charToFloat(recvData);
+
+			oldVector = orientation;
+		}
+
+		close(conn);
+	}
+
+	close(boundsocket);
+
+}
+
+glm::vec3 PortListener::charToFloat(char * characters){
+		std::string tmp_s = characters;
+		float * tmp_vf = new float[3];
+	    int place = 0;
+
+	    std::stringstream  ss;
+
+	            ss  << tmp_s;
+
+	            while( ! ss.eof() )
+	            {
+	                float  tmp_f;
+
+	                if ( ss >> tmp_f )
+	                {
+	                    tmp_vf[place] = tmp_f;
+	                    place++;
+	                }
+
+	            }
+
+	    std::cout << tmp_vf[0] << tmp_vf[1] << tmp_vf[2] << std::endl;
+
+	    vec3 v(tmp_vf[0],tmp_vf[1],tmp_vf[2]);
+
+	    return v;
+}
+
+glm::vec3 PortListener::getVec(){
+	return orientation;
+}
+
+int main(int argc, char *argv[])
+{
+
+	PortListener temp;
+
+    while(true){
+    	temp.receiveData();
+    	vec3 vertices = temp.getVec();
+
+    std::cout<<glm::to_string(vertices)<<std::endl;
+    }
+    return 1;
+}

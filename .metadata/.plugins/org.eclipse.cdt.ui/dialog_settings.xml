@@ -8,6 +8,10 @@
 		<item value="false" key="showFolders"/>
 		<item value="false" key="systemFilter"/>
 	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item value="442" key="size.width"/>
+		<item value="162" key="size.height"/>
+	</section>
 	<section name="NewClassWizardPage">
 	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">

@@ -1,6 +1,5 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=4165f20ef4c5318cfeff49fe95bf055730cae738
 eclipse.preferences.version=1
-<<<<<<< HEAD
 task-tag-projects-already-scanned=PortListen,AhoyApp
-=======
-task-tag-projects-already-scanned=PortListen,Android Controls,AhoyApp - Send Float,AhoyApp - Sends String
->>>>>>> 4165f20ef4c5318cfeff49fe95bf055730cae738

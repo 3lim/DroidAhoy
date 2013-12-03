@@ -1,0 +1,29 @@
+//#include "Controls.h"
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+// glm::vec3, glm::vec4, glm::ivec4, glm::mat4
+#include <glm/glm.hpp>
+
+
+class PortListener {
+private:
+
+
+	int listen, conn;
+
+	int sock;
+
+public:
+	PortListener();
+	virtual ~PortListener();
+
+	glm::vec3 receiveData();
+	int bindSock(uint16_t port);
+
+
+};
