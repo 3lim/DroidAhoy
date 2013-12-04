@@ -2,11 +2,12 @@
 /* PortListener.cpp */
 
 #include "PortListener.h"
+#include <thread>
 
 using namespace glm;
 
 PortListener::PortListener(){
-	receiveData();
+	//receiveData();
 	//	pthread_create( &t1, NULL,&receiveData, NULL); // create a thread running recievedData
 }
 
@@ -70,7 +71,7 @@ void PortListener::receiveData(){
 
 		close(conn);
 	}
-
+  std::cout << "outside cool loop" << std::endl;
 	close(boundsocket);
 
 }
@@ -124,17 +125,18 @@ int main(int argc, char *argv[])
 {
 
 	//createThread();
+  std::thread receive(&PortListener::receiveData, PortListener());
+  receive.join();
+	//PortListener temp;
 
-	PortListener temp;
+	//while(true){
+	//	vec3 vertices = temp.getVec();
+	//	std::cout<< "Outside:" <<glm::to_string(vertices)<<std::endl;
 
-	while(true){
-		vec3 vertices = temp.getVec();
-		std::cout<< "Outside:" <<glm::to_string(vertices)<<std::endl;
+	//	sleep(1);
+	//}
 
-		sleep(1);
-	}
-
-	return 1;
+	//return 1;
 }
 
 /*
