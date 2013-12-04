@@ -17,8 +17,8 @@ android:layout_height="fill_parent">
     android:layout_height="wrap_content"
     android:gravity="center"
     android:paddingTop="20dip"
-    android:text="Orientation"
-    android:textSize="16sp"
+    android:text="Droid A'hoy!"
+    android:textSize="32sp"
     android:textStyle="bold" />
 
 <TableLayout
@@ -144,6 +144,22 @@ android:text="Send orientation test"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:layout_above="@id/button_listen"
+/>
+
+<Button
+android:id="@+id/reset"
+android:text="Reset orientation"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_above="@id/reset"
+/>
+
+<Button
+android:id="@+id/show"
+android:text="Show orientation"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_above="@id/show"
 />
 
 <ListView

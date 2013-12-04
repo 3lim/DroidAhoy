@@ -25,7 +25,6 @@ public class AhoyStart extends Activity implements SensorEventListener {
 
 
 	private Sensor sOrientation;
-	
 	private TextView sent_txt;
 
 	//Rotat.
@@ -36,6 +35,8 @@ public class AhoyStart extends Activity implements SensorEventListener {
 	float[] mOldOrientation = new float[3];
 	
 	float[] delta = new float[3];
+	
+	boolean showinfo = false;
 	boolean WantConnection = false;
 	boolean connected = false;
 
@@ -64,7 +65,10 @@ public class AhoyStart extends Activity implements SensorEventListener {
 		//sent_txt = (TextView)findViewById(R.id.button_listen);
 		
 		Button button_listen  = (Button)findViewById(R.id.button_listen);
-
+		
+		Button reset  = (Button)findViewById(R.id.reset);
+		
+		Button show  = (Button)findViewById(R.id.show);
 
 	    message_txt.setOnClickListener(new View.OnClickListener() {
 
@@ -72,10 +76,6 @@ public class AhoyStart extends Activity implements SensorEventListener {
 	        public void onClick(View v) {
 	        	
 	        		WantConnection = true;
-	        	
-	        		mInitialized = false;
-	        		
-	        		connectSocket("192.168.43.201");
 
 	        }
 	    });
@@ -88,12 +88,36 @@ public class AhoyStart extends Activity implements SensorEventListener {
 		        	
 		        	float testFl = 0.0f;
 		        	connectSocket("192.168.43.201");
-					sendData(Float.toString(delta[0])+" "+Float.toString(delta[1])+" "+Float.toString(delta[2]));
 		        	sendData(Float.toString(testFl)+" "+Float.toString(testFl)+" "+Float.toString(testFl));
 		        	WantConnection = false;
 		        }
 
 	    });
+	        
+	        reset.setOnClickListener(new View.OnClickListener() {
+
+		        @Override
+		        public void onClick(View v) {
+		        	
+					mOldOrientation[0]=(float)Math.toDegrees(mOrientation[0]);
+					mOldOrientation[1]=(float)Math.toDegrees(mOrientation[1]);
+					mOldOrientation[2]=(float)Math.toDegrees(mOrientation[2]);
+
+		        }
+		    });
+	        
+	        show.setOnClickListener(new View.OnClickListener() {
+
+		        @Override
+		        public void onClick(View v) {
+		        	
+		        	if(!showinfo)
+		        		showinfo = true;
+		        	else
+		        		showinfo = false;
+
+		        }
+		    });
 		
 	}
 
@@ -135,35 +159,57 @@ public class AhoyStart extends Activity implements SensorEventListener {
 						
 						mInitialized = true;
 						
+						if(showinfo){
+							TextView tvX = (TextView) findViewById(R.id.x_axis);
+							TextView tvY = (TextView) findViewById(R.id.y_axis);
+							TextView tvZ = (TextView) findViewById(R.id.z_axis);
+							
+							
+							tvX.setText(Float.toString((float)Math.toDegrees(mOrientation[0])-mOldOrientation[0]));
+							tvY.setText(Float.toString((float)Math.toDegrees(mOrientation[1])-mOldOrientation[1]));
+							tvZ.setText(Float.toString((float)Math.toDegrees(mOrientation[2])-mOldOrientation[2]));
+							}
+						
 					}
 					else
 					{
 					
 						//Skriver ut grader i app:n
-					mOrientation[0]=(float)Math.toDegrees(mOrientation[0]);
-					mOrientation[1]=(float)Math.toDegrees(mOrientation[1]);
-					mOrientation[2]=(float)Math.toDegrees(mOrientation[2]);
 					
-					delta[0]=mOldOrientation[0]-mOrientation[0];
-					delta[1]=mOldOrientation[1]-mOrientation[1];
-					delta[2]=mOldOrientation[2]-mOrientation[2];
+					delta[0]=(float)Math.toDegrees(mOrientation[0])-mOldOrientation[0];
+					delta[1]=(float)Math.toDegrees(mOrientation[1])-mOldOrientation[1];
+					delta[2]=(float)Math.toDegrees(mOrientation[2])-mOldOrientation[2];
 					
+					if(showinfo){
 					TextView tvX = (TextView) findViewById(R.id.x_axis);
 					TextView tvY = (TextView) findViewById(R.id.y_axis);
 					TextView tvZ = (TextView) findViewById(R.id.z_axis);
 					
+					
 					tvX.setText(Float.toString(delta[0]));
 					tvY.setText(Float.toString(delta[1]));
 					tvZ.setText(Float.toString(delta[2]));
+					}
+					
+					
+					/*
+					tvX.setText(Float.toString(mOrientation[0]));
+					tvY.setText(Float.toString(mOrientation[1]));
+					tvZ.setText(Float.toString(mOrientation[2]));
+					*/
+					
 					//Slut "Skriver ut grader i app:n"
 					
 					connectSocket("192.168.43.201");
 
 					sendData(Float.toString(delta[0])+" "+Float.toString(delta[1])+" "+Float.toString(delta[2]));
-
+					//sendData(Float.toString(mOrientation[0])+" "+Float.toString(mOrientation[1])+" "+Float.toString(mOrientation[2]));
+					
 					ImageView iv = (ImageView) findViewById(R.id.image);
 
 					iv.setVisibility(View.VISIBLE);
+					
+					
 					}
 
 				}
@@ -196,7 +242,8 @@ public class AhoyStart extends Activity implements SensorEventListener {
 	        e.printStackTrace(); 
 	        return false;
 	    } 
-}
+		}
+
 
 	
 	private void sendData (String message){
@@ -217,7 +264,13 @@ public class AhoyStart extends Activity implements SensorEventListener {
             Log.d("TCP", "C: Sent."); 
             Log.d("TCP", "C: Done.");               
 
-        } catch(Exception e) { 
+        } 
+		catch(NullPointerException e) {
+			Log.e("TCP", "Error: NullPointerException"); 
+			WantConnection = false;
+		}
+		
+		catch(Exception e) { 
             Log.e("TCP", "S: Error", e); 
         }
 		
