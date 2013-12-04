@@ -72,7 +72,7 @@ SPHSimulation::~SPHSimulation(){
 int last = 0;
 
 void SPHSimulation::update(float timeStep){
-  setupParticles();
+  // setupParticles();
   int frequency = 200;
   last++;
   if (last % frequency == 0){
@@ -83,9 +83,9 @@ void SPHSimulation::update(float timeStep){
   }
   computeMassDensityAndPressure();
   computeForces();
+  spatialHashing.clear();
   integrateParticles(timeStep);
   oceanSurface.update(spatialHashing, kernelRadius);
-  spatialHashing.clear();
   //cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
 }
 
@@ -132,12 +132,6 @@ void SPHSimulation::createCircularWave(const vec2& center, float radius, float s
 
 void SPHSimulation::setupParticles(){
   for (int i = 0; i < numberParticles; i++){
-    particles[i].massDensity = 0;
-    particles[i].acceleration = vec2(0.0, 0.0);
-    spatialHashing.addToMap((particles+i));
-    int ind = spatialHashing.getIndexBox(particles[i].position);
-    if (ind < 0 || ind >= spatialHashing.getNumberCells())
-      std::cout << "might wanna check that " << ind << std::endl;
   }
 }
 
