@@ -2,7 +2,10 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
+#include <algorithm>
 
+using std::min;
+using std::max;
 using std::cout;
 using std::endl;
 using glm::dot;
@@ -13,7 +16,7 @@ SPHSimulation::SPHSimulation(const string& parametersFile) :
 
 SPHSimulation::SPHSimulation(const SimulationParameters& param) :
   numberParticles(floor(sqrt((float)param.getNumberParticles()))*floor(sqrt((float)param.getNumberParticles()))),
-  oceanSurface(param.getMassDensity0(), 20, 20, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
+  oceanSurface(param.getMassDensity0(), 15, 15, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
   spatialHashing(param.getKernelRadius(), param.getSceneWidth(), param.getSceneLength()),
   sceneWidth(param.getSceneWidth()),
   sceneLength(param.getSceneLength()),
@@ -68,37 +71,69 @@ int last = 0;
 
 void SPHSimulation::update(float timeStep){
   setupParticles();
-  if (last % 80 == 0)
-    for (int i = 0; i < numberParticles; i++)
-      if (particles[i].position.y > sceneWidth/2*0.8)
-        particles[i].acceleration.y = -500 ;
-
+  int frequency = 200;
+  if (last % frequency == 0){
+    // createLinearWave(0, 0.0, 1.0, 2000);
+    createCircularWave(vec2(0.0, 0.0), 0.12, 40);
+  }
   computeMassDensityAndPressure();
   computeForces();
   integrateParticles(timeStep);
   oceanSurface.update(spatialHashing, kernelRadius);
   spatialHashing.clear();
-  cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
   last++;
+  //cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
 }
 
+void SPHSimulation::createLinearWave(int wall, float boundary1, float boundary2, float strength){
+  bool xDir = walls[wall].x != 0.0;
+  vec2 w1(0.9f*walls[wall]);
+  vec2 w2(walls[wall]);
+  if (w2.x < w1.x || w2.y < w1.y){
+    vec2 tmp(w2);
+    w2 = w1;
+    w1 = tmp;
+  }
+  float b1 = (xDir ? sceneLength : sceneWidth) * std::min(boundary1, boundary2) - (xDir ? sceneLength : sceneWidth)/2;
+  float b2 = (xDir ? sceneLength : sceneWidth) * std::max(boundary1, boundary2) - (xDir ? sceneLength : sceneWidth)/2;
+  for (int i = 0; i < numberParticles; i++){
+    const vec2& pos = particles[i].position;
+    if ((xDir && pos.x > w1.x && pos.x < w2.x && pos.y > b1 && pos.y < b2) || 
+      (pos.y > w1.y && pos.y < w2.y && pos.x > b1 && pos.x < b2)){ 
+      particles[i].acceleration += strength*wallsNormal[wall];
+    }
+  }
+}
+
+void SPHSimulation::createCircularWave(const vec2& center, float radius, float strength){
+  const array<int,9>& neighbourIndices = spatialHashing.getAllNeighbouringCellIndices();
+  const int cellIndex = spatialHashing.getIndexBox(center);
+  const float radius2 = pow(radius, 2);
+  const float cst = 4/(Pi*pow(radius,8));
+  for (int k = 0; k < 9; k++){
+    int neighbourIndex = cellIndex + neighbourIndices[k];
+    if (spatialHashing.areCellsNeighbours(cellIndex, neighbourIndex)){
+      forward_list<Particle*>& particlesCell = spatialHashing.getListParticles(neighbourIndex);
+      for (Particle* p : particlesCell){
+        const vec2 r = p->position - center;
+        const float norm2 = dot(r,r);
+        if (norm2 < radius2) {
+          const float tmp = cst * pow(radius2-norm2,3);
+          p->acceleration += strength*tmp*glm::normalize(r);
+        }        
+      }
+    }
+  }
+}
 
 void SPHSimulation::setupParticles(){
-  /*bool wave = false;
-  if (glfwGetTime() - last > 3.0){
-    last = glfwGetTime();
-    wave = true;
-  }*/
   for (int i = 0; i < numberParticles; i++){
     particles[i].massDensity = 0;
     particles[i].acceleration = vec2(0.0, 0.0);
     spatialHashing.addToMap((particles+i));
-    // if (last == 0)
-    //   particles[i].acceleration += (vec2(8000.0, 1400.0));
-    // if (particles[i].position.x < -0.7){
-    //   particles[i].position = vec2(0.7, particles[i].position.y);
-    //   particles[i].acceleration += (vec2(wave ? -200.0 : -200.0, 0.0));
-    // }
+    int ind = spatialHashing.getIndexBox(particles[i].position);
+    if (ind < 0 || ind >= spatialHashing.getNumberCells())
+      std::cout << "might wanna check that " << ind << std::endl;
   }
 }
 
@@ -139,8 +174,8 @@ void SPHSimulation::computeMassDensityAndPressure(){
   // for each cell
   for (int cellIndex = 0; cellIndex < spatialHashing.getNumberCells(); cellIndex++){
     forward_list<Particle*>& particlesCell = spatialHashing.getListParticles(cellIndex);
-    // for each neighbouring cell (strict neighbour, meaning it excludes )
-    for (int i = 0; i < neighbouringCellIndices.size(); i++){
+    // for each neighbouring cell (strict neighbour, meaning it excludes itself)
+    for (int i = 0; i < 4; i++){
       int neighbourIndex = cellIndex+neighbouringCellIndices[i];
       // check that the neighbouring cell exists
       if (spatialHashing.areCellsNeighbours(cellIndex, neighbourIndex)){
@@ -213,7 +248,7 @@ void SPHSimulation::computeForces(){
   for (int cellIndex = 0; cellIndex < spatialHashing.getNumberCells(); cellIndex++){
     forward_list<Particle*>& particlesCell = spatialHashing.getListParticles(cellIndex);
     // for each neighbouring cell
-    for (int i = 0; i < neighbouringCellIndices.size(); i++){
+    for (int i = 0; i < 4; i++){
       int neighbourIndex = cellIndex+neighbouringCellIndices[i];
       if (spatialHashing.areCellsNeighbours(cellIndex, neighbourIndex)){
         // for each particle in the main cell
@@ -242,18 +277,18 @@ void SPHSimulation::integrateParticles(float timeStep){
     particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
     particles[i].updateWalls(walls, wallsNormal, rebound);
   }
-  /*
+  
   for (Boat &b : boats){
     vec3 normal3 = oceanSurface.interpolateNormalAtPosition(b.position);
     vec2 normal2(normal3.x, normal3.y);
-    b.velocity = 10.0f*normal2;
+    b.velocity = 1.0f*normal2;
     //b.velocity *= 0.95f;
     //b.setDirection();
     b.updatePosition(timeStep);
     b.updateWalls(walls, wallsNormal, 1.0f);
     b.height = oceanSurface.interpolateHeightAtPosition(b.position);
     b.update();
-  }*/
+  }
 }
 
 
@@ -278,8 +313,8 @@ void SPHSimulation::render(){
 }
 
 void SPHSimulation::draw(const mat4& vp){
-  /*oceanSurface.draw(vp);
+  oceanSurface.draw(vp);
   for (Boat &b : boats){
     b.draw(vp);
-  }*/
+  }
 }

@@ -9,7 +9,7 @@ out VS_OUT { vec3 N; vec2 UV; } vs_out;
 
 void main()
 {
-	gl_Position = MVP * vec4(v_ms, 1);	
+  gl_Position = MVP * vec4(v_ms, 1);	
   vs_out.N = vertexNormal;
   vs_out.UV = vertexUV;
 }

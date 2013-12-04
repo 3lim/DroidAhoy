@@ -19,6 +19,8 @@ public:
 	SPHSimulation(const string&);
 	~SPHSimulation();
 	void update(float);
+	void createLinearWave(int, float, float, float);
+	void createCircularWave(const vec2&, float, float);
 	void render();
 	void draw(const mat4&);
 	void addBoat(const Model& m) { boats.push_back(Boat(m)); }
