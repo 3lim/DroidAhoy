@@ -6,7 +6,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <netdb.h>
 #include <unistd.h>
 
 #include <string.h>
@@ -19,6 +19,9 @@
 #include <sstream>
 //threads
 #include <pthread.h>
+
+#define PORT "4444" /* Port to listen on */
+#define BACKLOG 10 /* Passed to listen() */
 
 class PortListener {
 
@@ -34,6 +37,8 @@ public:
 	~PortListener();
 	glm::vec3 charToFloat(char * characters);
 	glm::vec3 getVec();
+
+	pthread_t t1; // declare thread
 
 	int boundsocket;
 	glm::vec3 orientation;
