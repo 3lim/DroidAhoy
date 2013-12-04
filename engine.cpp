@@ -14,7 +14,7 @@ int Engine::run(void)
   /* Create a windowed mode window and its OpenGL context */
   glfwWindowHint(GLFW_SAMPLES, 4);
 
-  window = glfwCreateWindow(w_window,h_window,n_window.c_str(),NULL, NULL);
+  window = glfwCreateWindow(w_window, h_window, n_window.c_str(), NULL, NULL);
   if (!window)
   {
     glfwTerminate();

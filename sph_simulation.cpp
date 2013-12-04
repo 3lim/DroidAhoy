@@ -48,14 +48,16 @@ SPHSimulation::SPHSimulation(const SimulationParameters& param) :
       for (int j = 0; j < tmp; j++) { 
         particles[i*tmp+j].position = vec2(
           -sceneWidth/2+sceneWidth*(float)(i+1)/(tmp+1), 
-          -sceneLength/2+sceneLength*(float)(j+1)/(tmp+1));
+          -sceneLength/2+sceneLength*(float)(j+1)/(tmp+1)
+        );
       }
     }
   } else if (param.getInitialSetup() == "line"){  
     for (int i = 0; i < numberParticles; i++) {
       particles[i].position = vec2(
-          -sceneWidth/2+sceneWidth*(float)(i+1)/(numberParticles+1), 
-          0);
+        -sceneWidth/2+sceneWidth*(float)(i+1)/(numberParticles+1), 
+        0
+      );
     }
   }
   // particles[0].setVelocity(vec2(15, 10));
@@ -72,22 +74,24 @@ int last = 0;
 void SPHSimulation::update(float timeStep){
   setupParticles();
   int frequency = 200;
+  last++;
   if (last % frequency == 0){
-    // createLinearWave(0, 0.0, 1.0, 2000);
-    createCircularWave(vec2(0.0, 0.0), 0.12, 40);
+    if (rand() % 4 < 3)
+      createLinearWave(rand()%4, 0.0, 1.0, 1000);
+    else
+      createCircularWave(vec2(0.0, 0.0), 0.11, 40);
   }
   computeMassDensityAndPressure();
   computeForces();
   integrateParticles(timeStep);
   oceanSurface.update(spatialHashing, kernelRadius);
   spatialHashing.clear();
-  last++;
   //cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
 }
 
 void SPHSimulation::createLinearWave(int wall, float boundary1, float boundary2, float strength){
   bool xDir = walls[wall].x != 0.0;
-  vec2 w1(0.9f*walls[wall]);
+  vec2 w1(0.92f*walls[wall]);
   vec2 w2(walls[wall]);
   if (w2.x < w1.x || w2.y < w1.y){
     vec2 tmp(w2);

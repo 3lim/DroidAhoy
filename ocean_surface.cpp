@@ -62,6 +62,9 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 			oceanVertices[3*(i*nbColumns+j)+0]=((float)i/(nbRows-1))*sceneLength-sceneLength/2;
 			oceanVertices[3*(i*nbColumns+j)+1]=((float)j/(nbColumns-1))*sceneWidth-sceneWidth/2;
 			oceanVertices[3*(i*nbColumns+j)+2]=defaultHeight;
+			oceanNormals[3*(i*nbColumns+j)+0]=0.0;
+			oceanNormals[3*(i*nbColumns+j)+1]=0.0;
+			oceanNormals[3*(i*nbColumns+j)+2]=1.0;
 		}
 	}
 	oceanVertices.push_back(-3.0f);
@@ -183,10 +186,12 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 	float xd = sceneWidth / nbRows;
 	float yd = sceneLength / nbColumns;
 	float z1,z2,z3,z4,xres,yres,zres=xd*yd;
-	for (int i = 0; i < nbRows*nbColumns; i++){
-		oceanNormals[3*i+0] = 0;
-		oceanNormals[3*i+1] = 0;
-		oceanNormals[3*i+2] = 0;
+	for (int i = 1; i < nbRows-1; i++){
+		for (int j = 1; j < nbColumns-1; j++){
+			oceanNormals[3*(i*nbColumns+j)+0] = 0.0;
+			oceanNormals[3*(i*nbColumns+j)+1] = 0.0;
+			oceanNormals[3*(i*nbColumns+j)+2] = 0.0;
+		}
 	} 
 	for (int i = 0; i < nbRows-1; i++){
 		for (int j = 0; j < nbColumns-1; j++){
@@ -197,27 +202,40 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 
 			xres = yd*(z2-z1);
 			yres = xd*(z4-z2);
-			oceanNormals[3*(i*nbColumns+j)+0] += xres;
-			oceanNormals[3*(i*nbColumns+j)+1] += yres;
-			oceanNormals[3*(i*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
 
-			xres = yd*(z4-z3); 
+			if (i != 0 && j != 0){
+				oceanNormals[3*(i*nbColumns+j)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != 0){	
+				oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != nbColumns-2) {
+				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			}
+
+			xres = yd*(z4-z3);
 			yres = xd*(z3-z1);
-			oceanNormals[3*(i*nbColumns+j)+0] += xres;
-			oceanNormals[3*(i*nbColumns+j)+1] += yres;
-			oceanNormals[3*(i*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			if (i != 0 && j != 0){
+				oceanNormals[3*(i*nbColumns+j)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != 0){
+				oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != nbColumns-2){
+				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			}
 		}
 	}
 

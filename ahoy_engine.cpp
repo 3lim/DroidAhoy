@@ -52,11 +52,16 @@ int AhoyEngine::init(){
 }
 
 clock_t start = clock();
+float s_time = glfwGetTime();
+
 int AhoyEngine::update(){
-  sim->update(timeStep/5);
+  // sim->update(timeStep/5);
 
-  float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
-
+  // float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
+  float dt = (glfwGetTime()-s_time);
+  s_time = glfwGetTime();
+  sim->update(dt/5);
+  std::cout << dt << std::endl;
   kb.apply_input(cam_old,dt);
   start = clock();
   return 1;
@@ -89,7 +94,7 @@ int AhoyEngine::render(){
 }
 
 int main(){
-  AhoyEngine ahoy = AhoyEngine(640, 480  , "Demo World!");
+  AhoyEngine ahoy = AhoyEngine(1366, 768, "Demo World!");
   ahoy.run();
 }
 
