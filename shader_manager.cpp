@@ -17,14 +17,14 @@
     glm
     
   installing boost (ubuntu):
-    sudo apt-get install libboost-all-dev
+    sudo a_pt-get install libboost-all-dev
 
   installing glfw3 (ubuntu):
     see README.md
 
   installing glm (ubuntu):
     included in ubuntu, otherwise:
-    sudo apt-get install libglm-dev
+    sudo a_pt-get install libglm-dev
     
 
 ###########################################################################

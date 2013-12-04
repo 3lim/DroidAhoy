@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 using namespace std;
 using namespace glm;
@@ -16,29 +17,35 @@ using namespace glm;
 class Transformable{
 
   protected:
-    mat4 pt;
-    bool t_invalid;
-    bool t_order_reverse;
-    vec3 rot;
-    vec3 pos;
+    mat4 _pt;
+    bool _t_invalid;
+    bool _t_order_reverse;
+    vec3 _pos;
+    quat _ori;
 
     //Use cross to determine forward
-    vec3 up;
-    vec3 right;
-    vec3 forward;
+    vec3 _up;
+    vec3 _right;
+    vec3 _forward;
     float _scale;
 
   public:
     Transformable();
     
     const mat4& get_transformation();
-    
-    void add_rotation(float,float,float);
-    void set_rotation(const vec3&);
+   
+    /* Model relative directions */ 
+    virtual vec3 up();
+    virtual vec3 right();
+    virtual vec3 forward();
+  
+    void rotate(float,float,float);
+    void set_rotation(vec3);
     void set_rotation(float,float,float);
-    const vec3& get_rotation();
+    void set_rotation(const quat&);
+    const vec3 get_rotation();
 
-    void add_position(float,float,float);
+    void translate(float,float,float);
     void set_position(float,float,float);
     void set_position(const vec3&);
     const vec3& get_position();

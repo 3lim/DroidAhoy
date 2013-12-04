@@ -7,8 +7,6 @@
 using namespace glm;
 
 class Controller{
-  private:
-
   public:
     Controller();
     Controller(GLFWwindow *);
