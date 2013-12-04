@@ -47,7 +47,7 @@ public:
 
 
 private:
-
+  bool new_data;
 	int conn;
 	int sock;
 	glm::vec3 oldVector;

@@ -60,6 +60,7 @@ void PortListener::receiveData(){
       std::cerr << std::endl <<  "Error receiving data." << std::endl;
 		}
 		else {
+      new_data = true;
 			recvData[bytes] = '\0';
 			orientation = charToFloat(recvData);
 
@@ -109,7 +110,10 @@ void PortListener::startThread(){
  */
 
 glm::vec3 PortListener::getVec(){
-	return orientation;
+  if(new_data)
+	  return orientation;
+  else 
+    return glm::vec3(0,0,0);
 }
 /*
 void createThread(void){
