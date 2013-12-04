@@ -40,6 +40,11 @@ class Model : public Transformable{
     Model(const Model&);
     Model(const vector<float>&, const vector<float>&, const vector<float>&, const vector<unsigned>&, const TextureParams&);
     
+    vec3 up();
+    vec3 right();
+    vec3 forward();
+
+    
     void set_program(unsigned);
 
     bool init();

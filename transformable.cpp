@@ -49,7 +49,7 @@ const mat4& Transformable::get_transformation(){
 
     //Total transformation
     if(!_t_order_reverse) 
-      _pt = scaler * transa * toMat4(_ori);
+      _pt = transa * toMat4(_ori) * scaler;
     else 
       _pt = scaler * toMat4(_ori) * transa;
     

@@ -24,7 +24,7 @@ Camera::Camera(const mat4& _p, const mat4& _c) : Transformable(){
   _t_order_reverse = true;
   _t_invalid = true;
   projection = _p;
-  _ori = quat(_c);
+  _ori = toQuat(_c);
   set_position(vec3(_c[3]));
   //set_rotation(atan2(_c[2][1], _c[2][2]), 
   //             atan2(-_c[2][0], sqrt(_c[2][1]*_c[2][1] + _c[2][2] * _c[2][2])),

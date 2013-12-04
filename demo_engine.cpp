@@ -36,12 +36,13 @@ int DemoEngine::init(){
   boat.set_scale(0.15f);
    
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 cam_init = glm::lookAt(glm::vec3(15,5,5),boat_center, glm::vec3(0,1,0));
+  glm::mat4 cam_init = glm::lookAt(glm::vec3(-0.75,0.75,-2.00), boat_center, glm::vec3(0,0,1));
+  
 
   //Initialize camera
   cam = Camera(p, cam_init);
   cam_old = cam_init;
-
+  cam.translate(0,0,-5);
   //Attach window to keyboard controller 
   kb = KeyboardController(window);
   return 1;
@@ -51,7 +52,8 @@ clock_t start = clock();
 int DemoEngine::update(){
   float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   //boat.rotate(0, -1.0f *dt, 0.0f);
-  kb.apply_input(cam,dt);
+  //kb.apply_input(cam,dt);
+  kb.apply_input(boat,dt);
   start = clock();
   return 1;
 }

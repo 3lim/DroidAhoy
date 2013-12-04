@@ -31,7 +31,6 @@ int AhoyEngine::init(){
   ak = new AndroidController();
   // sim->addBoat();
   //Load boat
-  
   GLuint boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
   Model* boat_model = OBJLoader::load_model_pointer(string("models/pirate_boat.obj"));
   boat_model->set_texture(boat_tex_id);
@@ -39,15 +38,18 @@ int AhoyEngine::init(){
   boat_model->init();
   boat_model->set_scale(0.005);
   boat_model->set_rotation(90,0,0);
+  boat_model->set_position(0,0,10);
   sim->addBoat(*boat_model);
   
+  glm::vec3 cam_pos = glm::vec3(-0.5f,-0.5f, 0.15f);
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 cam_init = glm::lookAt(glm::vec3(1,1,1), glm::vec3(0,0,1), glm::vec3(0,0,1));
+  glm::mat4 cam_init = glm::lookAt(cam_pos, glm::vec3(-0.15f,0,-0.35f), glm::vec3(0,0,1));
   
   //Initialize camera
   cam = Camera(p, cam_init);
+  cam.translate(0,0,-1.0f);
   cam_old = cam_init;
-  
+
   //Attach window to keyboard controller 
   kb = KeyboardController(window);
   return 1;
@@ -63,8 +65,8 @@ int AhoyEngine::update(){
   sim -> update(dt/5);
   // std::cout << dt << std::endl;
   ak -> apply_input(sim, dt);
-  //kb.apply_input(cam,dt);
-  kb.apply_input(cam_old,dt);
+  kb.apply_input(cam,dt);
+  //kb.apply_input(cam_old,dt);
   return 1;
 }
 
@@ -80,10 +82,10 @@ int AhoyEngine::render(){
   glEnable(GL_ALPHA_TEST);          
   glEnable(GL_TEXTURE_2D);           
 
-  glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 vp = p * cam_old;
+  //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
+  //glm::mat4 vp = p * cam_old;
 
-  sim->draw(vp);
+  sim->draw(cam.get_view());
  /* glPushMatrix();
   // glRotatef(70,0,1,0);
   // glScalef(0.5f, 0.5f, 0.5f);
