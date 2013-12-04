@@ -1,6 +1,0 @@
-int main(int argc, char *argv[])
-{
-    PortListener temp;
-    temp.receiveData();
-    return 1;
-}

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;DroidOrientation - Server/src/DroidOrientation - Server.cpp&apos; to &apos;DroidOrientation.cpp&apos;" description="Rename resource &apos;DroidOrientation - Server.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/DroidOrientation - Server.cpp" name="DroidOrientation.cpp" stamp="1384785700504" updateReferences="true"/>
-</session>
