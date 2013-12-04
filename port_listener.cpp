@@ -49,7 +49,7 @@ void PortListener::receiveData(){
 	boundsocket = bindSock(4444);
 
 	if (boundsocket == -1) {
-		fprintf(stderr, "bindSock error\n");
+    std::cerr << std::endl <<  "Could not bind the socket." << std::endl;
 	}
 
 	while ((conn = accept(boundsocket, NULL, NULL)) > 0) {
@@ -57,22 +57,20 @@ void PortListener::receiveData(){
 		bytes = recv(conn, recvData, 1023, 0);
 
 		if (bytes == -1) {
-			std::cout << "error on recv" << std::endl;
+      std::cerr << std::endl <<  "Error receiving data." << std::endl;
 		}
 		else {
 			recvData[bytes] = '\0';
-
 			orientation = charToFloat(recvData);
 
-			std::cout<< "Inside:" <<glm::to_string(orientation)<<std::endl;
+			std::cout<< "Received data:" <<glm::to_string(orientation)<<std::endl;
 
 			oldVector = orientation;
-
 		}
 
 		close(conn);
 	}
-  std::cout << "outside cool loop" << std::endl;
+  std::cout << "Stopped listening for sockets." << std::endl;
 	close(boundsocket);
 
 }

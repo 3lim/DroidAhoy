@@ -2,7 +2,7 @@
 
 AndroidController::AndroidController() : Controller(){
   receiver = thread(&PortListener::receiveData, PortListener());
-  receiver.join();
+//  receiver.join();
 };
 
 AndroidController::~AndroidController(){
@@ -10,9 +10,8 @@ AndroidController::~AndroidController(){
 
 
 AndroidController::AndroidController(GLFWwindow * w) : Controller(w){
-  pl = PortListener();
-  std::thread receive(&PortListener::receiveData, pl);
-  receive.join();
+  //receiver = thread(&PortListener::receiveData, PortListener());
+  //receive.join();
 };
 
 bool AndroidController::apply_input(SPHSimulation* s, float dt){
