@@ -48,7 +48,6 @@ private:
 	float heightOffset;
 	float heightScale;
 
-	void setupParticles();
 	void computeMassDensityAndPressure();
 	void computeForces();
 	void integrateParticles(float);

@@ -72,26 +72,29 @@ SPHSimulation::~SPHSimulation(){
 int last = 0;
 
 void SPHSimulation::update(float timeStep){
-  // setupParticles();
-  int frequency = 200;
-  last++;
-  if (last % frequency == 0){
-    if (rand() % 4 < 3)
-      createLinearWave(rand()%4, 0.0, 1.0, 1000);
-    else
-      createCircularWave(vec2(0.0, 0.0), 0.11, 40);
-  }
+  // int frequency = 200;
+  // last++;
+  // if (last % frequency == 0){
+  //   if (rand() % 4 < 3)
+  //     createLinearWave(rand()%4, 0.0, 1.0, 1000);
+  //   else
+  //     createCircularWave(vec2(0.0, 0.0), 0.11, 40);
+  // }
   computeMassDensityAndPressure();
   computeForces();
   spatialHashing.clear();
   integrateParticles(timeStep);
   oceanSurface.update(spatialHashing, kernelRadius);
+  for (int i = 0; i < numberParticles; i++){
+    particles[i].massDensity = 0;
+    particles[i].acceleration = vec2(0.0, 0.0);
+  }
   //cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
 }
 
 void SPHSimulation::createLinearWave(int wall, float boundary1, float boundary2, float strength){
   bool xDir = walls[wall].x != 0.0;
-  vec2 w1(0.92f*walls[wall]);
+  vec2 w1(0.90f*walls[wall]);
   vec2 w2(walls[wall]);
   if (w2.x < w1.x || w2.y < w1.y){
     vec2 tmp(w2);
@@ -127,11 +130,6 @@ void SPHSimulation::createCircularWave(const vec2& center, float radius, float s
         }        
       }
     }
-  }
-}
-
-void SPHSimulation::setupParticles(){
-  for (int i = 0; i < numberParticles; i++){
   }
 }
 
@@ -272,15 +270,16 @@ void SPHSimulation::integrateParticles(float timeStep){
   for (int i = 0; i < numberParticles; i++){
     particles[i].updateVelocity(timeStep);
     particles[i].updatePosition(timeStep);
-    particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
     particles[i].updateWalls(walls, wallsNormal, rebound);
+    particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
+    spatialHashing.addToMap((&particles[i]));
   }
   
   for (Boat &b : boats){
     vec3 normal3 = oceanSurface.interpolateNormalAtPosition(b.position);
     vec2 normal2(normal3.x, normal3.y);
     b.velocity += 0.5f*normal2;
-    b.velocity *= 0.95f;
+    // b.velocity *= 0.95f;
     //b.setDirection();
     // b.updateVelocity(timeStep);
     b.updatePosition(timeStep);
