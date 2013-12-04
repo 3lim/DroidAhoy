@@ -7,11 +7,12 @@
 
 class Boat : public Particle{
 public:
+	Boat();
 	Boat(const Model&);
 	//void setDirection();
 	void update();
 	void draw(const mat4&);
-	void check() { std::cout << model.get_position().z << std::endl; }
+	void render();
 private:
 	Model model;
 };

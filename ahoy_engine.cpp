@@ -28,6 +28,7 @@ int AhoyEngine::init(){
   ShaderManager::load_program("shaders/boat");
   
   sim = new SPHSimulation("parameters.txt");
+  // sim->addBoat();
   //Load boat
   
   GLuint boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
@@ -61,7 +62,7 @@ int AhoyEngine::update(){
   float dt = (glfwGetTime()-s_time);
   s_time = glfwGetTime();
   sim->update(dt/5);
-  std::cout << dt << std::endl;
+  // std::cout << dt << std::endl;
   kb.apply_input(cam_old,dt);
   start = clock();
   return 1;
@@ -83,10 +84,10 @@ int AhoyEngine::render(){
   glm::mat4 vp = p*cam_old;
 
   sim->draw(vp);
-/*  glPushMatrix();
-  // glRotatef(90,0,1,0);
-  //glScalef(0.1f, 0.1f, 0.1f);
-  // glTranslatef(0,0,0);
+ /* glPushMatrix();
+  // glRotatef(70,0,1,0);
+  // glScalef(0.5f, 0.5f, 0.5f);
+  glTranslatef(0,0,-1);
   sim->render();
   glPopMatrix();*/
 

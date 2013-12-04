@@ -16,7 +16,7 @@ SPHSimulation::SPHSimulation(const string& parametersFile) :
 
 SPHSimulation::SPHSimulation(const SimulationParameters& param) :
   numberParticles(floor(sqrt((float)param.getNumberParticles()))*floor(sqrt((float)param.getNumberParticles()))),
-  oceanSurface(param.getMassDensity0(), 15, 15, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
+  oceanSurface(param.getMassDensity0(), 40, 40, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
   spatialHashing(param.getKernelRadius(), param.getSceneWidth(), param.getSceneLength()),
   sceneWidth(param.getSceneWidth()),
   sceneLength(param.getSceneLength()),
@@ -285,9 +285,10 @@ void SPHSimulation::integrateParticles(float timeStep){
   for (Boat &b : boats){
     vec3 normal3 = oceanSurface.interpolateNormalAtPosition(b.position);
     vec2 normal2(normal3.x, normal3.y);
-    b.velocity = 1.0f*normal2;
-    //b.velocity *= 0.95f;
+    b.velocity += 0.5f*normal2;
+    b.velocity *= 0.95f;
     //b.setDirection();
+    // b.updateVelocity(timeStep);
     b.updatePosition(timeStep);
     b.updateWalls(walls, wallsNormal, 1.0f);
     b.height = oceanSurface.interpolateHeightAtPosition(b.position);
@@ -299,9 +300,12 @@ void SPHSimulation::integrateParticles(float timeStep){
 void SPHSimulation::render(){
   
   glPushMatrix();
-   oceanSurface.render();
+   // oceanSurface.render();
    for (int i = 0; i < numberParticles; i++){
-     particles[i].render();
+     // particles[i].render();
+   }
+   for (Boat &b : boats){
+    b.render();
    }
    spatialHashing.render();
    glBegin(GL_LINE_STRIP);

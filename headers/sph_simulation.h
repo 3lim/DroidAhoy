@@ -15,7 +15,6 @@ using glm::mat4;
 class SPHSimulation
 {
 public:
-	SPHSimulation() {}
 	SPHSimulation(const string&);
 	~SPHSimulation();
 	void update(float);
@@ -24,6 +23,7 @@ public:
 	void render();
 	void draw(const mat4&);
 	void addBoat(const Model& m) { boats.push_back(Boat(m)); }
+	void addBoat() { boats.push_back(Boat()); }
 private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
