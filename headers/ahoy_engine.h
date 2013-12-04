@@ -2,13 +2,14 @@
 #include "model.h"
 #include "sph_simulation.h"
 #include "keyboard_controller.h"
+#include "android_controller.h"
 
 class AhoyEngine : public Engine{
   private:
     AhoyEngine();
     SPHSimulation *sim;
-    Model *boat;
     KeyboardController kb;
+    AndroidController *ak;
     float timeStep;
   public:
     ~AhoyEngine();

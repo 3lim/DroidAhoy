@@ -14,7 +14,6 @@ using std::vector;
 
 class OceanSurface{
 public:
-	OceanSurface() {}
 	OceanSurface(float, int, int, float, float, float, float);
 	const vector<float>& getOceanVertices() { return oceanVertices; }
 	const vector<unsigned>& getOceanIndices() { return oceanIndices; }
@@ -27,7 +26,6 @@ public:
 	vec3 interpolateNormalAtPosition(const vec2&);
 	vec3 interpolateNormalAtPosition(const vec3&);
 private:
-	bool first;
 	//buffer ids
 	GLuint ib, vb, nb;
 	//Uniform ids, program id
@@ -38,7 +36,7 @@ private:
     vector<float> oceanNormals;
 
 	float massDensity0;
-	int nbRows, nbColumns;
+	const int nbRows, nbColumns;
 	float sceneWidth, sceneLength;
 	float heightOffset, heightScale;
 };

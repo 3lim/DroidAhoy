@@ -13,7 +13,7 @@ using namespace glm;
   Struct inspired by tiny_obj_loader
 
   Redefined as class to include object specific
-  coordinate axles (up, right, up x right) and 
+  coordinate axles (_up, _right, _up x _right) and 
   more easily interpreted mutators.
 
  */
@@ -39,6 +39,11 @@ class Model : public Transformable{
     Model();
     Model(const Model&);
     Model(const vector<float>&, const vector<float>&, const vector<float>&, const vector<unsigned>&, const TextureParams&);
+    
+    vec3 up();
+    vec3 right();
+    vec3 forward();
+
     
     void set_program(unsigned);
 

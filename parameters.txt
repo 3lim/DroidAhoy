@@ -7,11 +7,11 @@ sceneWidth				1.5
 sceneLength				1.5
 
 # simulation parameters, change in real time
-kernelRadius			0.11
-massDensity0			3
+kernelRadius			0.12
+massDensity0			3.0
 gravity 				-10.0
-rebound					0.2
-viscosityScale			1.0
+rebound					0.9
+viscosityScale			0.5
 pressureScale			1.0
 heightOffset			0.0
 heightScale				0.2

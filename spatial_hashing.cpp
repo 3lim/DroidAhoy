@@ -25,7 +25,11 @@ void SpatialHashing::clear() {
 
 int SpatialHashing::getIndexBox(const vec2 &position){
 	const vec2 tmp = position-bottomLeftCorner;
-	return floor(tmp.y / sizeSquare)*nbColumns + floor(tmp.x / sizeSquare);
+	int row = floor(tmp.y / sizeSquare);
+	row -= row == nbRows ? 1 : 0;
+	int column = floor(tmp.x / sizeSquare);
+	column -= column == nbColumns ? 1 : 0; 
+	return row*nbColumns + column;
 }
 
 /*inline*/ int SpatialHashing::getNumberCells(){

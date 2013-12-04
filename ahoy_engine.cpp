@@ -12,7 +12,7 @@ AhoyEngine::~AhoyEngine(){}
 mat4 cam_old(1.0f);
 
 int AhoyEngine::init(){
-
+  
   if (GLEW_OK != glewInit()) {
       std::cout << "GLEW failed!" << std::endl;
       exit(1);
@@ -26,39 +26,47 @@ int AhoyEngine::init(){
 
   ShaderManager::load_program("shaders/basic");
   ShaderManager::load_program("shaders/boat");
- 
+  
   sim = new SPHSimulation("parameters.txt");
+  ak = new AndroidController();
+  // sim->addBoat();
   //Load boat
   GLuint boat_tex_id = OBJLoader::load_texture(string("models/textures/pirate_boat.tga"), GL_TEXTURE0);
-  boat = OBJLoader::load_model_pointer(string("models/pirate_boat.obj"));
-  boat->set_texture(boat_tex_id);
-  boat->set_program(ShaderManager::get_program("boat"));
-  boat->init();
-  boat->set_scale(0.05);
-  const vec3& boat_center = OBJLoader::get_approx_center(*boat);
-  //boat->add_position(0,0,10);
+  Model* boat_model = OBJLoader::load_model_pointer(string("models/pirate_boat.obj"));
+  boat_model->set_texture(boat_tex_id);
+  boat_model->set_program(ShaderManager::get_program("boat"));
+  boat_model->init();
+  boat_model->set_scale(0.005);
+  boat_model->set_rotation(90,0,0);
+  boat_model->set_position(0,0,10);
+  sim->addBoat(*boat_model);
   
-
+  glm::vec3 cam_pos = glm::vec3(-0.5f,-0.5f, 0.15f);
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 cam_init = glm::lookAt(glm::vec3(15,5,5),boat_center, glm::vec3(0,1,0));
-
+  glm::mat4 cam_init = glm::lookAt(cam_pos, glm::vec3(-0.15f,0,-0.35f), glm::vec3(0,0,1));
+  
   //Initialize camera
   cam = Camera(p, cam_init);
+  cam.translate(0,0,-1.0f);
   cam_old = cam_init;
 
-  //Attach window to keyboard controller */
+  //Attach window to keyboard controller 
   kb = KeyboardController(window);
   return 1;
 }
 
 clock_t start = clock();
-int AhoyEngine::update(){
-  sim->update(timeStep/2);
+float s_time = glfwGetTime();
 
-  float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
-  //boat->add_rotation(0.0f, 10.0f*dt, 0.0f);
-  kb.apply_input(cam_old,dt);
-  start = clock();
+int AhoyEngine::update(){
+  // float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
+  float dt = (glfwGetTime()-s_time);
+  s_time = glfwGetTime();
+  sim -> update(dt/5);
+  // std::cout << dt << std::endl;
+  ak -> apply_input(sim, dt);
+  kb.apply_input(cam,dt);
+  //kb.apply_input(cam_old,dt);
   return 1;
 }
 
@@ -74,15 +82,14 @@ int AhoyEngine::render(){
   glEnable(GL_ALPHA_TEST);          
   glEnable(GL_TEXTURE_2D);           
 
-  glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
-  glm::mat4 vp = p*cam_old;
+  //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
+  //glm::mat4 vp = p * cam_old;
 
-  boat->draw(vp);
-  sim->draw(vp);
-  /*glPushMatrix();
-  //glRotatef(-45,1,0,0);
-  //glScalef(0.5,0.5,0.5);
-  //glTranslatef(0,0,0);
+  sim->draw(cam.get_view());
+ /* glPushMatrix();
+  // glRotatef(70,0,1,0);
+  // glScalef(0.5f, 0.5f, 0.5f);
+  glTranslatef(0,0,-1);
   sim->render();
   glPopMatrix();*/
 
@@ -90,7 +97,7 @@ int AhoyEngine::render(){
 }
 
 int main(){
-  AhoyEngine ahoy = AhoyEngine(640, 480, "Demo World!");
+  AhoyEngine ahoy = AhoyEngine(1366, 768, "Demo World!");
   ahoy.run();
 }
 

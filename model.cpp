@@ -4,6 +4,18 @@
 
 using namespace std;
 
+vec3 Model::up(){
+  return _up * inverse(_ori);
+}
+
+vec3 Model::forward(){
+  return _forward * inverse(_ori);
+}
+
+vec3 Model::right(){
+  return _right * inverse(_ori);
+}
+
 Model::Model(){
   ready_for_draw = has_program= has_v = has_uv = has_n = has_indices = has_tex = false;
   has_v = false;
@@ -13,6 +25,7 @@ Model::Model(){
 }
 
 Model::Model(const Model& that) : 
+  Transformable(that),
   vb(that.vb),
   ib(that.ib),
   uvb(that.uvb),

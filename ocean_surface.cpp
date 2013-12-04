@@ -4,7 +4,6 @@
 using glm::dot;
 
 OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float sceneWidth, float sceneLength, float heightOffset, float heightScale) :
-	first(true),
 	ib(0),
 	massDensity0(massDensity0),
 	nbRows(nbRows),
@@ -14,8 +13,9 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 	heightOffset(heightOffset),
 	heightScale(heightScale)
 {
-	oceanVertices.resize(3*nbRows*nbColumns);
-	oceanNormals.resize(3*nbRows*nbColumns);
+	int numberVertices = (nbRows*nbColumns);
+	oceanVertices.resize(3*numberVertices);
+	oceanNormals.resize(3*numberVertices);
 	oceanIndices.clear();
 	for (int i = 0; i < nbRows-1; i++){
 		for (int j = 0; j < nbColumns-1; j++){
@@ -27,14 +27,100 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 			oceanIndices.push_back(j+1+(i+1)*nbColumns);
 		}
 	}
+	oceanIndices.push_back(numberVertices+0);
+	oceanIndices.push_back(numberVertices+1);
+	oceanIndices.push_back(numberVertices+2);
+	oceanIndices.push_back(numberVertices+0);
+	oceanIndices.push_back(numberVertices+10);
+	oceanIndices.push_back(numberVertices+2);
 
+	oceanIndices.push_back(numberVertices+3);
+	oceanIndices.push_back(numberVertices+4);
+	oceanIndices.push_back(numberVertices+5);
+	oceanIndices.push_back(numberVertices+3);
+	oceanIndices.push_back(numberVertices+1);
+	oceanIndices.push_back(numberVertices+5);
+
+	oceanIndices.push_back(numberVertices+6);
+	oceanIndices.push_back(numberVertices+7);
+	oceanIndices.push_back(numberVertices+8);
+	oceanIndices.push_back(numberVertices+6);
+	oceanIndices.push_back(numberVertices+4);
+	oceanIndices.push_back(numberVertices+8);
+
+	oceanIndices.push_back(numberVertices+9);
+	oceanIndices.push_back(numberVertices+10);
+	oceanIndices.push_back(numberVertices+11);
+	oceanIndices.push_back(numberVertices+9);
+	oceanIndices.push_back(numberVertices+7);
+	oceanIndices.push_back(numberVertices+11);
+
+	float defaultHeight = 0.5+heightScale*heightOffset;
 	for (int i = 0; i < nbRows; i++){
 		for (int j = 0; j < nbColumns; j++){
-			oceanVertices[3*(i*nbColumns+j)+0]=((float)i/(nbRows-1))*sceneLength-sceneLength/2;
-			oceanVertices[3*(i*nbColumns+j)+1]=((float)j/(nbColumns-1))*sceneWidth-sceneWidth/2;
-			oceanVertices[3*(i*nbColumns+j)+2]=0.0f;
+			oceanVertices[3*(i*nbColumns+j)+0]=((float)j/(nbColumns-1))*sceneWidth-sceneWidth/2;
+			oceanVertices[3*(i*nbColumns+j)+1]=((float)i/(nbRows-1))*sceneLength-sceneLength/2;
+			oceanVertices[3*(i*nbColumns+j)+2]=defaultHeight;
+			oceanNormals[3*(i*nbColumns+j)+0]=0.0;
+			oceanNormals[3*(i*nbColumns+j)+1]=0.0;
+			oceanNormals[3*(i*nbColumns+j)+2]=1.0;
 		}
 	}
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(-sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(-sceneWidth/2);
+	oceanVertices.push_back(-sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(defaultHeight);
+	
+	oceanVertices.push_back(sceneWidth/2);
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(sceneWidth/2);
+	oceanVertices.push_back(-sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(-3.0f);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(sceneWidth/2);
+	oceanVertices.push_back(sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(-sceneWidth/2);
+	oceanVertices.push_back(3.0f);
+	oceanVertices.push_back(defaultHeight);
+
+	oceanVertices.push_back(-sceneWidth/2);
+	oceanVertices.push_back(sceneLength/2);
+	oceanVertices.push_back(defaultHeight);
+
+	for (int i = 0; i < 12; i++){
+		oceanNormals.push_back(0.0f);
+		oceanNormals.push_back(0.0f);
+		oceanNormals.push_back(1.0f);
+	}
+
+	
 	glGenBuffers(1, &ib);
     glBindBuffer(GL_ARRAY_BUFFER, ib);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)*oceanIndices.size(), oceanIndices.data(), GL_STATIC_DRAW);
@@ -49,7 +135,6 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 
     program_id = ShaderManager::get_program("basic");
     mvp_id = glGetUniformLocation(program_id, "MVP");
-
 }
 
 
@@ -76,39 +161,37 @@ private:
 void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 	const array<int,9>& neighbourIndices = hashing.getAllNeighbouringCellIndices();
 	HeightComputer computeHeight(kernelRadius);
-	float latestHeight=0;
-	for (int i = 0; i < nbRows*nbColumns; i++){
-		vec2 fixedPartPos(oceanVertices[3*i], oceanVertices[3*i+1]);
-		float t1 = 0, t2 = 0;
-		int cellIndex = hashing.getIndexBox(fixedPartPos);
-		// std::cout << cellIndex << std::endl;
-		for (int j = 0; j < 9; j++){
-			int neighbourIndex = cellIndex + neighbourIndices[j];
-			if (hashing.areCellsNeighbours(cellIndex, neighbourIndex)){
-				forward_list<Particle*>& particlesCell = hashing.getListParticles(neighbourIndex);
-				for (Particle* p : particlesCell){
-					computeHeight(p, fixedPartPos, t1, t2);
+	for (int i = 1; i < nbRows-1; i++){
+		for (int j = 1; j < nbColumns-1; j++){
+			int index = 3*(i*nbColumns+j);
+			vec2 fixedPartPos(oceanVertices[index], oceanVertices[index+1]);
+			float t1 = 0, t2 = 0;
+			int cellIndex = hashing.getIndexBox(fixedPartPos);
+			for (int k = 0; k < 9; k++){
+				int neighbourIndex = cellIndex + neighbourIndices[k];
+				if (hashing.areCellsNeighbours(cellIndex, neighbourIndex)){
+					forward_list<Particle*>& particlesCell = hashing.getListParticles(neighbourIndex);
+					for (Particle* p : particlesCell){
+						computeHeight(p, fixedPartPos, t1, t2);
+					}
 				}
 			}
+			if (t2 > 0){
+				oceanVertices[index+2] = heightScale*(t1/(t2*massDensity0)+heightOffset);
+			}
 		}
-		float height = heightScale*(t1/(t2*massDensity0)+heightOffset);
-		//std::cout << height << std::endl;
-		if (t2>0 && height>0) 
-			latestHeight=height;
-		oceanVertices[3*i+2] = height;
-		//oceanVertices[3*i+2] = 0;
-
-		// std::cout << " " << oceanVertices[3*i+2] << std::endl;
 	}
 
 	float xd = sceneWidth / nbRows;
 	float yd = sceneLength / nbColumns;
 	float z1,z2,z3,z4,xres,yres,zres=xd*yd;
-	for (int i = 0; i < nbRows*nbColumns; i++){
-		oceanNormals[3*i+0] = 0;
-		oceanNormals[3*i+1] = 0;
-		oceanNormals[3*i+2] = 0;
-	}
+	for (int i = 1; i < nbRows-1; i++){
+		for (int j = 1; j < nbColumns-1; j++){
+			oceanNormals[3*(i*nbColumns+j)+0] = 0.0;
+			oceanNormals[3*(i*nbColumns+j)+1] = 0.0;
+			oceanNormals[3*(i*nbColumns+j)+2] = 0.0;
+		}
+	} 
 	for (int i = 0; i < nbRows-1; i++){
 		for (int j = 0; j < nbColumns-1; j++){
 			z1=oceanVertices[3*(i*nbColumns+j)+2];
@@ -118,27 +201,41 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 
 			xres = yd*(z2-z1);
 			yres = xd*(z4-z2);
-			oceanNormals[3*(i*nbColumns+j)+0] += xres;
-			oceanNormals[3*(i*nbColumns+j)+1] += yres;
-			oceanNormals[3*(i*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
 
-			xres = yd*(z4-z3); 
+			if (i != 0 && j != 0){
+				oceanNormals[3*(i*nbColumns+j)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != 0){	
+				oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
+			}
+			if (i != nbRows-2 && j != nbColumns-2) {
+				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			}
+
+			xres = yd*(z4-z3);
 			yres = xd*(z3-z1);
-			oceanNormals[3*(i*nbColumns+j)+0] += xres;
-			oceanNormals[3*(i*nbColumns+j)+1] += yres;
-			oceanNormals[3*(i*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-			oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+
+			if (i != 0 && j != 0){
+				oceanNormals[3*(i*nbColumns+j)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j)+2] += zres;
+			}
+			if (i != 0 && j != nbColumns-2){
+				oceanNormals[3*(i*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j+1)+2] += zres;
+			}
+			if (i != nbRows-2 && j != nbColumns-2){
+				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			}
 		}
 	}
 
@@ -166,8 +263,6 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 	}
 }
 
-vec2 posi(-0.60,0.60);
-
 void OceanSurface::render(){
 	int numberFaces = 2*(nbRows-1)*(nbColumns-1);
     glEnable(GL_LIGHTING);
@@ -176,8 +271,9 @@ void OceanSurface::render(){
 	glEnable(GL_NORMALIZE);
 	glColor3f(0.0f,0.0f,1.0f);
 	glPushMatrix();
+	
 	glBegin(GL_TRIANGLES);
-	for (int i = 0; i < 3*numberFaces; i++){
+	for (int i = 0; i < 3*(numberFaces); i++){
 		glNormal3f(
 			oceanNormals[3*oceanIndices[i]],
 			oceanNormals[3*oceanIndices[i]+1],
@@ -190,14 +286,9 @@ void OceanSurface::render(){
 		);
 	}
 	glEnd();
-	posi.x += 0.002;
-	//posi.y += 0.002;
-	glPointSize(10);
-	glColor3f(1,0,0);
-	glBegin(GL_POINTS);
-	glVertex3f(posi.x, posi.y, interpolateHeightAtPosition(posi));
-	glEnd();
+	
 	glPopMatrix();
+	
 }
 
 void OceanSurface::draw(const mat4 &vp){
@@ -218,10 +309,10 @@ void OceanSurface::draw(const mat4 &vp){
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
     glDrawElements(
-        GL_TRIANGLES,             
-        oceanIndices.size(),    
-        GL_UNSIGNED_INT,          
-        (void*)0                  
+        GL_TRIANGLES,
+        oceanIndices.size(),
+        GL_UNSIGNED_INT,
+        (void*)0
     );
 
     glDisableVertexAttribArray(2);
@@ -231,30 +322,34 @@ void OceanSurface::draw(const mat4 &vp){
 float OceanSurface::interpolateHeightAtPosition(const vec2 &pos){
 	const vec2 bottomLeftCorner(-sceneWidth/2, -sceneLength/2);
 	const vec2 tmp(pos-bottomLeftCorner);
-	float x = tmp.x * nbColumns / sceneWidth;
-	float y = tmp.y * nbRows / sceneLength;
-	int xmap = floor(x), ymap = floor(y);
-	if (xmap > nbColumns-1){
-		xmap = nbColumns-1;
-	} else if (xmap < 0) {
-		xmap = 0;
+	float x = tmp.x * (nbColumns-1) / sceneWidth;
+	float y = tmp.y * (nbRows-1) / sceneLength;
+	int row = floor(y), column = floor(x);
+	if (row == nbRows-1)
+		row--;
+	if (column == nbColumns-1)
+		column--;
+	/*for (int i =0; i < nbRows*nbColumns; i++){
+		oceanVertices[3*i+2] = 0.5f;
 	}
-	if (ymap > nbRows-1){
-		ymap = nbRows-1;
-	} else if (ymap < 0) {
-		ymap = 0;
-	}
-	if ((xmap == x || x > nbColumns-1 || x < 0) && (ymap == y || y > nbRows-1 || y < 0)){	
-		return oceanVertices[3*(ymap*nbColumns+xmap)+2];
-	}
-	if (xmap == x || x > nbColumns-1 || x < 0){
-		return oceanVertices[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanVertices[3*((ymap+1)*nbColumns+xmap)+2]*(xmap+1-x)*(y-ymap);
-	}
-	if (ymap == y || y > nbRows-1 || y < 0){
-		return oceanVertices[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanVertices[3*(ymap*nbColumns+xmap+1)+2]*(x-xmap)*(ymap+1-y);
-	}
-	//interpolation bilinéaire
-	return oceanVertices[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanVertices[3*(ymap*nbColumns+xmap+1)+2]*(x-xmap)*(ymap+1-y)+oceanVertices[3*((ymap+1)*nbColumns+xmap)+2]*(xmap+1-x)*(y-ymap)+oceanVertices[3*((ymap+1)*nbColumns+xmap+1)+2]*(x-xmap)*(y-ymap);	
+	// oceanVertices[3*0+2] = 0.75f;
+	// oceanVertices[3*4+2] = 1.0f;
+	// oceanVertices[3*3+2] = 0.0f;
+	oceanVertices[3*7+2] = 0.25f;
+	{	
+		glBindBuffer(GL_ARRAY_BUFFER, vb);
+		float * bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		for (int i = 0; i < nbRows*nbColumns*3; i++){
+			bufferCopy[i] = oceanVertices[i];
+		}
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+	}*/
+	float interpolation = 
+		oceanVertices[3*(row*nbColumns+column)+2]*(column+1-x)*(row+1-y)+
+		oceanVertices[3*(row*nbColumns+column+1)+2]*(x-column)*(row+1-y)+
+		oceanVertices[3*((row+1)*nbColumns+column)+2]*(column+1-x)*(y-row)+
+		oceanVertices[3*((row+1)*nbColumns+column+1)+2]*(x-column)*(y-row);
+	return interpolation;
 }
 
 float OceanSurface::interpolateHeightAtPosition(const vec3 &pos){
@@ -264,36 +359,32 @@ float OceanSurface::interpolateHeightAtPosition(const vec3 &pos){
 vec3 OceanSurface::interpolateNormalAtPosition(const vec2 &pos){
 	const vec2 bottomLeftCorner(-sceneWidth/2, -sceneLength/2);
 	const vec2 tmp(pos-bottomLeftCorner);
-	float x = tmp.x * nbColumns / sceneWidth;
-	float y = tmp.y * nbRows / sceneLength;
-	int xmap = floor(x), ymap = floor(y);
-	if (xmap > nbColumns-1){
-		xmap = nbColumns-1;
-	} else if (xmap < 0) {
-		xmap = 0;
-	}
-	if (ymap > nbRows-1){
-		ymap = nbRows-1;
-	} else if (ymap < 0) {
-		ymap = 0;
-	}
-	if ((xmap == x || x > nbColumns-1 || x < 0) && (ymap == y || y > nbRows-1 || y < 0)){	
-		return vec3(oceanNormals[3*(ymap*nbColumns+xmap)], oceanNormals[3*(ymap*nbColumns+xmap)+1], oceanNormals[3*(ymap*nbColumns+xmap)+2]);
-	}
-	if (xmap == x || x > nbColumns-1 || x < 0){
-		return vec3(oceanNormals[3*(ymap*nbColumns+xmap)]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)]*(xmap+1-x)*(y-ymap),
-					oceanNormals[3*(ymap*nbColumns+xmap)+1]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)+1]*(xmap+1-x)*(y-ymap),
-					oceanNormals[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)+2]*(xmap+1-x)*(y-ymap));
-	}
-	if (ymap == y || y > nbRows-1 || y < 0){
-		return vec3(oceanNormals[3*(ymap*nbColumns+xmap)]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)]*(x-xmap)*(ymap+1-y),
-					oceanNormals[3*(ymap*nbColumns+xmap)+1]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)+1]*(x-xmap)*(ymap+1-y),
-					oceanNormals[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)+2]*(x-xmap)*(ymap+1-y));
-	}
-	//interpolation bilinéaire
-	return vec3(oceanNormals[3*(ymap*nbColumns+xmap)]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)]*(x-xmap)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)]*(xmap+1-x)*(y-ymap)+oceanNormals[3*((ymap+1)*nbColumns+xmap+1)]*(x-xmap)*(y-ymap),
-			oceanNormals[3*(ymap*nbColumns+xmap)+1]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)+1]*(x-xmap)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)+1]*(xmap+1-x)*(y-ymap)+oceanNormals[3*((ymap+1)*nbColumns+xmap+1)+1]*(x-xmap)*(y-ymap),
-			oceanNormals[3*(ymap*nbColumns+xmap)+2]*(xmap+1-x)*(ymap+1-y)+oceanNormals[3*(ymap*nbColumns+xmap+1)+2]*(x-xmap)*(ymap+1-y)+oceanNormals[3*((ymap+1)*nbColumns+xmap)+2]*(xmap+1-x)*(y-ymap)+oceanNormals[3*((ymap+1)*nbColumns+xmap+1)+2]*(x-xmap)*(y-ymap));	
+	float x = tmp.x * (nbColumns-1) / sceneWidth;
+	float y = tmp.y * (nbRows-1) / sceneLength;
+	int row = floor(y), column = floor(x);
+	if (row == nbRows-1)
+		row--;
+	if (column == nbColumns-1)
+		column--;
+	vec3 normals11(oceanNormals[3*(row*nbColumns+column)], 
+				oceanNormals[3*(row*nbColumns+column)+1], 
+				oceanNormals[3*(row*nbColumns+column)+2]);
+	vec3 normals12(oceanNormals[3*(row*nbColumns+column+1)], 
+				oceanNormals[3*(row*nbColumns+column+1)+1], 
+				oceanNormals[3*(row*nbColumns+column+1)+2]);
+	vec3 normals21(oceanNormals[3*((row+1)*nbColumns+column)], 
+				oceanNormals[3*((row+1)*nbColumns+column)+1], 
+				oceanNormals[3*((row+1)*nbColumns+column)+2]);
+	vec3 normals22(oceanNormals[3*((row+1)*nbColumns+column+1)], 
+				oceanNormals[3*((row+1)*nbColumns+column+1)+1], 
+				oceanNormals[3*((row+1)*nbColumns+column+1)+2]);
+
+	vec3 interpolation(
+		normals11*(column+1-x)*(row+1-y)+
+		normals12*(x-column)*(row+1-y)+
+		normals21*(column+1-x)*(y-row)+
+		normals22*(x-column)*(y-row));
+	return interpolation;
 }
 
 vec3 OceanSurface::interpolateNormalAtPosition(const vec3 &pos){

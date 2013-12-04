@@ -5,6 +5,7 @@
 #include "simulation_parameters.h"
 #include "spatial_hashing.h"
 #include "ocean_surface.h"
+#include "boat.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -14,12 +15,15 @@ using glm::mat4;
 class SPHSimulation
 {
 public:
-	SPHSimulation() {}
 	SPHSimulation(const string&);
 	~SPHSimulation();
 	void update(float);
+	void createLinearWave(int, float, float, float);
+	void createCircularWave(const vec2&, float, float);
 	void render();
 	void draw(const mat4&);
+	void addBoat(const Model& m) { boats.push_back(Boat(m)); }
+	void addBoat() { boats.push_back(Boat()); }
 private:
 	SPHSimulation(const SimulationParameters&);
 	int numberParticles;
@@ -28,6 +32,8 @@ private:
 	OceanSurface oceanSurface;
 
 	SpatialHashing spatialHashing;
+
+	vector<Boat> boats;
 
 	float sceneWidth, sceneLength;
 	vec2 walls[4];
@@ -42,7 +48,6 @@ private:
 	float heightOffset;
 	float heightScale;
 
-	void setupParticles();
 	void computeMassDensityAndPressure();
 	void computeForces();
 	void integrateParticles(float);
