@@ -26,7 +26,6 @@ public:
 	vec3 interpolateNormalAtPosition(const vec2&);
 	vec3 interpolateNormalAtPosition(const vec3&);
 private:
-	bool first;
 	//buffer ids
 	GLuint ib, vb, nb;
 	//Uniform ids, program id

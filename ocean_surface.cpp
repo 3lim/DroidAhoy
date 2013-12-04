@@ -4,7 +4,6 @@
 using glm::dot;
 
 OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float sceneWidth, float sceneLength, float heightOffset, float heightScale) :
-	first(true),
 	ib(0),
 	massDensity0(massDensity0),
 	nbRows(nbRows),
@@ -56,7 +55,7 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 	oceanIndices.push_back(numberVertices+7);
 	oceanIndices.push_back(numberVertices+11);
 
-	float defaultHeight = 0.55+heightScale*heightOffset;
+	float defaultHeight = 0.5+heightScale*heightOffset;
 	for (int i = 0; i < nbRows; i++){
 		for (int j = 0; j < nbColumns; j++){
 			oceanVertices[3*(i*nbColumns+j)+0]=((float)j/(nbColumns-1))*sceneWidth-sceneWidth/2;
@@ -221,15 +220,16 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 
 			xres = yd*(z4-z3);
 			yres = xd*(z3-z1);
+
 			if (i != 0 && j != 0){
 				oceanNormals[3*(i*nbColumns+j)+0] += xres;
 				oceanNormals[3*(i*nbColumns+j)+1] += yres;
 				oceanNormals[3*(i*nbColumns+j)+2] += zres;
 			}
-			if (i != nbRows-2 && j != 0){
-				oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
-				oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
-				oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
+			if (i != 0 && j != nbColumns-2){
+				oceanNormals[3*(i*nbColumns+j+1)+0] += xres;
+				oceanNormals[3*(i*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j+1)+2] += zres;
 			}
 			if (i != nbRows-2 && j != nbColumns-2){
 				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
@@ -310,7 +310,7 @@ void OceanSurface::draw(const mat4 &vp){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
     glDrawElements(
         GL_TRIANGLES,
-        oceanIndices.size()-8*3,
+        oceanIndices.size(),
         GL_UNSIGNED_INT,
         (void*)0
     );
@@ -329,6 +329,21 @@ float OceanSurface::interpolateHeightAtPosition(const vec2 &pos){
 		row--;
 	if (column == nbColumns-1)
 		column--;
+	/*for (int i =0; i < nbRows*nbColumns; i++){
+		oceanVertices[3*i+2] = 0.5f;
+	}
+	// oceanVertices[3*0+2] = 0.75f;
+	// oceanVertices[3*4+2] = 1.0f;
+	// oceanVertices[3*3+2] = 0.0f;
+	oceanVertices[3*7+2] = 0.25f;
+	{	
+		glBindBuffer(GL_ARRAY_BUFFER, vb);
+		float * bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		for (int i = 0; i < nbRows*nbColumns*3; i++){
+			bufferCopy[i] = oceanVertices[i];
+		}
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+	}*/
 	float interpolation = 
 		oceanVertices[3*(row*nbColumns+column)+2]*(column+1-x)*(row+1-y)+
 		oceanVertices[3*(row*nbColumns+column+1)+2]*(x-column)*(row+1-y)+
