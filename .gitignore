@@ -1,3 +1,8 @@
 *.swp
 *~
+*.o
+*program
+*.or
+*.cppr
 run_demo
+run_ahoy
