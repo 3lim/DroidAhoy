@@ -10,6 +10,7 @@ public:
 	Boat();
 	Boat(const Model&);
 	//void setDirection();
+	void setOrientation(const vec3&);
 	void update();
 	void draw(const mat4&);
 	void render();

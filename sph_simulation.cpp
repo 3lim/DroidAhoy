@@ -70,17 +70,18 @@ SPHSimulation::~SPHSimulation(){
 }
 
 int last = 0;
-
+int jezfe = 2;
 void SPHSimulation::update(float timeStep){
   int frequency = 200;
   last++;
-  if (last % frequency == 0){
+  
+  /*if (last % frequency == 0){
     std::cout << "Wave!" << std::endl;
     if (rand() % 4 < 3)
-      createLinearWave(rand()%4, 0.0, 1.0, 800);
+      createLinearWave((jezfe++)%4, 0.0, 1.0, 800);
     // else
       // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
-  }
+  }*/
   computeMassDensityAndPressure();
   computeForces();
   spatialHashing.clear();
@@ -95,7 +96,7 @@ void SPHSimulation::update(float timeStep){
 
 void SPHSimulation::createLinearWave(int wall, float boundary1, float boundary2, float strength){
   bool xDir = walls[wall].x != 0.0;
-  vec2 w1(0.90f*walls[wall]);
+  vec2 w1(0.85f*walls[wall]);
   vec2 w2(walls[wall]);
   if (w2.x < w1.x || w2.y < w1.y){
     vec2 tmp(w2);
@@ -279,12 +280,14 @@ void SPHSimulation::integrateParticles(float timeStep){
   }
   
   for (Boat &b : boats){
-    vec3 normal3 = oceanSurface.interpolateNormalAtPosition(b.position);
+    vec3 normal3(oceanSurface.interpolateNormalAtPosition(b.position));
     vec2 normal2(normal3.x, normal3.y);
-    //b.velocity += 0.5f*normal2;
-    // b.velocity *= 0.95f;
+    b.velocity += 0.5f*normal2;
+    b.velocity *= 0.95f;
     //b.setDirection();
-    // b.updateVelocity(timeStep);
+    b.updateVelocity(timeStep);
+    // b.setOrientation(normal3);
+    b.setOrientation(normal3);
     b.updatePosition(timeStep);
     b.updateWalls(walls, wallsNormal, 1.0f);
     b.height = oceanSurface.interpolateHeightAtPosition(b.position);

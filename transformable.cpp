@@ -55,11 +55,11 @@ const mat4& Transformable::get_transformation(){
     
     _t_invalid = false;
     return _pt;
-  }
-  else{
+  } else {
     return _pt;
   }
 }
+
 
 void Transformable::set_rotation(float ax, float ay, float az){
   ax = radians(ax); ay = radians(ay); az = radians(az);
@@ -79,6 +79,12 @@ void Transformable::set_rotation(vec3 r){
 
 void Transformable::rotate(float ax, float ay, float az){
   vec3 angles(radians(ax),radians(ay),radians(az));
+  _ori = quat(angles) * _ori;
+  _t_invalid = true;
+}
+
+void Transformable::rotateRad(float ax, float ay, float az){
+  vec3 angles(ax,ay,az);
   _ori = quat(angles) * _ori;
   _t_invalid = true;
 }

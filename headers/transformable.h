@@ -40,6 +40,7 @@ class Transformable{
     virtual vec3 forward();
   
     void rotate(float,float,float);
+    void rotateRad(float,float,float);
     void set_rotation(vec3);
     void set_rotation(float,float,float);
     void set_rotation(const quat&);

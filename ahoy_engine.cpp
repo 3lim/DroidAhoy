@@ -11,6 +11,8 @@ AhoyEngine::~AhoyEngine(){}
 
 mat4 cam_old(1.0f);
 
+// Model* boat_model;
+
 int AhoyEngine::init(){
   
   if (GLEW_OK != glewInit()) {
@@ -36,7 +38,8 @@ int AhoyEngine::init(){
   boat_model->set_texture(boat_tex_id);
   boat_model->set_program(ShaderManager::get_program("boat"));
   boat_model->init();
-  boat_model->set_scale(0.005);
+  // boat_model->set_scale(0.005);
+  boat_model->set_scale(0.01f);
   boat_model->set_rotation(90,0,0);
   boat_model->set_position(0,0,10);
   sim->addBoat(*boat_model);
@@ -62,7 +65,7 @@ int AhoyEngine::update(){
   // float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   float dt = (glfwGetTime()-s_time);
   s_time = glfwGetTime();
-  sim -> update(dt/6);
+  sim -> update(dt/10);
   // std::cout << dt << std::endl;
   ak -> apply_input(sim, dt);
   kb.apply_input(cam,dt);
@@ -83,7 +86,21 @@ int AhoyEngine::render(){
   glEnable(GL_TEXTURE_2D);           
   //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
   //glm::mat4 vp = p * cam_old;
+  // boat_model->set_position(vec3(0,0,0));
 
+/*  boat_model->draw(cam.get_view());
+  if (glfwGetTime() > 3){
+    boat_model->set_rotation(vec3(1,0,0));
+  }
+  if (glfwGetTime() > 6){
+    boat_model->set_rotation(vec3(0,1,0));
+  }
+  if (glfwGetTime() > 9){
+    boat_model->set_rotation(vec3(0,0,1));
+  }
+  if (glfwGetTime() > 12){
+    boat_model->set_rotation(vec3(0,1,1));
+  }*/
   sim->draw(cam.get_view());
 
 
@@ -91,7 +108,7 @@ int AhoyEngine::render(){
 }
 
 int main(){
-  AhoyEngine ahoy = AhoyEngine(1366, 768, "Demo World!");
+  AhoyEngine ahoy = AhoyEngine(1600, 900, "Demo World!");
   ahoy.run();
 }
 

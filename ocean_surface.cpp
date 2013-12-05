@@ -55,7 +55,7 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 	oceanIndices.push_back(numberVertices+7);
 	oceanIndices.push_back(numberVertices+11);
 
-	float defaultHeight = 0.5+heightScale*heightOffset;
+	float defaultHeight = 0.65+heightScale*heightOffset;
 	for (int i = 0; i < nbRows; i++){
 		for (int j = 0; j < nbColumns; j++){
 			oceanVertices[3*(i*nbColumns+j)+0]=((float)j/(nbColumns-1))*sceneWidth-sceneWidth/2;
