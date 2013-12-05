@@ -1,4 +1,4 @@
-#include "headers/model.h"
+#include "headers/transformable.h"
 #include <iostream>
 
 using namespace std;
@@ -59,6 +59,44 @@ const mat4& Transformable::get_transformation(){
   else{
     return _pt;
   }
+}
+
+
+/*
+ * 
+ *  Code taken from 
+ *  http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/#How_do_I_find_the_rotation_between_2_vectors__
+ *
+ */
+void Transformable::rotate_from_towards(const vec3& from, const vec3& to){
+    _t_invalid = true;
+    vec3 start = normalize(from);
+    vec3 dest = normalize(to);
+ 
+    float cosTheta = dot(start, dest);
+    vec3 rotationAxis;
+ 
+    if (cosTheta < -1 + 0.001f){
+        // special case when vectors in opposite directions:
+        // there is no "ideal" rotation axis
+        // So guess one; any will do as long as it's perpendicular to start
+        rotationAxis = cross(vec3(0.0f, 0.0f, 1.0f), start);
+        if (gtx::norm::length2(rotationAxis) < 0.01 ) // bad luck, they were parallel, try again!
+            rotationAxis = cross(vec3(1.0f, 0.0f, 0.0f), start);
+ 
+        rotationAxis = normalize(rotationAxis);
+        //return gtx::quaternion::angleAxis(180.0f, rotationAxis);
+        
+        _ori = gtx::quaternion::angleAxis(180.0f, rotationAxis);// * ori;
+    }
+ 
+    rotationAxis = cross(start, dest);
+ 
+    float s = sqrt( (1+cosTheta)*2 );
+    float invs = 1 / s;
+ 
+    _ori = quat(s * 0.5f, rotationAxis.x * invs, rotationAxis.y * invs, rotationAxis.z * invs);// * ori;
+    //ori = quat(s * 0.5f, rotationAxis.x * invs, rotationAxis.y * invs, rotationAxis.z * invs) * ori;
 }
 
 void Transformable::set_rotation(float ax, float ay, float az){
