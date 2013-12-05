@@ -2,7 +2,7 @@
 # initialSetup : square or line
 initialSetup			square
 # numberParticles : rounded to the nearest perfect square
-numberParticles			1100
+numberParticles			1000
 sceneWidth				1.5
 sceneLength				1.5
 

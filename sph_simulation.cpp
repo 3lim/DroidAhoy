@@ -16,7 +16,7 @@ SPHSimulation::SPHSimulation(const string& parametersFile) :
 
 SPHSimulation::SPHSimulation(const SimulationParameters& param) :
   numberParticles(floor(sqrt((float)param.getNumberParticles()))*floor(sqrt((float)param.getNumberParticles()))),
-  oceanSurface(param.getMassDensity0(), 60, 60, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
+  oceanSurface(param.getMassDensity0(), 50, 50, param.getSceneWidth(), param.getSceneLength(), param.getHeightOffset(), param.getHeightScale()),
   spatialHashing(param.getKernelRadius(), param.getSceneWidth(), param.getSceneLength()),
   sceneWidth(param.getSceneWidth()),
   sceneLength(param.getSceneLength()),
@@ -72,14 +72,15 @@ SPHSimulation::~SPHSimulation(){
 int last = 0;
 
 void SPHSimulation::update(float timeStep){
-  // int frequency = 200;
-  // last++;
-  // if (last % frequency == 0){
-    // if (rand() % 4 < 3)
-      // createLinearWave(rand()%4, 0.0, 1.0, 400);
+  int frequency = 200;
+  last++;
+  if (last % frequency == 0){
+    std::cout << "Wave!" << std::endl;
+    if (rand() % 4 < 3)
+      createLinearWave(rand()%4, 0.0, 1.0, 800);
     // else
       // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
-  // }
+  }
   computeMassDensityAndPressure();
   computeForces();
   spatialHashing.clear();
@@ -270,7 +271,7 @@ void SPHSimulation::computeForces(){
 
 void SPHSimulation::integrateParticles(float timeStep){
   for (int i = 0; i < numberParticles; i++){
-    particles[i].updateVelocity(timeStep);
+    particles[i].updateVelocity(timeStep*2);
     particles[i].updatePosition(timeStep);
     particles[i].updateWalls(walls, wallsNormal, rebound);
     particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);

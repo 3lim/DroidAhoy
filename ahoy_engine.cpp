@@ -62,7 +62,7 @@ int AhoyEngine::update(){
   // float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   float dt = (glfwGetTime()-s_time);
   s_time = glfwGetTime();
-  sim -> update(dt/3);
+  sim -> update(dt/6);
   // std::cout << dt << std::endl;
   ak -> apply_input(sim, dt);
   kb.apply_input(cam,dt);
