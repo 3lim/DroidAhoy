@@ -74,13 +74,13 @@ int last = 0;
 void SPHSimulation::update(float timeStep){
   int frequency = 200;
   last++;
-  if (last % frequency == 0){
-    std::cout << "Wave!" << std::endl;
-    if (rand() % 4 < 3)
-      createLinearWave(rand()%4, 0.0, 1.0, 800);
-    // else
-      // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
-  }
+  //if (last % frequency == 0){
+  //  std::cout << "Wave!" << std::endl;
+  //  if (rand() % 4 < 3)
+  //    createLinearWave(rand()%4, 0.0, 1.0, 800);
+  //  // else
+  //    // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
+  //}
   computeMassDensityAndPressure();
   computeForces();
   spatialHashing.clear();
@@ -95,7 +95,7 @@ void SPHSimulation::update(float timeStep){
 
 void SPHSimulation::createLinearWave(int wall, float boundary1, float boundary2, float strength){
   bool xDir = walls[wall].x != 0.0;
-  vec2 w1(0.90f*walls[wall]);
+  vec2 w1(0.85f*walls[wall]);
   vec2 w2(walls[wall]);
   if (w2.x < w1.x || w2.y < w1.y){
     vec2 tmp(w2);
