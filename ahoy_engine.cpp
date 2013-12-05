@@ -84,7 +84,7 @@ int AhoyEngine::render(){
   //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
   //glm::mat4 vp = p * cam_old;
 
-  sim->draw(cam.get_view());
+  sim->draw(cam.get_vp());
 
 
   return 1;

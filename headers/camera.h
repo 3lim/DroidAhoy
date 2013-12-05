@@ -26,5 +26,7 @@ class Camera : public Transformable{
     vec3 right();
     vec3 forward();
 
+    mat4 get_vp();
     mat4 get_view();
+    mat4 get_projection();
 };
