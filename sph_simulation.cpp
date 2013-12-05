@@ -76,7 +76,7 @@ void SPHSimulation::update(float timeStep){
   last++;
   /*if (last % frequency == 0){
     std::cout << "Wave!" << std::endl;
-    if (rand() % 4 < 3)
+    // if (rand() % 4 < 3)
       createLinearWave((jezfe++)%4, 0.0, 1.0, 800);
     // else
       // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
@@ -90,6 +90,7 @@ void SPHSimulation::update(float timeStep){
     particles[i].massDensity = 0;
     particles[i].acceleration = vec2(0.0, 0.0);
   }
+
   //cout << glfwGetTime() << " " << last << " " << numberParticles << endl;
 }
 
@@ -277,11 +278,10 @@ void SPHSimulation::integrateParticles(float timeStep){
     particles[i].height = heightScale * (particles[i].massDensity / massDensity0 + heightOffset);
     spatialHashing.addToMap((&particles[i]));
   }
-  
   for (Boat &b : boats){
     vec3 normal3(oceanSurface.interpolateNormalAtPosition(b.position));
-    vec2 normal2(normal3.x, normal3.y);
-    b.velocity += 0.5f*normal2;
+    vec2 normal2(-normal3.y, -normal3.x);
+    b.velocity += 0.2f*normal2;
     b.velocity *= 0.95f;
     //b.setDirection();
     b.updateVelocity(timeStep);
