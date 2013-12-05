@@ -22,7 +22,7 @@ public:
 	void createCircularWave(const vec2&, float, float);
 	void render();
 	void draw(const mat4&);
-	void addBoat(const Model& m) { boats.push_back(Boat(m)); }
+	void addBoat(const Model& m) { boats.push_back(Boat(m)); boats[0].velocity = vec2(5.0, 0.0); }
 	void addBoat() { boats.push_back(Boat()); }
 private:
 	SPHSimulation(const SimulationParameters&);

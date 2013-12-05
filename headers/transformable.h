@@ -5,6 +5,7 @@
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/norm.hpp>
 
 using namespace std;
 using namespace glm;
@@ -39,6 +40,8 @@ class Transformable{
     virtual vec3 right();
     virtual vec3 forward();
   
+    void rotate_from_towards(const vec3&,const vec3&);
+    void rotate_up_towards(const vec3&);
     void rotate(float,float,float);
     void rotateRad(float,float,float);
     void set_rotation(vec3);

@@ -74,7 +74,6 @@ int jezfe = 2;
 void SPHSimulation::update(float timeStep){
   int frequency = 200;
   last++;
-  
   /*if (last % frequency == 0){
     std::cout << "Wave!" << std::endl;
     if (rand() % 4 < 3)

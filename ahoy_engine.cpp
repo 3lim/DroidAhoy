@@ -101,7 +101,7 @@ int AhoyEngine::render(){
   if (glfwGetTime() > 12){
     boat_model->set_rotation(vec3(0,1,1));
   }*/
-  sim->draw(cam.get_view());
+  sim->draw(cam.get_vp());
 
 
   return 1;

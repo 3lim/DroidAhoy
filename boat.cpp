@@ -13,7 +13,7 @@ void Boat::update(){
 	
 void Boat::setOrientation(const vec3& up){
 	// model.set_Orientation(up);
-	model.set_rotation(vec3(3.14/2,0,atan(velocity.x/velocity.y)));
+	model.set_rotation(vec3(3.14/2,0,atan(velocity.y/velocity.x)+3.14/2));
 	//model.set_rotation(0,0,0);
 	model.rotateRad(up.x, -up.y, 0);
 	// model.set_rotation(vec3(3.14/2,0,2.0));

@@ -32,10 +32,18 @@ Camera::Camera(const mat4& _p, const mat4& _c) : Transformable(){
 }
 
 /*
- *  Getting camera projection matrix.
+ *  Getting camera matrix.
  */
-mat4 Camera::get_view(){
+mat4 Camera::get_vp(){
   return projection * get_transformation();
+}
+
+mat4 Camera::get_projection(){
+  return projection;
+}
+
+mat4 Camera::get_view(){
+  return get_transformation();
 }
 
 vec3 Camera::up(){

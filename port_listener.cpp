@@ -17,8 +17,10 @@ PortListener::~PortListener(){}
 int PortListener::bindSock(uint16_t port)
 {
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-	if (sock == -1) {
+  int opt = 1;
+  setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+	
+  if (sock == -1) {
 		return sock;
 	}
 
@@ -60,12 +62,8 @@ void PortListener::receiveData(){
       std::cerr << std::endl <<  "Error receiving data." << std::endl;
 		}
 		else {
-      new_data = true;
 			recvData[bytes] = '\0';
 			orientation = charToFloat(recvData);
-
-			std::cout<< "Received data:" <<glm::to_string(orientation)<<std::endl;
-
 			oldVector = orientation;
 		}
 
@@ -110,10 +108,7 @@ void PortListener::startThread(){
  */
 
 glm::vec3 PortListener::getVec(){
-  if(new_data)
 	  return orientation;
-  else 
-    return glm::vec3(0,0,0);
 }
 /*
 void createThread(void){
