@@ -9,5 +9,6 @@ void main()
   //color = vec4(clamp(abs((fs_in.N + 1.0)), 0.0, 0.5), 1.0);
   vec3 tmp = vec3(vec3(1.0)-abs(fs_in.N));
   color = vec4(tmp.x, 1.0, tmp.y, 1.0);
+  //color = vec4(0.2, 0.2, (tmp.x+tmp.y+tmp.z)/3, 1.0);
   //color = texture2D( tex_sampler, fs_in.UV ).rgba;
 }

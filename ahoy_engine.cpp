@@ -41,9 +41,9 @@ int AhoyEngine::init(){
   boat_model->set_position(0,0,10);
   sim->addBoat(*boat_model);
   
-  glm::vec3 cam_pos = glm::vec3(-0.5f,-0.5f, 0.15f);
+  glm::vec3 cam_pos = glm::vec3(-0.8f,-0.8f, 0.15f);
   glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  glm::mat4 cam_init = glm::lookAt(cam_pos, glm::vec3(-0.15f,0,-0.35f), glm::vec3(0,0,1));
+  glm::mat4 cam_init = glm::lookAt(cam_pos, glm::vec3(-0.3f,0.0f,-0.5f), glm::vec3(0,0,1));
   
   //Initialize camera
   cam = Camera(p, cam_init);
@@ -62,7 +62,7 @@ int AhoyEngine::update(){
   // float dt = (float) ((float) clock() - start)/CLOCKS_PER_SEC; 
   float dt = (glfwGetTime()-s_time);
   s_time = glfwGetTime();
-  sim -> update(dt/5);
+  sim -> update(dt/3);
   // std::cout << dt << std::endl;
   ak -> apply_input(sim, dt);
   kb.apply_input(cam,dt);
@@ -81,17 +81,11 @@ int AhoyEngine::render(){
   glAlphaFunc(GL_GREATER,0.1);
   glEnable(GL_ALPHA_TEST);          
   glEnable(GL_TEXTURE_2D);           
-
   //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
   //glm::mat4 vp = p * cam_old;
 
   sim->draw(cam.get_view());
- /* glPushMatrix();
-  // glRotatef(70,0,1,0);
-  // glScalef(0.5f, 0.5f, 0.5f);
-  glTranslatef(0,0,-1);
-  sim->render();
-  glPopMatrix();*/
+
 
   return 1;
 }

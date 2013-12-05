@@ -141,26 +141,30 @@ OceanSurface::OceanSurface(float massDensity0, int nbRows, int nbColumns, float 
 class HeightComputer{
 public:
   HeightComputer(float kernelRadius) :
+  	kernelRadius(kernelRadius),
     kernelRadius2(pow(kernelRadius, 2)),
-    cst(4/(Pi*pow(kernelRadius,8)))
+    cst(4/(Pi*pow(kernelRadius,8))) // POLY_6
+    // cst(10/(Pi*pow(kernelRadius,5))) // SPIKY KERNEL
   {}
   void operator()(Particle* p, const vec2& position, float& t1, float& t2){
     const vec2 r = position - p->position;
     const float norm2 = dot(r,r);
     if (norm2 < kernelRadius2) {
-      const float tmp = cst * pow(kernelRadius2-norm2,3);
+      const float tmp = cst * pow(kernelRadius2-norm2,3); // POLY 6
+      // const float tmp = cst * pow(kernelRadius-sqrt(norm2),3);
       t1 += p->massDensity * tmp;
       t2 += tmp;
     }
   }
 private:
+  const float kernelRadius;
   const float kernelRadius2;
   const float cst;
 };
 
 void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 	const array<int,9>& neighbourIndices = hashing.getAllNeighbouringCellIndices();
-	HeightComputer computeHeight(kernelRadius);
+	HeightComputer computeHeight(kernelRadius/2);
 	for (int i = 1; i < nbRows-1; i++){
 		for (int j = 1; j < nbColumns-1; j++){
 			int index = 3*(i*nbColumns+j);
@@ -178,13 +182,14 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 			}
 			if (t2 > 0){
 				oceanVertices[index+2] = heightScale*(t1/(t2*massDensity0)+heightOffset);
+				oceanVertices[index+2] *= 1 + (float)(rand()%100)/30000;
 			}
 		}
 	}
 
 	float xd = sceneWidth / nbRows;
 	float yd = sceneLength / nbColumns;
-	float z1,z2,z3,z4,xres,yres,zres=xd*yd;
+	float z1,z2,z3,z4,xres,yres,xres2,yres2,zres=xd*yd;
 	for (int i = 1; i < nbRows-1; i++){
 		for (int j = 1; j < nbColumns-1; j++){
 			oceanNormals[3*(i*nbColumns+j)+0] = 0.0;
@@ -201,40 +206,28 @@ void OceanSurface::update(SpatialHashing& hashing, float kernelRadius){
 
 			xres = yd*(z2-z1);
 			yres = xd*(z4-z2);
+			xres2 = yd*(z4-z3);
+			yres2 = xd*(z3-z1);
 
 			if (i != 0 && j != 0){
-				oceanNormals[3*(i*nbColumns+j)+0] += xres;
-				oceanNormals[3*(i*nbColumns+j)+1] += yres;
-				oceanNormals[3*(i*nbColumns+j)+2] += zres;
+				oceanNormals[3*(i*nbColumns+j)+0] += xres+xres2;
+				oceanNormals[3*(i*nbColumns+j)+1] += yres+yres2;
+				oceanNormals[3*(i*nbColumns+j)+2] += 2*zres;
 			}
 			if (i != nbRows-2 && j != 0){	
 				oceanNormals[3*((i+1)*nbColumns+j)+0] += xres;
 				oceanNormals[3*((i+1)*nbColumns+j)+1] += yres;
 				oceanNormals[3*((i+1)*nbColumns+j)+2] += zres;
 			}
-			if (i != nbRows-2 && j != nbColumns-2) {
-				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
-			}
-
-			xres = yd*(z4-z3);
-			yres = xd*(z3-z1);
-
-			if (i != 0 && j != 0){
-				oceanNormals[3*(i*nbColumns+j)+0] += xres;
-				oceanNormals[3*(i*nbColumns+j)+1] += yres;
-				oceanNormals[3*(i*nbColumns+j)+2] += zres;
-			}
 			if (i != 0 && j != nbColumns-2){
-				oceanNormals[3*(i*nbColumns+j+1)+0] += xres;
-				oceanNormals[3*(i*nbColumns+j+1)+1] += yres;
+				oceanNormals[3*(i*nbColumns+j+1)+0] += xres2;
+				oceanNormals[3*(i*nbColumns+j+1)+1] += yres2;
 				oceanNormals[3*(i*nbColumns+j+1)+2] += zres;
 			}
-			if (i != nbRows-2 && j != nbColumns-2){
-				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres;
-				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres;
-				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += zres;
+			if (i != nbRows-2 && j != nbColumns-2) {
+				oceanNormals[3*((i+1)*nbColumns+j+1)+0] += xres+xres2;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+1] += yres+yres2;
+				oceanNormals[3*((i+1)*nbColumns+j+1)+2] += 2*zres;
 			}
 		}
 	}
@@ -329,21 +322,6 @@ float OceanSurface::interpolateHeightAtPosition(const vec2 &pos){
 		row--;
 	if (column == nbColumns-1)
 		column--;
-	/*for (int i =0; i < nbRows*nbColumns; i++){
-		oceanVertices[3*i+2] = 0.5f;
-	}
-	// oceanVertices[3*0+2] = 0.75f;
-	// oceanVertices[3*4+2] = 1.0f;
-	// oceanVertices[3*3+2] = 0.0f;
-	oceanVertices[3*7+2] = 0.25f;
-	{	
-		glBindBuffer(GL_ARRAY_BUFFER, vb);
-		float * bufferCopy = (float*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-		for (int i = 0; i < nbRows*nbColumns*3; i++){
-			bufferCopy[i] = oceanVertices[i];
-		}
-		glUnmapBuffer(GL_ARRAY_BUFFER);
-	}*/
 	float interpolation = 
 		oceanVertices[3*(row*nbColumns+column)+2]*(column+1-x)*(row+1-y)+
 		oceanVertices[3*(row*nbColumns+column+1)+2]*(x-column)*(row+1-y)+
