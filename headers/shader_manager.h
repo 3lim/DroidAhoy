@@ -1,33 +1,42 @@
 #pragma once
-#include <freeglut>
+#include "libs.h"
 #include <string>
-//GL_COMPUTE_SHADER,
-//GL_VERTEX_SHADER,
-//GL_TESS_CONTROL_SHADER,
-//GL_TESS_EVALUATION_SHADER,
-//GL_GEOMETRY_SHADER,
-//or GL_FRAGMENT_SHADER.
+#include <vector>
+#include <map>
+#include <iostream>
+
+// Shader types (GLenum):
+//    GL_COMPUTE_SHADER,
+//    GL_VERTEX_SHADER,
+//    GL_TESS_CONTROL_SHADER,
+//    GL_TESS_EVALUATION_SHADER,
+//    GL_GEOMETRY_SHADER,
+// or GL_FRAGMENT_SHADER.
+using namespace std;
+static map<string, GLenum> shader_types = { make_pair("vertex", GL_VERTEX_SHADER),
+                                            make_pair("fragment", GL_FRAGMENT_SHADER),
+                                            make_pair("geometry", GL_GEOMETRY_SHADER) };
 
 class ShaderManager{
-
   private:
     ShaderManager() = delete;
     ~ShaderManager() = delete;
-    ShaderManager& operator=() = delete;
-    vector<string> shader_files;
-    vector<GLuint> shader_glids, shader_programs; 
-    vector<GLuint> current_shaders;
-
+    ShaderManager& operator=(ShaderManager&) = delete;
+    static map<string, GLuint> programs; 
+    static map<string, GLuint> current_shaders;
+    static bool compile_shader(const string, const string);
+    static string read_shader(const string);
+    static map<string, GLenum> shader_types;
+                                           
   public:
-    static int link_shaders();
-    static int load_shader(string, GLenum);
-    static int load_shaders(string, 
-    static bool reload_shader(int);
-    static int reload_shaders(string folder_name);
-    static int delete_shader();
-    static int delete_all_shaders();
-    static GLuint get_shader_gluid(int shader_id);
-    static GLuint get_program(int program_id=0);
+    static GLuint link_shaders(string program_name);
+    static bool load_shader(string file_path);
+    static int load_program(string folder_path); 
+    static bool unload_shader(string s_name);
+    static int reset_shaders();
+    static GLuint get_program(string p_name);
+    static bool delete_program(string p_name);
+  
   protected:
 
-}
+};

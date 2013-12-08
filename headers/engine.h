@@ -1,4 +1,6 @@
-#include <GLFW/glfw3.h>
+#pragma once
+#include "libs.h"
+#include "camera.h"
 #include <string>
 
 using namespace std;
@@ -6,7 +8,7 @@ using namespace std;
 class Engine{
   private:
     Engine& operator=(Engine&) = delete;
-    
+
   public:
     virtual ~Engine();
     virtual int init()=0;
@@ -20,5 +22,7 @@ class Engine{
 
     const int w_window, h_window;
     const string n_window;
+    Camera cam;
+    GLFWwindow* window;
 
 };
