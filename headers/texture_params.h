@@ -3,6 +3,12 @@
 
 using namespace std;
 
+/*
+ *  Texture paramaters derived from tiny_obj. Assumption
+ *  is that the .obj model has extra parameters for different
+ *  faces, which are not currently supported but could be for
+ *  future development.
+ */
 struct TextureParams{
   float ambient[3];
   float diffuse[3];

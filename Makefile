@@ -1,6 +1,3 @@
-#hello_world: 1.1.cpp
-#	g++ -o hello 1.1.cpp
-
 FILEMANAGEMENT = -lboost_system -lboost_filesystem -lSOIL
 GLFW =  -ggdb -lglfw3 -lGL -lGLU -lGLEW -lstdc++ -lm -lX11 -lXxf86vm -lXrandr -lpthread -lXi $(FILEMANAGEMENT) 
 # GLFW =  -lglfw3 -lOpenGL32 -lGLU -lGLEW -lboost_filesystem -lboost_system -lSOIL

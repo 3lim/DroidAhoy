@@ -4,6 +4,12 @@
 #include "keyboard_controller.h"
 #include "android_controller.h"
 
+/**
+ *  Droid A'hoy's implementation of the 
+ *  engine class. Inlcudes the SPH simulation,
+ *  android controls and also keyboard controls for
+ *  the camera.
+ */
 class AhoyEngine : public Engine{
   private:
     AhoyEngine();
@@ -13,7 +19,8 @@ class AhoyEngine : public Engine{
     float timeStep;
   public:
     ~AhoyEngine();
-    AhoyEngine(int width, int height, string name) : Engine(width,height,name), sim(NULL), timeStep((float)(1/60.0f)) {}
+    AhoyEngine(string name) : Engine(name), sim(NULL), timeStep((float)(1/60.0f)) {}
+    AhoyEngine(int width, int height, string name, bool f=false) : Engine(width,height,name,f), sim(NULL), timeStep((float)(1/60.0f)) {}
     int init();
     int update();
     int render();

@@ -13,12 +13,23 @@ int Engine::run(void)
 
   /* Create a windowed mode window and its OpenGL context */
   glfwWindowHint(GLFW_SAMPLES, 4);
+  
+  GLFWmonitor * win = glfwGetPrimaryMonitor();
+  const GLFWvidmode * screen = glfwGetVideoMode(win);
 
-  // window = glfwCreateWindow(w_window, h_window, n_window.c_str(), glfwGetPrimaryMonitor(), NULL); // Fullscreen
-  window = glfwCreateWindow(w_window, h_window, n_window.c_str(), NULL, NULL); // Windowed
-  if (!window)
-  {
+  if(w_window == -1)
+    w_window = screen -> width;
+  if(h_window == -1)
+    h_window = screen -> height;
+
+  if(fullscreen)
+   window = glfwCreateWindow(w_window, h_window, n_window.c_str(), glfwGetPrimaryMonitor(), NULL); // Fullscreen
+  else
+   window = glfwCreateWindow(w_window, h_window, n_window.c_str(), NULL, NULL); // Windowed
+      
+  if (!window){
     glfwTerminate();
+    cerr << "Could not open window" << endl;
     return -1;
   }
 
@@ -34,8 +45,7 @@ int Engine::run(void)
   init();
 
   /* Loop until the user closes the window */
-  while (!glfwWindowShouldClose(window))
-  {
+  while (!glfwWindowShouldClose(window)){
     /* Render here */
     update();
     render();

@@ -12,9 +12,11 @@ using namespace glm;
 
   Struct inspired by tiny_obj_loader
 
-  Redefined as class to include object specific
-  coordinate axles (_up, _right, _up x _right) and 
-  more easily interpreted mutators.
+  Model class to handle rendering of a loaded
+  3D-object. Gains transformation functionality from the inherited
+  Transformable class. Makes some assumptions on the location
+  of the buffers and also requires the user to load the
+  shader-program before rendering the model.
 
  */
 class Model : public Transformable{
