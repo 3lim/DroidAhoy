@@ -41,6 +41,11 @@ bool KeyboardController::apply_input(Transformable& out, float dt){
     out.translate(0.0f,speed,0.0f);
     success= true;  
   }
+  //Quit key
+  if(glfwGetKey(scope, GLFW_KEY_ESCAPE)){
+    glfwSetWindowShouldClose(scope, GL_TRUE);
+    return false;
+  }
 
   //Mouse
   if(glfwGetMouseButton(scope, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
