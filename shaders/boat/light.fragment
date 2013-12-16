@@ -1,10 +1,11 @@
-#version 330 core
-out vec4 color;
-in VS_OUT { vec3 N; vec2 UV;} fs_in;
-uniform sampler2D tex_sampler;
+#version 120
+uniform sampler2D mytex;
+varying vec2 texCoord;
+varying vec3 outNormal; 
 
 void main()
 {
-  //color = vec4(0.0, 0.0, 1.0, 1.0);
-  color = texture2D( tex_sampler, fs_in.UV ).rgba;
+  gl_FragColor = texture2D(mytex,gl_TexCoord[0].st);  //can use our own texCoord instead...
+  vec3 tmp = vec3(vec3(1.0)-abs(outNormal));
+  float s = 0.5*(tmp.y+tmp.x);
 }

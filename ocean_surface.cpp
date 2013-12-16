@@ -296,9 +296,9 @@ void OceanSurface::draw(const mat4 &vp){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     //normals
-    glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, nb);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
     glDrawElements(
@@ -308,8 +308,8 @@ void OceanSurface::draw(const mat4 &vp){
         (void*)0
     );
 
-    glDisableVertexAttribArray(2);
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
 }
 
 float OceanSurface::interpolateHeightAtPosition(const vec2 &pos){

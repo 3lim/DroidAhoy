@@ -175,14 +175,14 @@ void Model::draw(const mat4 &vp){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     //normals
-    glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, nb);
-    glVertexAttribPointer(2,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
     //texture
-    glEnableVertexAttribArray(3);
+    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, uvb);
-    glVertexAttribPointer(3,2,GL_FLOAT,GL_FALSE,0,(void*)0);
+    glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,0,(void*)0);
 
     //glDrawArrays(GL_TRIANGLES, 0, boat_vertices.size()); 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
@@ -193,8 +193,8 @@ void Model::draw(const mat4 &vp){
         (void*)0                  
     );
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
-    glDisableVertexAttribArray(3);
   } else{
     cerr << "Model not ready to be drawn." << endl;
     cerr << "\tVertices? " << has_v <<endl;
