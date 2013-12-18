@@ -6,7 +6,11 @@
 using namespace std;
 using namespace glm;
 
-
+/*
+ *  Interface to provide different file-format loading.
+ *  The implemented loader must provide a Model instance
+ *  as a return value.
+ */
 class ModelLoader{
   private:
     static Model mdl;

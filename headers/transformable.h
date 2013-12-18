@@ -11,9 +11,11 @@ using namespace std;
 using namespace glm;
 
 /*
-
-  Transofrmable
-
+  Generic class to describe something with a position,
+  transformation and scale. The orientation is kept track with
+  the help of a quaternion, while the position is a simple vec3.
+  The mat4 transformation is generated whenever there is a change
+  to any of the three components (scale, rotation, position).
  */
 class Transformable{
 

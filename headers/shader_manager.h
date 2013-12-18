@@ -17,6 +17,11 @@ static map<string, GLenum> shader_types = { make_pair("vertex", GL_VERTEX_SHADER
                                             make_pair("fragment", GL_FRAGMENT_SHADER),
                                             make_pair("geometry", GL_GEOMETRY_SHADER) };
 
+/*
+ *  Class to read, load and compile shader programs. The files must use a file-extension
+ *  matching one of the strings in shader_types in order to properly parse the shader.
+ *  Only shaders with no warnings or errors will be accepted.
+ */
 class ShaderManager{
   private:
     ShaderManager() = delete;

@@ -1,4 +1,3 @@
-#include "headers/primitives.h"
 #include "headers/ahoy_engine.h"
 #include "headers/shader_manager.h"
 #include "headers/obj_loader.h"
@@ -84,23 +83,7 @@ int AhoyEngine::render(){
   glAlphaFunc(GL_GREATER,0.1);
   glEnable(GL_ALPHA_TEST);          
   glEnable(GL_TEXTURE_2D);           
-  //glm::mat4 p = glm::perspective(45.0f, 4.0f / 3.0f, 0.00001f, 10000.0f);
-  //glm::mat4 vp = p * cam_old;
-  // boat_model->set_position(vec3(0,0,0));
-
-/*  boat_model->draw(cam.get_view());
-  if (glfwGetTime() > 3){
-    boat_model->set_rotation(vec3(1,0,0));
-  }
-  if (glfwGetTime() > 6){
-    boat_model->set_rotation(vec3(0,1,0));
-  }
-  if (glfwGetTime() > 9){
-    boat_model->set_rotation(vec3(0,0,1));
-  }
-  if (glfwGetTime() > 12){
-    boat_model->set_rotation(vec3(0,1,1));
-  }*/
+  
   sim->draw(cam.get_vp());
 
 
@@ -108,7 +91,8 @@ int AhoyEngine::render(){
 }
 
 int main(){
-  AhoyEngine ahoy = AhoyEngine(1600, 900, "Demo World!");
+  //AhoyEngine ahoy = AhoyEngine(1000,600,"Droid A'hoy");
+  AhoyEngine ahoy = AhoyEngine("Droid A'hoy");
   ahoy.run();
 }
 

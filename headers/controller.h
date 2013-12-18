@@ -6,6 +6,11 @@
 
 using namespace glm;
 
+/* 
+ *  Supposed to be generic abstract class to provide
+ *  a similar interface to all forms of controllers.
+ *  Does not enforce anything right now.
+ */
 class Controller{
   public:
     Controller();

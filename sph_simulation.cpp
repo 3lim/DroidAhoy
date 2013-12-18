@@ -74,13 +74,13 @@ int jezfe = 2;
 void SPHSimulation::update(float timeStep){
   int frequency = 200;
   last++;
-  /*if (last % frequency == 0){
+  if (last % frequency == 0){
     std::cout << "Wave!" << std::endl;
     // if (rand() % 4 < 3)
       createLinearWave((jezfe++)%4, 0.0, 1.0, 800);
     // else
       // createCircularWave(vec2(0.0, 0.0), 0.11, 40);
-  }*/
+  }
   computeMassDensityAndPressure();
   computeForces();
   spatialHashing.clear();
