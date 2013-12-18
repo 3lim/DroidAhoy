@@ -153,7 +153,15 @@ bool ShaderManager::load_shader(string s_path){
 using namespace boost::filesystem;
 int ShaderManager::load_program(string p){
   int s_count=0;
+
+
   if( is_directory(p) ){
+    //Determine program name
+    string f_name;
+    f_name = p.substr(p.find_last_of("/")+1, p.length()-1);
+
+    //Return if program already exists
+    if( programs[f_name] ) return programs[f_name];
 
     //Read and compile shaders in folder
     auto file = directory_iterator(p);
@@ -165,9 +173,6 @@ int ShaderManager::load_program(string p){
       ++s_count;
     }
    
-    //Determine program name
-    string f_name;
-    f_name = p.substr(p.find_last_of("/")+1, p.length()-1);
     
     //Link shaders into program
     link_shaders(f_name);
